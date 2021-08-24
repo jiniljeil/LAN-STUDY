@@ -1,9 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <html>
 <head>
 </head>
 <body>
 
-${u.userid} 
-${u.password}
+${u.user_id} 
+${u.user_pw}
 </body>
 </html>

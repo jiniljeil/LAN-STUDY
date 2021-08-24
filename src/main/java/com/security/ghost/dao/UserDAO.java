@@ -15,4 +15,8 @@ public class UserDAO {
 	public UserDTO getUser(String userid) {
 		return sqlSession.selectOne("UserMapper.getUser", userid); 
 	}
+	
+	public void joinUser(UserDTO userDTO) {
+		sqlSession.insert("UserMapper.joinUser", userDTO); 
+	}
 }
