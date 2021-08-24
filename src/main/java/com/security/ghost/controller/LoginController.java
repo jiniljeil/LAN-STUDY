@@ -29,13 +29,10 @@ public class LoginController {
 		String userpw = request.getParameter("userPW"); 
 		
 		if (userid != null && userpw != null) {
-			userpw = Crypto.encryptSHA256(userpw, "1111");
-			
-			UserDTO checkDTO = new UserDTO();
-			checkDTO.setUser_id(userid);
-			checkDTO.setUser_pw(userpw);
+			byte[] salt = userDAO.getSalt(userid); 
+			userpw = Crypto.encryptSHA256(userpw, salt);
 
-			UserDTO userDTO = userDAO.getUser(checkDTO);
+			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
 			if(userDTO != null) {
 				model.addAttribute("u", userDTO);
 				return "redirect:board";

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.security.ghost.dto.SaltDTO;
 import com.security.ghost.dto.UserDTO;
 
 @Repository
@@ -26,7 +27,16 @@ public class UserDAO {
 		return sqlSession.selectList("UserMapper.getUserList");
 	}
 	
+	public byte[] getSalt(String userid) {
+		return sqlSession.selectOne("UserMapper.getSalt", userid); 
+	}
+	
 	public void joinUser(UserDTO userDTO) {
 		sqlSession.insert("UserMapper.joinUser", userDTO); 
 	}
+	
+	public void storeSalt(SaltDTO saltDTO) {
+		sqlSession.insert("UserMapper.storeSalt",saltDTO); 
+	}
+
 }

@@ -1,23 +1,30 @@
 package com.security.ghost;
 
 import java.security.MessageDigest;
+import java.security.SecureRandom;
 
 public class Crypto {
-	public static String encryptSHA256(String pwd, String salt) {
+	
+	public static byte[] generateSalt() {
+		byte[] salt = new byte[16]; 
+		new SecureRandom().nextBytes(salt);
+		return salt ;
+	}
+	
+	public static String encryptSHA256(String pwd, byte[] salt) {
 		try{
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.reset();
+			md.update(salt);
+			byte[] hashBytes = md.digest(pwd.getBytes("UTF-8"));
+			StringBuilder sb = new StringBuilder();
 
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			digest.update(salt.getBytes());
-			byte[] hash = digest.digest(pwd.getBytes("UTF-8"));
-			StringBuffer hexString = new StringBuffer();
-
-			for (int i = 0; i < hash.length; i++) {
-				String hex = Integer.toHexString(0xff & hash[i]);
-				if(hex.length() == 1) hexString.append('0');
-				hexString.append(hex);
+			for(byte b : hashBytes) {
+				sb.append(String.format("%02x", b)); 
 			}
 			
-			return hexString.toString();
+			return sb.toString();
+			
 		} catch(Exception ex){
 			throw new RuntimeException(ex);
 		}

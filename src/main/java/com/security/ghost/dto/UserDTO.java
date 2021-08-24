@@ -13,12 +13,17 @@ public class UserDTO {
 	public UserDTO() {
 		authority = 2; 
 	}
-	
+
+	public UserDTO(String user_id, String user_pw) {
+		this.user_id = user_id ;
+		this.user_pw = user_pw ; 
+	}
 //	@Override
 //	public String toString() {
 //		return "UserDTO [user_id=" + getUser_id() + ", user_pw=" + getUser_pw() 
 //			+ ", phone_number=" + getPhone_number() + ", email=" + getEmail() + "]"; 
 //	}
+	
 	
 	public int getId() {
 		return id; 
