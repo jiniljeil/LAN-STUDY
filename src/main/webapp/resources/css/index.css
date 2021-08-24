@@ -81,7 +81,7 @@ html, body{
  #i2 {
    animation: pulse 1s infinite;
    transition: .3s;
-   box-shadow: 2px 2px grey;
+   /*box-shadow: 2px 2px grey;*/
  }
  #i2:hover{
    /*background: #90b37e;*/
