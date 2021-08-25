@@ -38,7 +38,7 @@ public class LoginController {
 				return "redirect:board";
 			} 
 		}
-		return "index"; 
+		return "redirect:board"; 
 	}
 	
 	@RequestMapping(value="/board")

@@ -69,6 +69,6 @@ public class JoinController {
 
 		userDAO.storeSalt(saltDTO);
 		// 회원 가입 완료 또는 실패 작업
-		return "index" ; 
+		return "redirect:index" ; 
 	}
 }

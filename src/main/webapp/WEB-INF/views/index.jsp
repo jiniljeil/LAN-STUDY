@@ -21,14 +21,14 @@
       <h3 style="margin: 40 0 30 0">LAN STUDY에선 <span class="point">전부</span> 가능합니다 !</h3>
       <div id="interactive" style="margin-top: 40px;">
         <!--<h2 id="i1" style="margin: 0 0 20 0; text-decoration: underline; color: #555" class="point"   >지금 바로, 시작해보세요</h2>-->
-        <button id="i2">회원가입</button>
+        <button id="i2" onclick="window.location.href='/join'">회원가입</button>
       </div>
     </div>
     <div class="side">
       <div class="logo">
       </div>
       <div class="login_space">
-        <form>
+        <form action="login" method="POST">
           <input class="login_input" type="text" placeholder="ID"/>
           <input class="login_input" type="password" placeholder="PW"/>
           <br>
