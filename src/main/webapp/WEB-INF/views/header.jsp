@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <html>
 	<head>
+		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
 		<style>
 		</style>
@@ -22,3 +23,10 @@
 			</a>
 		</header>
 </html>
+
+<script>
+
+	$(".header_logo").click(function(){
+		document.location.href = "<%=request.getContextPath()%>/menu";
+	});
+</script>
