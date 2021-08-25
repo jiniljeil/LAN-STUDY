@@ -30,6 +30,7 @@
       </div>
       <div class="login_space">
         <form action="login" method="POST">
+          <input type="hidden" name="param_csrf_token" value="${SESSION_CSRF_TOKEN}"/>
           <input class="login_input" type="text" placeholder="ID" name="userID"/>
           <input class="login_input" type="password" placeholder="PW" name="userPW"/>
           <br>

@@ -21,4 +21,5 @@ public class AdDAO {
 	public void uploadAd(AdDTO AdDTO) {
 		sqlSession.insert("AdMapper.uploadAd", AdDTO); 
 	} 
+	
 }
