@@ -35,7 +35,7 @@ public class LoginController {
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
 			if(userDTO != null) {
 				model.addAttribute("u", userDTO);
-				return "redirect:board";
+				return "index";
 			} 
 		}
 		return "index"; 
