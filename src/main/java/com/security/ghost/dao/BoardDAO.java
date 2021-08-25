@@ -15,7 +15,7 @@ public class BoardDAO {
 	SqlSession sqlSession ;
 	
 	
-	public List<BoardDTO> getBoardList(UserDTO userDTO) {
+	public List<BoardDTO> getBoardList() {
 		return sqlSession.selectList("BoardMapper.getBoardList"); 
 	}
 	

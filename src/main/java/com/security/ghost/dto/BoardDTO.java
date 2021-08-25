@@ -1,19 +1,28 @@
 package com.security.ghost.dto;
 
 public class BoardDTO {
-	int id ; 
+	
+	int board_id ;
+	
+	String user_id;
 	String title ; 
 	byte[] image ; 
 	String content ;
 	
-	public int getId() {
-		return id; 
-	}
 	
-	public void setId(int id) {
-		this.id = id; 
+	public int getBoard_id() {
+		return board_id;
 	}
-	
+	public void setBoard_id(int board_id) {
+		this.board_id = board_id;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = new String(user_id);
+	}
+
 	public String getTitle() {
 		return title;
 	}

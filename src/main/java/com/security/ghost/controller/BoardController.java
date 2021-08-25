@@ -1,9 +1,12 @@
 package com.security.ghost.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -45,5 +48,16 @@ public class BoardController {
 			// 업로드 실패 혹은 제목 및 내용 입력 요구 
 			return "makeStudy"; 
 		}
+	}
+	
+	@RequestMapping(value="/boardStudy", method=RequestMethod.GET) 
+	public String BoardStudy(HttpServletRequest request, Model model) {
+		
+		// session으로 사용자의 정보를 가지고 가지고 있지 않는 group 들을 뿌려준다.
+		List<BoardDTO> boardList = boardDAO.getBoardList();
+		System.out.println(boardList.get(0).getTitle());
+		model.addAttribute("boardList", boardList);
+		
+		return "boardStudy";
 	}
 }
