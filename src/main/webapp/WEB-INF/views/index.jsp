@@ -7,7 +7,7 @@
     <style>
        @import: url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
     </style>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/index.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/index.css">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <body>

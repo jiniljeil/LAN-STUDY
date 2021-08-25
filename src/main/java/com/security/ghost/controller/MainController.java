@@ -11,4 +11,9 @@ public class MainController {
 	public String main() {
 		return "index";
 	}
+	
+	@RequestMapping(value="/header")
+	public String headercheck() {
+		return "header";
+	}
 }
