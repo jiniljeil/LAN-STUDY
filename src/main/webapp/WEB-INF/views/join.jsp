@@ -3,46 +3,80 @@
 
 <html>
 <head>
+	<style>
+		#join_container{
+			width: 50vw;
+			margin: auto;
+			text-align: left;
+		}
+		#join_container input, select, button{
+			border: none;
+			border-radius: 10px;
+			width: 200px;
+			height: 40px;
+			font-size: 15px;
+			margin-left: 10px;
+		}
+		#b1{
+			background: #ddd;
+		}
+		#b1:hover{
+			background: #ccc;
+		}
+		#b2{
+			background: #a1c48f;
+			float: middle;
+		}
+		#b2:hover{
+			background: #90b37e;
+		}
+	</style>
 </head>
 <body>
-	<form action="joinOK" method="POST" onSubmit="return check()">
-		<h4>아이디</h4>
-		<input type="text" id="userid" name="userID" placeholder="아이디를 입력해주세요." autofocus required/>
-		<button onclick="confirmid()">중복확인</button><br> 
-		
-		<h4>비밀번호</h4>
-		<input type="password" onchange="checker()" id="password" name="userPW" placeholder="비밀번호를 입력해주세요." required/><br> 
-		<h4>비밀번호 확인 </h4>
-		<input type="password" onchange="checker()" id="cpassword" placeholder="비밀번호를 다시 입력해주세요." required/><br> 
-		
-		<!--  010-XXXX-XXXX 수정 의논 -->
-		<h4>전화번호</h4>
-		<select name="FirstPhoneNumber"> 
-			<option selected value="010">010</option> 
-			<option value="011">011</option>
-			<option value="016">016</option>
-			<option value="017">017</option>
-			<option value="019">019</option>
-		</select>
-		
-		<input type="text" name="MediumPhoneNumber"/>-<input type="text" name="LastPhoneNumber"/>
-		
-		<h4>이메일</h4>
-		<input type="email" name="email"/><br> 
-		
-		<h4>이름</h4>
-		<input type="text" name="nickname" placeholder="이름을 입력해주세요." required/><br>
-		
-		<h4>직업:</h4>
-		<select name="job">
-			<option selected value="----직업----">---직업---</option>
-			<option value="학생">학생</option>
-			<option value="교수">교수</option>
-			<option value="TA">TA</option>
-		</select>
-		<br><br> 
-		<button value="가입하기">가입하기</button>
-	</form>
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<div style="height: 80px"><br></div>
+	<div id="join_container">
+		<form action="joinOK" method="POST" onSubmit="return check()">
+			<div style="height: 30px"></div>
+			<h4>아이디</h4>
+			<input type="text" id="userid" name="userID" placeholder="아이디를 입력해주세요." autofocus required/>
+			<button type="button" onclick="confirmid()" id="b1">중복확인</button><br> 
+			
+			<h4>비밀번호</h4>
+			<input type="password" onchange="checker()" id="password" name="userPW" placeholder="비밀번호를 입력해주세요." required/><br> 
+			<h4>비밀번호 확인 </h4>
+			<input type="password" onchange="checker()" id="cpassword" placeholder="비밀번호를 다시 입력해주세요." required/><br> 
+			
+			<!--  010-XXXX-XXXX 수정 의논 -->
+			<h4>전화번호</h4>
+			<select name="FirstPhoneNumber"> 
+				<option selected value="010">010</option> 
+				<option value="011">011</option>
+				<option value="016">016</option>
+				<option value="017">017</option>
+				<option value="019">019</option>
+			</select>
+			 - 
+			<input type="text" name="MediumPhoneNumber"/> - <input type="text" name="LastPhoneNumber"/>
+			
+			<h4>이메일</h4>
+			<input type="email" name="email"/><br> 
+			
+			<h4>이름</h4>
+			<input type="text" name="nickname" placeholder="이름을 입력해주세요." required/><br>
+			
+			<!-- <h4>직업:</h4>
+			<select name="job">
+				<option selected value="----직업----">---직업---</option>
+				<option value="학생">학생</option>
+				<option value="교수">교수</option>
+				<option value="TA">TA</option>
+			</select>-->
+			<br><br> 
+			<button id="b2" value="가입하기">가입하기</button>
+			<div style="height: 100px"></div>
+		</form>
+	</div>
 	<script> 
 		function check(){
 	        var p = document.getElementById('password').value;
