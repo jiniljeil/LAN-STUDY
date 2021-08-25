@@ -9,5 +9,3 @@
 		insert into (user_id, group_id, title, content) ad values (#{user_id}, #{group_id}, #{title}, #{content})
 	</insert>
 </mapper>
-
-	
