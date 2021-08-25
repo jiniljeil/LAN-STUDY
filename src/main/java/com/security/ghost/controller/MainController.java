@@ -16,4 +16,9 @@ public class MainController {
 	public String headercheck() {
 		return "header";
 	}
+	
+	@RequestMapping(value="/menu")
+	public String menu() {
+		return "menu";
+	}
 }

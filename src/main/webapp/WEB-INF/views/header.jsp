@@ -6,17 +6,19 @@
 		<style>
 		</style>
 	</head>
-	<body>
 		<header>
 			<div class="header_logo">
 			<br>
 			</div>
+			<a href="./">
 			<div class="header_nav">
 				<span class="header_innav">로그아웃</span>
 			</div>
+			</a>
+			<a href="./mypage">
 			<div class="header_nav">
 				<span class="header_innav">마이페이지</span>
 			</div>
+			</a>
 		</header>
-	</body>
 </html>

@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <body>
+     <!--<jsp:include page="/WEB-INF/views/header.jsp" />-->
     <div class="explan">
       <h1><span class="point">LAN STUDY</span> 에서 함께 공부해요 <i class="fas fa-pencil-alt"></i></h1>
       <br>
@@ -28,7 +29,7 @@
       <div class="logo">
       </div>
       <div class="login_space">
-        <form>
+        <form action="./menu">
           <input class="login_input" type="text" placeholder="ID"/>
           <input class="login_input" type="password" placeholder="PW"/>
           <br>
