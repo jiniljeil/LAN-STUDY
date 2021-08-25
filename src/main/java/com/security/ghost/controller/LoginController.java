@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.security.ghost.Crypto;
 import com.security.ghost.dao.UserDAO;
@@ -24,7 +25,8 @@ public class LoginController {
 	UserDAO userDAO; 
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String loginOk(HttpServletRequest request, Model model) {
+	public ModelAndView loginOk(HttpServletRequest request, Model model) {
+		ModelAndView mav = new ModelAndView();
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
 		
@@ -35,10 +37,13 @@ public class LoginController {
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
 			if(userDTO != null) {
 				model.addAttribute("u", userDTO);
-				return "index";
+				mav.setViewName("redirect:/");
+				return mav;
 			} 
+			mav.setViewName("redirect:/menu");
 		}
-		return "index"; 
+		else mav.setViewName("redirect:/");
+		return mav;
 	}
 	
 	@RequestMapping(value="/board")
