@@ -13,9 +13,13 @@
     </select>
     
 	<insert id="joinUser" parameterType="UserDTO">
-		insert into user (user_id, user_pw, phone_number, email, authority, page_id )
-			values (#{user_id}, #{user_pw}, #{phone_number}, #{email}, #{authority}, #{page_id});
+		insert into user (name, user_id, user_pw, phone, email)
+			values (#{name}, #{user_id}, #{user_pw}, #{phone}, #{email});
 	</insert>
+	
+	<select id="getID" resultType="int" parameterType="String">
+		SELECT id FROM user WHERE user_id=#{user_id}
+	</select>
 	
 	<select id="getSalt" resultType="_byte[]">
 		SELECT salt FROM salt WHERE user_id=#{user_id}

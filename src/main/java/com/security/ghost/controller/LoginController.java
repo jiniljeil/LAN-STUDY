@@ -31,7 +31,7 @@ public class LoginController {
 		String userpw = request.getParameter("userPW"); 
 		
 		if (userid != null && userpw != null) {
-			byte[] salt = userDAO.getSalt(userid); 
+			byte[] salt = userDAO.getSalt(userDAO.getID(userid)); 
 			userpw = Crypto.encryptSHA256(userpw, salt);
 
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
@@ -43,14 +43,14 @@ public class LoginController {
 			// 로그인 실패 alert 띄우기 
 			mav.setViewName("redirect:/error/loginError");
 		}
-		else mav.setViewName("redirect:/error/loginError");
+		else mav.setViewName("redirect:/error/loginError");;
 		return mav;
 	}
 	
-	@RequestMapping(value="/board")
-    public String getBoard(Model model) throws ServletException, IOException {		
-		List<UserDTO> userList = userDAO.getUserList();
-		model.addAttribute("list", userList );
-		return "homePage";
-    }
+//	@RequestMapping(value="/board")
+//    public String getBoard(Model model) throws ServletException, IOException {		
+//		List<UserDTO> userList = userDAO.getUserList();
+//		model.addAttribute("list", userList );
+//		return "homePage";
+//    }
 }

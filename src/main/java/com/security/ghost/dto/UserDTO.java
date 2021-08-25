@@ -1,22 +1,20 @@
 package com.security.ghost.dto;
 
 public class UserDTO {
-	private int id ; 
+	private int id ;
+	private String name ;
 	private String user_id ; 
 	private String user_pw ;
-	private String phone_number ; 
+	private String phone ; 
 	private String email ; 
 	
-	private int authority ; 
-	private int page_id; 
 	
 	public UserDTO() {
-		authority = 2; 
 	}
-
+	
 	public UserDTO(String user_id, String user_pw) {
-		this.user_id = user_id ;
-		this.user_pw = user_pw ; 
+		this.user_id = new String(user_id) ;
+		this.user_pw = new String(user_pw) ; 
 	}
 //	@Override
 //	public String toString() {
@@ -30,6 +28,13 @@ public class UserDTO {
 	}
 	public void setId(int id) {
 		this.id = id ; 
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = new String(name);
 	}
 	
 	public String getUser_id() {
@@ -46,11 +51,11 @@ public class UserDTO {
 		this.user_pw = new String(user_pw);
 	}
 	
-	public String getPhone_number() {
-		return phone_number;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPhone_number(String phone_number) {
-		this.phone_number = new String(phone_number);
+	public void setPhone(String phone) {
+		this.phone = new String(phone);
 	}
 	
 	public String getEmail() {
@@ -58,20 +63,6 @@ public class UserDTO {
 	}
 	public void setEmail(String email) {
 		this.email = new String(email);
-	}
-	
-	public int getAuthority() {
-		return authority;
-	}
-	public void setAuthority(int authority) {
-		this.authority = authority;
-	}
-	
-	public int getPage_id() {
-		return page_id;
-	}
-	public void setPage_id(int page_id) {
-		this.page_id = page_id;
 	}
 	
 	

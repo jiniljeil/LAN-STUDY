@@ -1,17 +1,26 @@
 package com.security.ghost.dto;
 
 public class SaltDTO {
-	String user_id ; 
-	byte[] salt ;
+	private int id ;
+	private int user_id ; 
+	private byte[] salt ;
 	
-	public void setUser_id(String user_id) {
-		this.user_id = new String(user_id); 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
-	public String getUser_id() {
-		return user_id ; 
+	public int getUser_id() {
+		return user_id;
 	}
-	
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
 	public void setSalt(byte[] salt) {
 		this.salt = salt; 
 	}
