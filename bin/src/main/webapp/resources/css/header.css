@@ -1,0 +1,47 @@
+html{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background: #f6f6f6;
+}
+body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+header{
+	height: 80px;
+	background-color: #a1c48f;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	/* border-radius: 10px 10px 10px 10px;
+	margin: 10px;
+	box-shadow: 2px 2px 0px 1px grey; */
+}
+.header_logo{
+	width: 100px;
+	background-image: url("../assets/logo2.png");
+    background-size: cover;
+}
+.header_logo{
+	width: 320px;
+	height: 80px;
+    background-size: cover;
+    display: inline-block;
+}
+.header_nav{
+	display: inline-block;
+	width: 100px;
+	height: 100%;
+	float: right;
+	color: white;
+	text-align: center;
+}
+.header_nav:hover{
+	background: #90b37e;
+}
+.header_innav{
+	display: inline-block;
+	margin-top: 30px;
+}
