@@ -14,7 +14,7 @@ import com.security.ghost.dto.SaltDTO;
 import com.security.ghost.dto.UserDTO;
 
 @Controller 
-public class JoinController {
+public class RegisterController {
 	
 	@Autowired
 	UserDAO userDAO; 

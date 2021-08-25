@@ -1,12 +1,22 @@
 package com.security.ghost.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.security.ghost.StringUtil;
+import com.security.ghost.dao.GroupDAO;
+import com.security.ghost.dto.GroupDTO;
 
 @Controller 
 public class MenuController {
+	
+	@Autowired
+	GroupDAO groupDAO;
 	
 	@RequestMapping(value="/make_study") 
 	public ModelAndView makeStudy() {
@@ -23,7 +33,28 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/makeStudy")
-	public String makeStudyPage() {
+	public String studyMainPage() {
 		return "makeStudy"; 
+	}
+	
+	
+	// study site 를 만드는 일을 함. 
+	@RequestMapping(value="/makeGroupOk")
+	public ModelAndView makeGroupOk(HttpServletRequest request, Model model) {
+		String name = request.getParameter("name");
+		
+		StringUtil rsg = new StringUtil();
+		// (26+26+10)^10
+		String link = rsg.randomAlphanumericStringGenerator(10);
+		
+		GroupDTO groupDTO = new GroupDTO();
+		groupDTO.setName(name);
+		groupDTO.setLink(link);
+		
+		groupDAO.createGroup(groupDTO);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/make_study");
+		return mav; 
 	}
 }
