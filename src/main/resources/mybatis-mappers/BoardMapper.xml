@@ -3,10 +3,10 @@
 <mapper namespace="BoardMapper"> 
 	
 	<select id="getBoardList" resultType="BoardDTO">
-		select * from board ; 
+		select * from board; 
 	</select>
 	
 	<insert id="uploadBoard" parameterType="BoardDTO"> 
-		insert into board values (#{title}, #{image}, #{content})})
+		insert into board(title, photo, content) values (#{title}, #{image}, #{content})})
 	</insert>
 </mapper>
