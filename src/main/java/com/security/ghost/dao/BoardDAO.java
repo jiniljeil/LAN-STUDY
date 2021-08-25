@@ -15,12 +15,6 @@ public class BoardDAO {
 	SqlSession sqlSession ;
 	
 	
-	public List<BoardDTO> getBoardList() {
-		return sqlSession.selectList("BoardMapper.getBoardList"); 
-	}
 	
-	public void uploadBoard(BoardDTO boardDTO) {
-		sqlSession.insert("BoardMapper.uploadBoard", boardDTO); 
-	}
 
 }

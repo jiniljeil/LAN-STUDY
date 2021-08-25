@@ -30,34 +30,27 @@ public class LoginController {
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
 		
-		System.out.println(userid +" : "+userpw);
-		
-		// Assumes that there is only one id per userid in user table
-		
 		if (userid != null && userpw != null) {
-			int id = userDAO.getID(userid);
-			byte[] salt = userDAO.getSalt(id); 
+			byte[] salt = userDAO.getSalt(userDAO.getID(userid)); 
 			userpw = Crypto.encryptSHA256(userpw, salt);
 
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
-			
 			if(userDTO != null) {
 				model.addAttribute("u", userDTO);
 				mav.setViewName("redirect:/menu");
 				return mav;
 			} 
 			// 로그인 실패 alert 띄우기 
-			mav.setViewName("redirect:/");
-		} else {
-			mav.setViewName("redirect:/");
+			mav.setViewName("redirect:/error/loginError");
 		}
+		else mav.setViewName("redirect:/error/loginError");;
 		return mav;
 	}
 	
-	@RequestMapping(value="/board")
-    public String getBoard(Model model) throws ServletException, IOException {		
-		List<UserDTO> userList = userDAO.getUserList();
-		model.addAttribute("list", userList );
-		return "homePage";
-    }
+//	@RequestMapping(value="/board")
+//    public String getBoard(Model model) throws ServletException, IOException {		
+//		List<UserDTO> userList = userDAO.getUserList();
+//		model.addAttribute("list", userList );
+//		return "homePage";
+//    }
 }

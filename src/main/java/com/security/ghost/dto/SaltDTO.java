@@ -2,7 +2,6 @@ package com.security.ghost.dto;
 
 public class SaltDTO {
 	private int id ;
-	
 	private int user_id ; 
 	private byte[] salt ;
 	
