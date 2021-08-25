@@ -9,6 +9,8 @@ public class BoardDTO {
 	private String title ; 
 	private String content ;
 	
+
+	
 	public int getId() {
 		return id;
 	}
@@ -27,6 +29,7 @@ public class BoardDTO {
 	public void setGroup_id(int group_id) {
 		this.group_id = group_id;
 	}
+
 	public int getType() {
 		return type;
 	}
@@ -45,8 +48,5 @@ public class BoardDTO {
 	public void setContent(String content) {
 		this.content = new String(content);
 	}
-	
-	
-	 
-	
+
 }

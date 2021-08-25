@@ -3,4 +3,17 @@
 <mapper namespace="BoardMapper"> 
 	
 	
+	<insert id="createPost" parameterType="BoardDTO">
+		INSERT INTO board(type, title, content) VALUES(#{type}, #{title}, #{content})
+	</insert>
+	
+	<!-- 아래는 아직 안쓰임... 체크필요 -->
+	<select id="getBoard" resultType="BoardDTO" parameterType="String">
+		SELECT * FROM board AS B 
+			INNER JOIN `group` AS G ON B.group_id=G.id
+			WHERE G.link=#{link} 	
+	</select>
+	
+
+
 </mapper>
