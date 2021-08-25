@@ -95,6 +95,8 @@ public class MenuController {
 		groupDTO.setName(name);
 		groupDTO.setLink(link);
 		
+		// TODO : link, name 중복체크
+		
 		groupDAO.createGroup(groupDTO);
 		
 		ModelAndView mav = new ModelAndView();
