@@ -41,9 +41,9 @@ public class LoginController {
 				return mav;
 			} 
 			// 로그인 실패 alert 띄우기 
-			mav.setViewName("redirect:/");
+			mav.setViewName("redirect:/error/loginError");
 		}
-		else mav.setViewName("redirect:/");
+		else mav.setViewName("redirect:/error/loginError");
 		return mav;
 	}
 	

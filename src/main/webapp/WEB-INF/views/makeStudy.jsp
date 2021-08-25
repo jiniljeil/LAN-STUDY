@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <jsp:include page="/WEB-INF/views/header.jsp" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>LenStudy</title>
     
     <style>
@@ -22,18 +23,25 @@
 <body>
     
     <div class="contents" style="padding-top:10%">
-    	<form action="upload", method="POST">
-    		<h4>제목</h4>
-    		<input type="text" name="title" placeholder="제목을 입력하세요."/>
-    		<button>사진 첨부</button>
-    		
-	   		<!-- 방법 찾기 -->
-	   		
-	   		<h4>내용</h4>
-	   		<textarea rows="30%" cols="60%" name="content" placeholder="내용을 입력하세요.">
-	   		</textarea>
-	   		<button>작성완료</button>
-   		</form>
+    	<div class="card">
+			<div class="card-header">
+			    Featured
+			 </div>
+			 <div class="card-body">
+			 	<form action="upload", method="POST">
+					<h4>제목</h4>
+		    		<input type="text" name="title" placeholder="제목을 입력하세요."/>
+		    		<button>사진 첨부</button>
+		    		
+			   		<!-- 방법 찾기 -->
+			   		
+			   		<h4>내용</h4>
+			   		<textarea rows="30%" cols="60%" name="content" placeholder="내용을 입력하세요.">
+			   		</textarea>
+			   		<button>작성완료</button>
+		   		</form>
+		  	</div>
+		</div>
    	</div>
     	
     

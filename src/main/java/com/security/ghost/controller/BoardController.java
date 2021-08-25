@@ -35,8 +35,8 @@ public class BoardController {
 		
 		if (title == null || content == null) {
 			
-		// XSS BLOCK 
-		// encodeforhtml 
+			// XSS BLOCK 
+			// encodeforhtml 
 			title = SecurityUtil.HTML_Filter(title); 
 			
 			content = SecurityUtil.HTML_Filter(content); 
