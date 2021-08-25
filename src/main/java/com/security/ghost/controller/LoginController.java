@@ -30,11 +30,17 @@ public class LoginController {
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
 		
+		System.out.println(userid +" : "+userpw);
+		
+		// Assumes that there is only one id per userid in user table
+		
 		if (userid != null && userpw != null) {
-			byte[] salt = userDAO.getSalt(userid); 
+			int id = userDAO.getID(userid);
+			byte[] salt = userDAO.getSalt(id); 
 			userpw = Crypto.encryptSHA256(userpw, salt);
 
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
+			
 			if(userDTO != null) {
 				model.addAttribute("u", userDTO);
 				mav.setViewName("redirect:/menu");
@@ -42,8 +48,9 @@ public class LoginController {
 			} 
 			// 로그인 실패 alert 띄우기 
 			mav.setViewName("redirect:/");
+		} else {
+			mav.setViewName("redirect:/");
 		}
-		else mav.setViewName("redirect:/");
 		return mav;
 	}
 	

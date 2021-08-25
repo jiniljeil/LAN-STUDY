@@ -38,7 +38,6 @@ public class BoardController {
 		// XSS BLOCK 
 		// encodeforhtml 
 			title = SecurityUtil.HTML_Filter(title); 
-			
 			content = SecurityUtil.HTML_Filter(content); 
 
 			BoardDTO boardDTO = new BoardDTO(); 

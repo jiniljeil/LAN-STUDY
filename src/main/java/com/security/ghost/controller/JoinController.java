@@ -56,15 +56,17 @@ public class JoinController {
 		
 		UserDTO userDTO = new UserDTO(); 
 		
+		userDTO.setName(nickname);
 		userDTO.setUser_id(userid); 
 		userDTO.setUser_pw(userpw); 
-		userDTO.setPhone_number(phoneNumber); 
+		userDTO.setPhone(phoneNumber); 
 		userDTO.setEmail(email);
 		
 		userDAO.joinUser(userDTO);
+		int id = userDAO.getID(userid);
 		
 		SaltDTO saltDTO = new SaltDTO(); 
-		saltDTO.setUser_id(userid); 
+		saltDTO.setUser_id(id); 
 		saltDTO.setSalt(salt);
 
 		userDAO.storeSalt(saltDTO);

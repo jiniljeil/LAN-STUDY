@@ -22,4 +22,5 @@ public class BoardDAO {
 	public void uploadBoard(BoardDTO boardDTO) {
 		sqlSession.insert("BoardMapper.uploadBoard", boardDTO); 
 	}
+
 }

@@ -27,12 +27,16 @@ public class UserDAO {
 		return sqlSession.selectList("UserMapper.getUserList");
 	}
 	
-	public byte[] getSalt(String userid) {
+	public byte[] getSalt(int userid) {
 		return sqlSession.selectOne("UserMapper.getSalt", userid); 
 	}
 	
 	public void joinUser(UserDTO userDTO) {
 		sqlSession.insert("UserMapper.joinUser", userDTO); 
+	}
+	
+	public int getID(String userid) {
+		return sqlSession.selectOne("UserMapper.getID", userid); 
 	}
 	
 	public void storeSalt(SaltDTO saltDTO) {
