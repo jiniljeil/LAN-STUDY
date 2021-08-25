@@ -37,10 +37,11 @@ public class LoginController {
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
 			if(userDTO != null) {
 				model.addAttribute("u", userDTO);
-				mav.setViewName("redirect:/");
+				mav.setViewName("redirect:/menu");
 				return mav;
 			} 
-			mav.setViewName("redirect:/menu");
+			// 로그인 실패 alert 띄우기 
+			mav.setViewName("redirect:/");
 		}
 		else mav.setViewName("redirect:/");
 		return mav;

@@ -30,8 +30,8 @@
       </div>
       <div class="login_space">
         <form action="login" method="POST">
-          <input class="login_input" type="text" placeholder="ID"/>
-          <input class="login_input" type="password" placeholder="PW"/>
+          <input class="login_input" type="text" placeholder="ID" name="userID"/>
+          <input class="login_input" type="password" placeholder="PW" name="userPW"/>
           <br>
           <input class="login_input" id="login_submit" type="submit" value="LOGIN"/>
         </form>
