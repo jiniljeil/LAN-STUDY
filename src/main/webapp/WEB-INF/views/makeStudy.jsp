@@ -29,11 +29,11 @@
     	<div class="contents">
     		<form action="upload", method="POST">
     			<h4>제목</h4>
-    			<input type="text" name="title"/>
-    			<h4>사진 첨부</h4>
+    			<input type="text" name="title" placeholder="제목을 입력하세요."/>
+    			<button>사진 첨부</button>
 	    		<!-- 방법 찾기 -->
 	    		<h4>내용</h4>
-	    		<textarea rows="40%" cols="70%" name="content">
+	    		<textarea rows="40%" cols="70%" name="content" placeholder="내용을 입력하세요.">
 	    			
 	    		</textarea>
     		</form>
