@@ -14,8 +14,29 @@ header{
 	margin: 10px;
 	box-shadow: 2px 2px 0px 1px grey; */
 }
-.logo{
+.header_logo{
 	width: 100px;
 	background-image: url("../assets/logo2.png");
     background-size: cover;
+}
+.header_logo{
+	width: 320px;
+	height: 80px;
+    background-size: cover;
+    display: inline-block;
+}
+.header_nav{
+	display: inline-block;
+	width: 100px;
+	height: 100%;
+	float: right;
+	color: white;
+	text-align: center;
+}
+.header_nav:hover{
+	background: #90b37e;
+}
+.header_innav{
+	display: inline-block;
+	margin-top: 30px;
 }
