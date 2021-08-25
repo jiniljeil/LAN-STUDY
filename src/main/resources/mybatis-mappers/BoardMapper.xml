@@ -9,4 +9,16 @@
 	<insert id="uploadBoard" parameterType="BoardDTO"> 
 		insert into board(title, photo, content) values (#{title}, #{image}, #{content})})
 	</insert>
+	
+	<select id="searchBoardListAll" resultType="BoardDTO" parameterType="String">
+		SELECT * FROM board AS B
+				INNER JOIN user AS U ON B.user_id = U.id
+				INNER JOIN `group` AS G ON B.group_id = G.id WHERE B.title LIKE '%#{keyword}%'
+														OR B.content LIKE '%#{keyword}%'
+														OR U.name LIKE '%#{keyword}%'
+														OR U.user_id LIKE '%#{keyword}%'
+														OR G.name LIKE '%#{keyword}%'
+														OR G.link LIKE '%#{keyword}%'
+														
+	</select>
 </mapper>

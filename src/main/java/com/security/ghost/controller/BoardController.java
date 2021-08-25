@@ -65,15 +65,4 @@ public class BoardController {
 	      
 		return "boardStudy";
 	}
-	
-	@RequestMapping(value="/boardStudy", method=RequestMethod.GET) 
-	public String BoardStudy(HttpServletRequest request, Model model) {
-		
-		// session으로 사용자의 정보를 가지고 가지고 있지 않는 group 들을 뿌려준다.
-		List<BoardDTO> boardList = boardDAO.getBoardList();
-		System.out.println(boardList.get(0).getTitle());
-		model.addAttribute("boardList", boardList);
-		
-		return "boardStudy";
-	}
 }
