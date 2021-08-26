@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.security.ghost.SecurityUtil;
 import com.security.ghost.dao.AdDAO;
+import com.security.ghost.dao.GroupDAO;
 import com.security.ghost.dao.UserDAO;
 import com.security.ghost.dto.AdDTO;
 import com.security.ghost.dto.BoardDTO;
+import com.security.ghost.dto.GroupDTO;
 import com.security.ghost.dto.UserDTO;
 
 @Controller
@@ -27,6 +29,9 @@ public class AdController {
 	
 	@Autowired
 	UserDAO userDAO ;
+	
+	@Autowired
+	GroupDAO groupDAO;
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST) 
 	public ModelAndView AdOk(HttpServletRequest request, HttpSession session) {
@@ -77,5 +82,20 @@ public class AdController {
 		model.addAttribute("AdList", adList);
 	      
 		return "AdStudy";
+	}
+	
+	@RequestMapping(value="/ajaxGetGroup",method=RequestMethod.POST) 
+	public void ajaxGetGroup(HttpServletRequest request, Model model) {
+		ModelAndView mav = new ModelAndView(); 
+	
+		String group_id = request.getParameter("group_id");
+		int g_id = Integer.parseInt(group_id);
+		
+		GroupDTO groupDTO = new GroupDTO();
+		groupDTO = groupDAO.getGroupById(g_id);
+		
+		model.addAttribute("group", groupDTO);
+		
+		return ;
 	}
 }

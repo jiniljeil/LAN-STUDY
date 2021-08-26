@@ -10,6 +10,10 @@
 		select id from `group` where link = #{link};
 	</select>
 	
+	<select id="getGroupById" resultType="GroupDTO">
+		SELECT * from `group` WHERE id=#{group_id} 
+	</select>
+	
 	<insert id="createJoin" parameterType="GroupDTO">
 		INSERT INTO `join`(user_id, group_id, auth) VALUES(#{user_id}, #{group_id}, #{auth});
 

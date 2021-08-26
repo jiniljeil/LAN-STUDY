@@ -122,7 +122,7 @@
     	</div>
     	<div class="title">${u.title}</div>
     	<div class="content">${u.content}</div>
-    	<input type="hidden" value="${u.group_id}"/>
+    	<input type="text" class="group_id" value="${u.group_id}"/>
     	<button class="btn" data-toggle="modal" data-target="#joinGroupModal">
     		자세히 보기
     	</button>
@@ -157,11 +157,27 @@
 <script>
 $('#myModal').on('shown.bs.modal', function () {
 	  $('#myInput').trigger('focus')
-	})
+	});
 	
 $(".btn").click(function(){
-$("#modal_title").html($(this).siblings(".title").html());
-$("#modal_detail").html($(this).siblings(".detail").html());
-	
+	var group_id = $(this).siblings(".group_id").val();
+	alert("hey"+ $(this).siblings(".group_id").val());
+	$.ajax({
+		type :"POST",
+		url : "ajaxGetGroup",
+		data : {
+			"group_id" : group_id,
+		},
+		dataType : 'GroupDTO',
+		success : function(data){
+			if(data == null){
+				alert("그룹을 로드하지 못하였습니다.");
+			}
+			dataset = data;
+		}, error:function(request, status, error){
+			alert("그룹을 로드하지 못하였습니다.");
+		}
+		alert(dataset);
+	});
 });
 </script>
