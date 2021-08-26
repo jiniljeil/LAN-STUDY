@@ -85,15 +85,23 @@ public class AdController {
 	
 	@RequestMapping(value="/homePage") 
 	public ModelAndView AdStudy(HttpServletRequest request, Model model, HttpSession session) {
-		ModelAndView mav = new ModelAndView(); 
+		ModelAndView mav = new ModelAndView();
+		
+		String keyword = request.getParameter("keyword");
+		String qkeyword;
+		if(keyword == null)
+			qkeyword = "%%";
+		else 
+			qkeyword = "%" + keyword +"%";
 		session.removeAttribute("user");
 		session.removeAttribute("manager");
 		
-		List<AdDTO> adList = adDAO.getAdList();
+		List<AdDTO> adList = adDAO.searchAd(qkeyword);
 
 		// What if no group?
 		
 		model.addAttribute("AdList", adList);
+		model.addAttribute("keyword", keyword);
 		mav.setViewName("AdStudy");
 		
 		return mav;
@@ -104,10 +112,6 @@ public class AdController {
 		ModelAndView mav = new ModelAndView(); 
 		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		int group_id = Integer.parseInt(request.getParameter("group_id"));
-		
-		
-		
-		
 		
 		HashMap<String ,Integer > joinInfo = new HashMap<String, Integer>();
 		joinInfo.put("user_id", user_id);

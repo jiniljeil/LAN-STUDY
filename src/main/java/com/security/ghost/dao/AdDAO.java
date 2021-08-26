@@ -21,5 +21,8 @@ public class AdDAO {
 	public int uploadAd(AdDTO AdDTO) {
 		return sqlSession.insert("AdMapper.uploadAd", AdDTO); 
 	} 
-	
+
+	public List<AdDTO> searchAd(String keyword) {
+		return sqlSession.selectList("AdMapper.searchAd", keyword); 
+	}
 }

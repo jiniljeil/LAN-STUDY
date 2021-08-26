@@ -46,7 +46,7 @@ public class BoardController {
 		int group_id = groupDAO.getGroupId(link); 
 		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		
-		HashMap<String, Integer> info = new HashMap();
+		HashMap<String, Integer> info = new HashMap<String, Integer>();
 		info.put("group_id" , group_id);
 		info.put("user_id", user_id);
 		if(userDAO.chkUser(info)=="false") {
@@ -85,7 +85,7 @@ public class BoardController {
 		int group_id = groupDAO.getGroupId(link); 
 		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		
-		HashMap<String, Integer> info = new HashMap();
+		HashMap<String, Integer> info = new HashMap<String, Integer>();
 		info.put("group_id" , group_id);
 		info.put("user_id", user_id);
 		if(userDAO.chkUser(info)=="false") {
@@ -123,7 +123,7 @@ public class BoardController {
 		int group_id = groupDAO.getGroupId(link); 
 		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		
-		HashMap<String, Integer> info = new HashMap();
+		HashMap<String, Integer> info = new HashMap<String, Integer>();
 		info.put("group_id" , group_id);
 		info.put("user_id", user_id);
 		if(userDAO.chkUser(info)=="false") {
@@ -212,7 +212,7 @@ public class BoardController {
 		int group_id = groupDAO.getGroupId(link); 
 		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		
-		HashMap<String, Integer> info = new HashMap();
+		HashMap<String, Integer> info = new HashMap<String, Integer>();
 		info.put("group_id" , group_id);
 		info.put("user_id", user_id);
 		if(userDAO.chkUser(info)=="false") {
