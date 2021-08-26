@@ -44,7 +44,7 @@ public class MenuController {
 	@RequestMapping(value="/groupList")
 	public ModelAndView groupList(Model model) {
 		ModelAndView mav = new ModelAndView();
-		int user_id = 6; //나중에 세션에서 받아오기 session
+		int user_id = 1; //나중에 세션에서 받아오기 session
 		List<GroupDTO> group_list = groupDAO.groupList(user_id);
 		model.addAttribute("groupList", group_list);
 		model.addAttribute("groupCnt", group_list.size());
@@ -52,17 +52,29 @@ public class MenuController {
 		return mav; 
 	}
 	
+	@RequestMapping(value="/AdStudy")
+	public String adStudy() {
+		return "AdStudy";
+	}
+	
+	@RequestMapping(value="/join_study")
+	public ModelAndView join_study() {
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("redirect:/AdStudy");
+		return mav;
+	}
+	
 	
 	// study site 를 만드는 일을 함. 
 	@RequestMapping(value="/makeGroupOk", method=RequestMethod.POST)
 	public ModelAndView makeGroupOk(HttpServletRequest request, Model model) {
+		ModelAndView mav = new ModelAndView();
 		String name = request.getParameter("name");
 		String detail = request.getParameter("detail");
-		int user_id = 6; //나중에 세션에서 받아오기 session
+		int user_id = 1; //나중에 세션에서 받아오기 session
 		
-		StringUtil rsg = new StringUtil();
 		// (26+26+10)^10
-		String link = rsg.randomAlphanumericStringGenerator(10);
+		String link = StringUtil.randomAlphanumericStringGenerator(10);
 		
 		GroupDTO groupDTO = new GroupDTO();
 		groupDTO.setName(name);
@@ -72,7 +84,10 @@ public class MenuController {
 		
 		// TODO : link, name 중복체크
 		
-		groupDAO.createGroup(groupDTO);
+		if(groupDAO.createGroup(groupDTO) != 1) {
+			mav.setViewName("redirect:/error/sqlError");
+			return mav;
+		};
 		
 		
 		HashMap<String ,Integer > joinInfo = new HashMap<String, Integer>();
@@ -80,9 +95,11 @@ public class MenuController {
 		joinInfo.put("user_id", user_id);
 		joinInfo.put("group_id", group_id);
 		joinInfo.put("auth", 0);
-		groupDAO.createJoin(joinInfo);
+		if(groupDAO.createJoin(joinInfo) != 1) {
+			mav.setViewName("redirect:/error/sqlError");
+			return mav;
+		}
 		
-		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/groupList");
 		return mav; 
 	}

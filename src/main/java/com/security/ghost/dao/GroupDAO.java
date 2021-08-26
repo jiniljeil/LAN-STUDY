@@ -18,8 +18,8 @@ public class GroupDAO {
 		return sqlSession.insert("GroupMapper.createGroup", groupDTO);
 	}
 	
-	public void createJoin(HashMap<String ,Integer > joinInfo) {
-		sqlSession.insert("GroupMapper.createJoin", joinInfo);
+	public int createJoin(HashMap<String ,Integer > joinInfo) {
+		return sqlSession.insert("GroupMapper.createJoin", joinInfo);
 	}
 	
 	public List<GroupDTO> groupList(int user_id){

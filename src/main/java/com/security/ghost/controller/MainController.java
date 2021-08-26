@@ -26,4 +26,10 @@ public class MainController {
 	public String menu() {
 		return "menu";
 	}
+	
+	@RequestMapping(value="/board/{link}/userManage")
+	public String manageUser() {
+		return "userManage";
+	}
+	
 }

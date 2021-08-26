@@ -1,0 +1,59 @@
+        .content_box, content_box{
+			border: none !important;
+		}
+        #intro {
+              /* Margin to fix overlapping fixed navbar */
+              margin-top: 58px;
+        }
+        @media (max-width: 991px) {
+            #intro {
+            /* Margin to fix overlapping fixed navbar */
+            margin-top: 45px;
+            }
+        }
+        .recommend_area{
+            height:30%;
+        }
+
+        .content_box{
+            height:300px;
+        }
+
+        .img-max {
+            max-width:20rem;
+        }
+        body{
+        	background: #f6f6f6 !important;
+        }
+        #adContainer{
+        	border: 3px solid #a1c48f;
+        	border-radius: 20px;
+        	background: white;
+        	width: 300px;
+        	margin: 30px 50px;
+        	padding: 10px;
+        	text-align: center;
+        	display: inline-block;
+        }
+        #adContainer .img{
+        	height: 140px;
+        	background-image: url("../assets/group.png");
+   			background-size: cover;
+        }
+        #adContainer .title{
+        	height: 30px;
+        	font-weight: bold;
+        	font-size: 22px;
+        	margin: 10px 0px;
+        }
+        #adContainer .content{
+        	height: 30px;
+        	color: #444;
+        	font-size: 15px;
+        	margin: 5px 0px;
+        	overflow: hidden;
+        }
+        #adContainer .btn{
+        	background: #a1c48f;
+        	color: white;
+        }

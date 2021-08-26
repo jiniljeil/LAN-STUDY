@@ -80,7 +80,7 @@
     		color: #555;
     		margin-top: 15px;
     		margin-bottom: 15px;
-    		overflow: scroll;
+    		overflow: hidden;
     		height: 40px;
     	}
     </style>

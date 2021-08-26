@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나에게 맞는 스터디 찾기!</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -14,6 +14,7 @@
 
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/header.jsp" />
 	<table id="list" width="90%" class="table table-hover table-borderless">
 		<thead class="thead-light">
 			<tr>

@@ -12,9 +12,37 @@ import org.springframework.web.servlet.ModelAndView;
 public class ErrorController {
 
 	@RequestMapping(value="/error/loginError")
-	public ModelAndView main(HttpSession session) {
+	public ModelAndView loginError(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("error/loginError");
+		return mav;
+	}
+	
+	@RequestMapping(value="/error/registerIDPassNickError")
+	public ModelAndView registerIDPassNickError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/registerIDPassNickError");
+		return mav;
+	}
+	
+	@RequestMapping(value="/error/registerPhoneEmailError")
+	public ModelAndView registerPhoneEmailError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/registerPhoneEmailError");
+		return mav;
+	}
+	
+	@RequestMapping(value="/error/sqlError")
+	public ModelAndView sqlError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/sqlError");
+		return mav;
+	}
+	
+	@RequestMapping(value="/error/uploadError")
+	public ModelAndView uploadError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/uploadError");
 		return mav;
 	}
 	

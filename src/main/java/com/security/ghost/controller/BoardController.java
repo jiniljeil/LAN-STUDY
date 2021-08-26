@@ -83,9 +83,10 @@ public class BoardController {
 	public String makePost(HttpServletRequest request, Model model) {
 		return "makePost"; 
 	}
-	
-	@RequestMapping(value="/uploadOk") 
-	public ModelAndView makePostOk(@RequestParam("link") String link, HttpServletRequest request, Model model, HttpSession session) {
+
+
+	@RequestMapping(value="/board/{link}/uploadOk", method=RequestMethod.GET) 
+	public ModelAndView makePostOk(@PathVariable("link") String link, HttpServletRequest request, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
 		// 		link가 실존 하는지 체크, link에 대한 권한 체크
@@ -140,7 +141,7 @@ public class BoardController {
 	
 	
 //	@RequestMapping(value="/boardList", method=RequestMethod.POST)
-//	public ViewAndModel boardList(HttpServletRequest request, Model moel) {
+//	public ViewAndModel boardList(HttpServletRequest request, Model model) {
 //		ModelAndView mav = new ModelAndView(); 
 //		
 //		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선

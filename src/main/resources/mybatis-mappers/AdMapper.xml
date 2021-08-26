@@ -6,6 +6,6 @@
 	</select>
 	
 	<insert id="uploadAd" parameterType="AdDTO"> 
-		insert into (user_id, group_id, title, content) ad values (#{user_id}, #{group_id}, #{title}, #{content})
+		insert into ad(user_id, group_id, title, content) values (#{user_id}, #{group_id}, #{title}, #{content})
 	</insert>
 </mapper>

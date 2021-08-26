@@ -76,7 +76,7 @@
 					<i class="fas fa-chalkboard-teacher"></i>
 				</div>
 				</a>
-				<a href="./join_study">
+				<a href="./homePage">
 				<div class="menu" id="m2">
 					스터디 참여<br>
 					<i class="fas fa-book"></i>
