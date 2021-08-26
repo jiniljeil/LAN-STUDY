@@ -17,4 +17,13 @@
 	<select id="getCommentList" resultType="CommentDTO">
 		SELECT comment.id, comment.user_id, `user`.name as userName, time, board_id, `type`, content FROM `comment` inner join `user` on `user`.id = `comment`.user_id WHERE board_id=#{board_id};
 	</select>
+	
+	<insert id="createComment" parameterType="CommentDTO" >
+		INSERT INTO comment (user_id, board_id, type, content) VALUES (#{user_id}, #{board_id}, #{type}, #{content} ) ;
+	</insert>
+	
+	<select id="getUserName" parameterType="int">
+		SELECT name FROM `user` WHERE user_id=#{user_id} 
+	</select>
+	
 </mapper>

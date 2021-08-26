@@ -31,16 +31,16 @@ public class BoardController {
 	BoardDAO boardDAO ; 
 	
 	@Autowired
-	GroupDAO groupDAO;
+	UserDAO userDAO; 
 	
 	@Autowired
-	UserDAO userDAO;
+	GroupDAO groupDAO;
 	
-	@RequestMapping(value="/board/{link}/**") 
+	@RequestMapping(value="/board/{link}") 
 	public ModelAndView getGroup(@PathVariable("link") String link, Model model, HttpSession session) {
 		
 		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
-		// 		link가 실존 하는지 체크, link에 대한 권한 체크
+		// 		link가 실존 하는지 체크, lin/에 대한 권한 체크
 		ModelAndView mav = new ModelAndView(); 
 		// TODO Session 을 통한 접근 제한 (CSRF)
 		int group_id = groupDAO.getGroupId(link); 
@@ -104,22 +104,6 @@ public class BoardController {
 		return null; 
 	}
 	
-//	@RequestMapping(value="/chk/{link}")
-//	public ModelAndView setSession(@PathVariable("link") String link, Model model, HttpSession session) {
-//		ModelAndView mav = new ModelAndView(); 
-//		int group_id = groupDAO.getGroupId(link); 
-//		int user_id = Integer.parseInt(session.getAttribute("id").toString());
-//		
-//		HashMap<String, Integer> info = new HashMap();
-//		info.put("group_id" , group_id);
-//		info.put("user_id", user_id);
-//		session.setAttribute("user",  userDAO.chkUser(info));
-//		session.setAttribute("manager", userDAO.chkManager(info));
-//		
-//		mav.setViewName("redirect:/board/"+link);
-//		return mav;
-//	}
-	
 	// Test를 위해 임시로 controller 만듬. makePost 를 위한 controller 필요
 	@RequestMapping(value="/testurl") 
 	public String makePost(HttpServletRequest request, Model model) {
@@ -165,6 +149,8 @@ public class BoardController {
 			// Error handling
 		}
 		
+		user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
@@ -190,6 +176,32 @@ public class BoardController {
 		return mav; 
 	}
 	
+	@RequestMapping(value="/board/{link}/commentWrite", method=RequestMethod.POST) 
+	public CommentDTO uploadComment(@PathVariable("link") String link, @RequestParam("comment") String comment, @RequestParam("id") String board_id, HttpSession session) {
+		CommentDTO commentDTO = null; 
+		if (comment != null) {
+			comment = SecurityUtil.HTML_Filter(comment); 
+			commentDTO = new CommentDTO(); 
+			String s = session.getAttribute("id").toString() ;
+			if ( s != null ) {
+				commentDTO.setUser_id(Integer.parseInt(s)); 
+			}else {
+				// TODO 에러 페이지 
+			}
+			
+			if (board_id != null) {
+				commentDTO.setBoard_id(Integer.parseInt(board_id));
+			}else {
+				// TODO 에러 페이지 
+			}
+			commentDTO.setContent(comment);
+			
+			boardDAO.createComment(commentDTO);
+			
+//			commentDTO.setUserName(boardDAO.getUserName(Integer.parseInt(s)));
+		}
+		return commentDTO; 
+	}
 	
 	@RequestMapping(value="/board/{link}/manage/user", method=RequestMethod.GET)
 	public ModelAndView manageUser(@PathVariable("link") String link, Model model, HttpSession session) {
@@ -211,7 +223,6 @@ public class BoardController {
 			return mav;
 		}
 		
-		
 		List<GroupUserDTO> user_list = userDAO.groupUserList(group_id);
 		
 		model.addAttribute("userList", user_list);
@@ -220,21 +231,4 @@ public class BoardController {
 		
 		return mav;
 	}
-	
-//	@RequestMapping(value="/boardList", method=RequestMethod.POST)
-//	public ViewAndModel boardList(HttpServletRequest request, Model model) {
-//		ModelAndView mav = new ModelAndView(); 
-//		
-//		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
-//		
-//		String content = request.getParameter("content");
-//		if (content != null) {
-//			content = SecurityUtil.HTML_Filter(content); 
-//			
-//			BoardDTO boardDTO = new BoardDTO(); 
-//			
-//		}else {
-//			
-//		}
-//	}
 }
