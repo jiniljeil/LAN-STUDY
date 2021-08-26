@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,11 +43,11 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/groupList")
-	public ModelAndView groupList(Model model) {
+	public ModelAndView groupList(Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		// group_id 가지고 join 테이블 userid 싹다 받아오고
 		// 권한 체크
-		int user_id = 6; //나중에 세션에서 받아오기 session
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 
 		List<GroupDTO> group_list = groupDAO.groupList(user_id);
 		model.addAttribute("groupList", group_list);
@@ -70,15 +71,14 @@ public class MenuController {
 	
 	// study site 를 만드는 일을 함. 
 	@RequestMapping(value="/makeGroupOk", method=RequestMethod.POST)
-	public ModelAndView makeGroupOk(HttpServletRequest request, Model model) {
+	public ModelAndView makeGroupOk(HttpServletRequest request, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String name = request.getParameter("name");
 		String detail = request.getParameter("detail");
-		int user_id = 1; //나중에 세션에서 받아오기 session
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		
 		// (26+26+10)^10
 		String link = StringUtil.randomAlphanumericStringGenerator(10);
-		
 		GroupDTO groupDTO = new GroupDTO();
 		groupDTO.setName(name);
 		groupDTO.setLink(link);

@@ -52,8 +52,9 @@ public class AdController {
 				content = SecurityUtil.HTML_Filter(content); 
 
 				AdDTO adDTO = new AdDTO(); 
-				// TODO user_id group_id setting 
-				adDTO.setUser_id(userDTO.getId());
+				// TODO group_id setting 
+				int user_id = Integer.parseInt(session.getAttribute("id").toString());
+				adDTO.setUser_id(user_id);
 				adDTO.setGroup_id(3);
 				adDTO.setTitle(title); 
 				adDTO.setContent(content);

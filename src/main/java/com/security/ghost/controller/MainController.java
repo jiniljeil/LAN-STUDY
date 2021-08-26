@@ -18,6 +18,7 @@ import com.security.ghost.dao.GroupDAO;
 import com.security.ghost.dao.UserDAO;
 import com.security.ghost.dto.GroupDTO;
 import com.security.ghost.dto.GroupUserDTO;
+import com.security.ghost.dto.UserDTO;
 
 @Controller
 public class MainController {
@@ -60,7 +61,14 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/myPage")
-	public String myPage() {
-		return "myPage";
+	public  ModelAndView myPage(Model model, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		UserDTO user = userDAO.getUserInfo(user_id);
+		
+		model.addAttribute("user", user);
+		mav.setViewName("myPage");
+		
+		return mav;
 	}
 }

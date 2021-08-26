@@ -140,6 +140,44 @@
     	  modal.find('.modal-title').text('New message to ' + recipient)
     	  modal.find('.modal-body input').val(recipient)
     	})
+    	$(document).ready(function() {
+			$('#write').click(function() {
+				var whole_addr = $(location).attr('href');
+		        var addr_slice = whole_addr.split('/');
+		        $("#url").attr("value",addr_slice[addr_slice.length -1]);
+			});
+        });
+    	
+    	$(document).ready(function() {
+        	$(".commentClass").click(function() {
+        		var board_id = $(this).siblings("#id").val();
+        		var whole_addr = $(location).attr('href');
+		        var addr_slice = whole_addr.split('/');
+		        
+				$.ajax({
+					type: "post", 
+					url: addr_slice[addr_slice.length -1] + "/comment", 
+					data: {
+						"id" : board_id,
+					}, 
+					dataType: 'text', 
+					success : function(data) {
+						if (data == null) {
+							alert("댓글을 로드하지 못하였습니다.");
+						}
+						alert(${data.content});
+					}, error:function(request, status, error){
+		    		    alert("댓글을 로드하지 못하였습니다");
+			        }
+				});
+			/* 	 $().each(function(index, item) {
+					for(prop in item)  {
+						  var hey = item[prop];
+						  alert(prop + " -> " +hey);
+						}
+				}); */
+             });
+        });
     </script>
 </body>
 </html>
