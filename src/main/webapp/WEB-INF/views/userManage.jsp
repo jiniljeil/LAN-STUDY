@@ -95,23 +95,21 @@
      		<div class="row manage">관리</div>
      	</div>
      	<hr style="border: 2px solid #bbb; border-radius: 5px;">
-     	<div class="user">
-     		<div class="row no">1</div>
-     		<div class="row name">신희주</div>
-     		<div class="row email">21800412@handong.edu</div>
-     		<div class="row date">2021/08/26</div>
-     		<div class="row auth">관리자</div>
-     		<div class="row manage"><button class="out">추방</button><button class="change">변경</button></div>
-     	</div>
+     	<c:set var="idx" value="1" />
+     	<c:forEach items="${userList}" var="u">
+
+     		<div class="user">
+     		    <c:set var="i" value="${i+1}"/>
+	     		<div class="row no"><c:out value="${i}" /></div>
+	     		<div class="row name">${u.name}</div>
+	     		<div class="row email">${u.email}</div>
+	     		<div class="row date">${u.date}</div>
+	     		<div class="row auth">관리자${u.auth}</div>
+	     		<div class="row manage"><button class="out">추방</button><button class="change">변경</button></div>
+	     	</div>
+	     	<c:set var="name" value="철수" />
+     	</c:forEach>
      	
-     	<div class="user">
-     		<div class="row no">2</div>
-     		<div class="row name">김땡땡</div>
-     		<div class="row email">thangthang@handong.edu</div>
-     		<div class="row date">2021/08/26</div>
-     		<div class="row auth">사용자</div>
-     		<div class="row manage"><button class="out">추방</button><button class="change">변경</button></div>
-     	</div>
      	<!-- 
      	<c:forEach items="${groupList}" var="u"  >
 	     	<div class="group" onclick="location.href='<%=request.getContextPath()%>./board/${u.link}';">
