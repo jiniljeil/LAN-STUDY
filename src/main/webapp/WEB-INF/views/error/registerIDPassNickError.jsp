@@ -4,6 +4,6 @@
 <script language = "javascript">
 
 	alert("아이디, 비밀번호, 닉네임을 확인해주세요");
-	document.location.href = "<%=request.getContextPath()%>/";
+	document.location.href = "<%=request.getContextPath()%>/join";
 
 </script>

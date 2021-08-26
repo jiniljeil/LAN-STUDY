@@ -4,6 +4,6 @@
 <script language = "javascript">
 
 	alert("휴대폰 번호 혹은 이메일을 확인해주세요");
-	document.location.href = "<%=request.getContextPath()%>/";
+	document.location.href = "<%=request.getContextPath()%>/join";
 
 </script>
