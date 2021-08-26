@@ -1,5 +1,7 @@
 package com.security.ghost.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,5 +15,13 @@ public class GroupDAO {
 	
 	public int createGroup(GroupDTO groupDTO) {
 		return sqlSession.insert("GroupMapper.createGroup", groupDTO);
+	}
+	
+	//public int createJoin() {
+	//	return sqlSession.insert("GroupMapper.createGroup", groupDTO);
+	//}
+	
+	public List<GroupDTO> groupList(int user_id){
+		return sqlSession.selectList("GroupMapper.groupListbyUserId", user_id);
 	}
 }

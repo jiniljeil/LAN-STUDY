@@ -41,12 +41,11 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/groupList")
-	public ModelAndView groupList() {
+	public ModelAndView groupList(Model model) {
 		ModelAndView mav = new ModelAndView();
 		int user_id = 6; //나중에 세션에서 받아오기 session
-		//List<GroupDTO> category_list = groupDAO.groupList(user_id);
-		
-		
+		List<GroupDTO> group_list = groupDAO.groupList(user_id);
+		model.addAttribute("groupList", group_list);
 		mav.setViewName("groupList");
 		return mav; 
 	}
