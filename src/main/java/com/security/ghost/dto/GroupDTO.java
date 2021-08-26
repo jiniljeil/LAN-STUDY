@@ -3,6 +3,7 @@ package com.security.ghost.dto;
 public class GroupDTO {
 	private String name;
 	private String link;
+	private String detail;
 	
 	
 	public String getName() {
@@ -16,5 +17,11 @@ public class GroupDTO {
 	}
 	public void setLink(String link) {
 		this.link = new String(link);
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = new String(detail);
 	}
 }

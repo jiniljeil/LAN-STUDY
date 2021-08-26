@@ -42,5 +42,8 @@ public class UserDAO {
 	public void storeSalt(SaltDTO saltDTO) {
 		sqlSession.insert("UserMapper.storeSalt",saltDTO); 
 	}
+	public int idDupCheck(String id) {
+		return sqlSession.selectOne("UserMapper.idDupCheck", id);
+	}
 
 }

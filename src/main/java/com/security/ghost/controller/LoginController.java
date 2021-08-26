@@ -33,6 +33,11 @@ public class LoginController {
 		String userpw = request.getParameter("userPW"); 
 		 
 		if (userid != null && userpw != null) {
+			if(userDAO.idDupCheck(userid)==0) {
+				mav.setViewName("redirect:/error/loginError");
+				return mav;
+			}
+			
 			byte[] salt = userDAO.getSalt(userDAO.getID(userid)); 
 			userpw = Crypto.encryptSHA256(userpw, salt);
 
@@ -40,12 +45,15 @@ public class LoginController {
 			if(userDTO != null) {
 				session.setAttribute("LOGIN_USER", userDTO); 
 				model.addAttribute("u", userDTO);
-				String pToken = request.getParameter("param_csrf_token"); 
-				String sToken = (String)session.getAttribute("SESSION_CSRF_TOKEN"); 
-				if (pToken != null && pToken.equals(sToken)) {
-					mav.setViewName("redirect:/menu");
-					return mav;
-				}
+//				지금 이거 때문에 로그인안됨
+//				String pToken = request.getParameter("param_csrf_token"); 
+//				String sToken = (String)session.getAttribute("SESSION_CSRF_TOKEN"); 
+//				if (pToken != null && pToken.equals(sToken)) {
+//					mav.setViewName("redirect:/menu");
+//					return mav;
+//				} 
+				mav.setViewName("redirect:/menu");
+				return mav;
 			} 
 			// 로그인 실패 alert 띄우기 
 			mav.setViewName("redirect:/error/loginError");

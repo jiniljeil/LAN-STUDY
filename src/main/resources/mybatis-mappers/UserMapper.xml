@@ -28,4 +28,8 @@
 	<insert id="storeSalt" parameterType="SaltDTO"> 
 		insert into salt (user_id, salt) values (#{user_id}, #{salt}); 
 	</insert>
+	
+	<select id="idDupCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) from user WHERE user_id=#{user_id};
+	</select>
 </mapper>

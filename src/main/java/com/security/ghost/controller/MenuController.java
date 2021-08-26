@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.security.ghost.StringUtil;
@@ -37,11 +38,17 @@ public class MenuController {
 		return "makeStudy"; 
 	}
 	
+	@RequestMapping(value="/groupList")
+	public String groupList() {
+		return "groupList"; 
+	}
+	
 	
 	// study site 를 만드는 일을 함. 
-	@RequestMapping(value="/makeGroupOk")
+	@RequestMapping(value="/makeGroupOk", method=RequestMethod.POST)
 	public ModelAndView makeGroupOk(HttpServletRequest request, Model model) {
 		String name = request.getParameter("name");
+		String detail = request.getParameter("detail");
 		
 		StringUtil rsg = new StringUtil();
 		// (26+26+10)^10
@@ -50,13 +57,14 @@ public class MenuController {
 		GroupDTO groupDTO = new GroupDTO();
 		groupDTO.setName(name);
 		groupDTO.setLink(link);
+		groupDTO.setDetail(detail);
 		
 		// TODO : link, name 중복체크
 		
 		groupDAO.createGroup(groupDTO);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/make_study");
+		mav.setViewName("redirect:/groupList");
 		return mav; 
 	}
 }
