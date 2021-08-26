@@ -3,6 +3,7 @@
 
 <html>
 <head>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<style>
 		#join_container{
 			width: 50vw;
@@ -15,7 +16,7 @@
 			width: 200px;
 			height: 40px;
 			font-size: 15px;
-			margin-left: 10px;
+			margin: 0 10 10 10;
 		}
 		#b1{
 			background: #ddd;
@@ -33,14 +34,16 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="/WEB-INF/views/header2.jsp" />
 	<div style="height: 80px"><br></div>
 	<div id="join_container">
-		<form action="joinOK" method="POST" onSubmit="return check()">
+		<form action="joinOK" method="POST" onSubmit="return checkForm()">
 			<div style="height: 30px"></div>
 			<h4>아이디</h4>
 			<input type="text" id="userid" name="userID" placeholder="아이디를 입력해주세요." autofocus required/>
-			<button type="button" onclick="confirmid()" id="b1">중복확인</button><br> 
+			<button type="button" id="b1">중복확인</button>
+			<span id="id_result" style="margin-left: 10px;"></span>
+			<br> 
 			
 			<h4>비밀번호</h4>
 			<input type="password" onchange="checker()" id="password" name="userPW" placeholder="비밀번호를 입력해주세요." required/><br> 
@@ -55,8 +58,7 @@
 				<option value="016">016</option>
 				<option value="017">017</option>
 				<option value="019">019</option>
-			</select>
-			 - 
+			</select> - 
 			<input type="text" name="MediumPhoneNumber"/> - <input type="text" name="LastPhoneNumber"/>
 			
 			<h4>이메일</h4>
@@ -78,7 +80,55 @@
 		</form>
 	</div>
 	<script> 
-		function check(){
+		var dup_check = false;
+		$( document ).ready(function() {
+			$("#b2").click(function(){
+				alert("hello");
+			});
+			
+		    $("#b1").click(function(){
+		    	var whole_addr = $(location).attr('href');
+		        var addr_slice = whole_addr.split('/');
+		        var addr = addr_slice[0]+"/"+addr_slice[1]+"/"+addr_slice[2]+"/"+addr_slice[3];
+		        $("#id_result").html("<span style='color:grey;' class='overlap_msg' >아이디 중복체크 중입니다 잠시 기다려주세요!</span>");
+		        
+		      if($("#userid").val()==""){
+		        $("#userid").focus();
+		        alert("아이디를 입력해주세요.");
+		      }
+		      else{
+		        $.ajax({
+		          type: "post",
+		          url: "idDupChk",
+		          data : {
+		            "id" : $("#userid").val()
+		          },
+		          dataType: 'text',
+		          success : function(data){
+		            if(data=="success"){
+		              $("#id_result").html("<span style='color:green;' class='overlap_msg' >사용가능</span>");
+		              //$("#url").val(addr+"/form/"+$("#link").val());
+		        	  //$("#url").html(addr+"/form/"+$("#link").val());
+		              $("#userid").css("background-color","#e4eee4");
+		              //alert("사용가능한 아이디");
+		              dup_check=true;
+		            }
+		            else{
+		              $("#userid").val("");
+		              $("#id_result").html("<span style='color:red;' class='overlap_msg'>사용불가</span>");
+		              $("#userid").css("background-color","#eee6e4");
+		              //alert("사용불가능한 아이디");
+		              dup_check=false;
+		            }
+		          }, error:function(request, status, error){
+		    		    alert("아이디 중복 체크 오류발생");
+		          }
+		        });
+		      }
+		    });
+		});  
+    
+		function checkForm(){
 	        var p = document.getElementById('password').value;
 	        var cp = document.getElementById('cpassword').value;
 			if(!documnet.getElementById('userid').value){
@@ -93,6 +143,8 @@
 	            alert("비밀번호가 서로 다릅니다. 다시 입력해주시기 바랍니다.");
 	            return false;
 	        }
+	        alert("실패");
+	        return false;
 		}
 		function checker() {
 	        var pwd = document.getElementById('password').value;
@@ -119,13 +171,12 @@
 	            return false;
 	        }
 	    }
-		function confirmid(){
-			if(document.getElementById('userid').value == ""){
-				alter("ID를 입력하세요.");
-				return; 
-			}
-			/* 아이디 중복 체크 기능 추가 */
-		}
+		
+		$("#userid").on("change keyup paste", function(){
+			dup_check = false;
+			$("#id_result").html("");
+			$("#userid").css("background-color","white");
+		});
 	</script>
 </body>
 </html>

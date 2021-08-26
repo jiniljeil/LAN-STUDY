@@ -7,25 +7,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.security.ghost.Crypto;
 import com.security.ghost.dao.UserDAO;
 import com.security.ghost.dto.SaltDTO;
 import com.security.ghost.dto.UserDTO;
 
-@Controller 
+@RestController 
 public class RegisterController {
 	
 	@Autowired
 	UserDAO userDAO; 
 	
 	@RequestMapping(value="/join")
-	public String join() {
-		return "join"; 
+	public ModelAndView join() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("join");
+		return mav; 
 	}
 	
 	@RequestMapping(value="/joinOK", method=RequestMethod.POST)
-	public String joinOK(HttpServletRequest request, Model model) {
+	public ModelAndView joinOK(HttpServletRequest request, Model model) {
+		ModelAndView mav = new ModelAndView();
 		
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
@@ -71,6 +77,14 @@ public class RegisterController {
 
 		userDAO.storeSalt(saltDTO);
 		// 회원 가입 완료 또는 실패 작업
-		return "index" ; 
+		mav.setViewName("redirect:/index");
+		return mav ; 
+	}
+	
+	@RequestMapping(value="/idDupChk", method=RequestMethod.POST)
+	public String linkDupCheck(@RequestParam("id") String id) throws Exception {
+		System.out.println(userDAO.idDupCheck(id));
+		if(userDAO.idDupCheck(id)==0) return "success";
+		else return "fail";
 	}
 }

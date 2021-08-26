@@ -22,7 +22,6 @@ header{
 	box-shadow: 2px 2px 0px 1px grey; */
 }
 .header_logo{
-	width: 100px;
 	background-image: url("../assets/logo2.png");
     background-size: cover;
 }
