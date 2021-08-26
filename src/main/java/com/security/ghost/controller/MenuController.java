@@ -1,5 +1,6 @@
 package com.security.ghost.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +72,14 @@ public class MenuController {
 		
 		// TODO : link, name 중복체크
 		
-		groupDAO.createGroup(groupDTO);
+		int group_id = groupDAO.createGroup(groupDTO);
+		
+		HashMap<String ,Integer > joinInfo = new HashMap<String, Integer>();
+		
+		joinInfo.put("user_id", user_id);
+		joinInfo.put("group_id", group_id);
+		joinInfo.put("auth", 0);
+		groupDAO.createJoin(joinInfo);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/groupList");

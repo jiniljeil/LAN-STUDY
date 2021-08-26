@@ -3,7 +3,15 @@
 <mapper namespace="GroupMapper"> 
 	
 	<insert id="createGroup" parameterType="GroupDTO">
-		INSERT INTO `group`(name, link, detail) VALUES(#{name}, #{link}, #{detail}); 
+		INSERT INTO `group`(name, link, detail, manager_id) VALUES(#{name}, #{link}, #{detail}, #{managerId}; 
+		<selectKey keyProperty="id" resultType="Integer">
+        	SELECT LAST_INSERT_ID()
+   		</selectKey> 
+	</insert>
+	
+	<insert id="createJoin" parameterType="GroupDTO">
+		INSERT INTO `join`(user_id, group_id, auth) VALUES(#{user_id}, #{group_id}, #{auth});
+
 	</insert>
 	
 	<select id="groupListbyUserId" parameterType="int" resultType="GroupDTO">

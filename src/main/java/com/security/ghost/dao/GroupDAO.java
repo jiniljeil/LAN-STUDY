@@ -1,5 +1,6 @@
 package com.security.ghost.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,9 +18,9 @@ public class GroupDAO {
 		return sqlSession.insert("GroupMapper.createGroup", groupDTO);
 	}
 	
-	//public int createJoin() {
-	//	return sqlSession.insert("GroupMapper.createGroup", groupDTO);
-	//}
+	public void createJoin(HashMap<String ,Integer > joinInfo) {
+		sqlSession.insert("GroupMapper.createJoin", joinInfo);
+	}
 	
 	public List<GroupDTO> groupList(int user_id){
 		return sqlSession.selectList("GroupMapper.groupListbyUserId", user_id);
