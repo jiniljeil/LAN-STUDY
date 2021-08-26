@@ -12,7 +12,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
 		registry.addInterceptor(new LogInterceptor())
 		.excludePathPatterns("/css/**", "/fonts/** d", "/plugin/**", "/scripts/**");
 		registry.addInterceptor(new LoginInterceptor())
-		.excludePathPatterns("/resources/css/**", "/resources/assets/**", "/resources/js/**", "/error/**", "/", "/join", "/login");
+		.excludePathPatterns("/resources/css/**", "/resources/assets/**", "/resources/js/**", "/error/**", "/", "/join", "/login", "/logout");
 		
 	}
 
