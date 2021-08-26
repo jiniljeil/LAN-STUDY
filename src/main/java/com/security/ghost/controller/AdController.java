@@ -58,7 +58,7 @@ public class AdController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/homePage", method=RequestMethod.GET) 
+	@RequestMapping(value="/homePage", method=RequestMethod.POST) 
 	public String AdStudy(HttpServletRequest request, Model model) {
 	     
 		// session으로 사용자의 정보를 가지고 가지고 있지 않는 group 들을 뿌려준다.

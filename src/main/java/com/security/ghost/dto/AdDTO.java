@@ -1,12 +1,12 @@
 package com.security.ghost.dto;
 
 public class AdDTO {
-	int id ; 
+	private int id ; 
 	
-	int group_id ; 
-	int user_id ; 
-	String title; 
-	String content;
+	private int group_id ; 
+	private int user_id ; 
+	private String title; 
+	private String content;
 	
 	public int getId() {
 		return id;
