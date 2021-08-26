@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.security.ghost.SecurityUtil;
@@ -21,7 +21,7 @@ import com.security.ghost.dto.BoardDTO;
 import com.security.ghost.dto.GroupDTO;
 import com.security.ghost.dto.UserDTO;
 
-@Controller
+@RestController
 public class AdController {
 	
 	@Autowired
@@ -76,27 +76,30 @@ public class AdController {
 	}
 	
 	@RequestMapping(value="/homePage") 
-	public String AdStudy(HttpServletRequest request, Model model) {
-	     
+	public ModelAndView AdStudy(HttpServletRequest request, Model model) {
+		ModelAndView mav = new ModelAndView(); 
+		
 		// session으로 사용자의 정보를 가지고 가지고 있지 않는 group 들을 뿌려준다.
 		List<BoardDTO> adList = adDAO.getAdList();
 		model.addAttribute("AdList", adList);
-	      
-		return "AdStudy";
+	    
+		mav.setViewName("AdStudy");
+		return mav;
 	}
 	
 	@RequestMapping(value="/ajaxGetGroup",method=RequestMethod.POST) 
-	public void ajaxGetGroup(HttpServletRequest request, Model model) {
+	public GroupDTO ajaxGetGroup(HttpServletRequest request, Model model) {
 		ModelAndView mav = new ModelAndView(); 
 	
 		String group_id = request.getParameter("group_id");
 		int g_id = Integer.parseInt(group_id);
-		
+		System.out.println("g_id : "+ g_id);
 		GroupDTO groupDTO = new GroupDTO();
 		groupDTO = groupDAO.getGroupById(g_id);
 		
+		System.out.println("g_name : "+ groupDTO.getName());
 		model.addAttribute("group", groupDTO);
 		
-		return ;
+		return groupDTO;
 	}
 }
