@@ -67,9 +67,10 @@
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/views/header.jsp" />
+		
 		<div class="menu_container">
 			<div class="menu_row">
-				<a href="./group">
+				<a href="./groupList">
 				<div class="menu" id="m1">
 					내 스터디<br>
 					<i class="fas fa-chalkboard-teacher"></i>

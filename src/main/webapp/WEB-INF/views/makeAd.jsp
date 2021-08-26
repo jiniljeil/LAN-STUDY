@@ -28,24 +28,14 @@
 			    Featured
 			 </div>
 			 <div class="card-body">
-			 	<form action="uploadOk", method="POST">
+			 	<form action="./upload", method="POST">
 					<h4>제목</h4>
 		    		<input type="text" name="title" placeholder="제목을 입력하세요."/>
-		    		
-		    		<h4>게시글 종류</h4>
-		    		<input type="radio" id="notice" name="type" value="notice"/>
-		    		<label for="notice">공지</label>
-		    		<input type="radio" id="notice" name="type" value="notes"/>
-		    		<label for="notice">정리</label>
-		    		<input type="radio" id="notice" name="type" value="question"/>
-		    		<label for="notice">질문</label>
-		    		<input type="radio" id="notice" name="type" value="assignment"/>
-		    		<label for="notice">과제</label>
 		    		
 			   		<!-- 방법 찾기 -->
 			   		
 			   		<h4>내용</h4>
-			   		<textarea rows="30%" cols="60%" name="content" placeholder="내용을 입력하세요.">
+			   		<textarea rows="10%" cols="70%" name="content" placeholder="내용을 입력하세요.">
 			   		</textarea>
 			   		<button>작성완료</button>
 		   		</form>

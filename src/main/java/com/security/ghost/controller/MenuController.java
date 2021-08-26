@@ -1,5 +1,8 @@
 package com.security.ghost.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +42,14 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/groupList")
-	public String groupList() {
-		return "groupList"; 
+	public ModelAndView groupList(Model model) {
+		ModelAndView mav = new ModelAndView();
+		int user_id = 6; //나중에 세션에서 받아오기 session
+		List<GroupDTO> group_list = groupDAO.groupList(user_id);
+		model.addAttribute("groupList", group_list);
+		model.addAttribute("groupCnt", group_list.size());
+		mav.setViewName("groupList");
+		return mav; 
 	}
 	
 	@RequestMapping(value="/AdStudy")
@@ -61,6 +70,7 @@ public class MenuController {
 	public ModelAndView makeGroupOk(HttpServletRequest request, Model model) {
 		String name = request.getParameter("name");
 		String detail = request.getParameter("detail");
+		int user_id = 6; //나중에 세션에서 받아오기 session
 		
 		// (26+26+10)^10
 		String link = StringUtil.randomAlphanumericStringGenerator(10);
@@ -69,10 +79,19 @@ public class MenuController {
 		groupDTO.setName(name);
 		groupDTO.setLink(link);
 		groupDTO.setDetail(detail);
+		groupDTO.setManagerId(user_id);
 		
 		// TODO : link, name 중복체크
 		
 		groupDAO.createGroup(groupDTO);
+		
+		
+		HashMap<String ,Integer > joinInfo = new HashMap<String, Integer>();
+		int group_id = groupDAO.getGroupId(link);
+		joinInfo.put("user_id", user_id);
+		joinInfo.put("group_id", group_id);
+		joinInfo.put("auth", 0);
+		groupDAO.createJoin(joinInfo);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/groupList");
