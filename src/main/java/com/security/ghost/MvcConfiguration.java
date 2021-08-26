@@ -13,6 +13,11 @@ public class MvcConfiguration implements WebMvcConfigurer {
 		.excludePathPatterns("/css/**", "/fonts/** d", "/plugin/**", "/scripts/**");
 		registry.addInterceptor(new LoginInterceptor())
 		.excludePathPatterns("/resources/css/**", "/resources/assets/**", "/resources/js/**", "/error/**", "/", "/join", "/login");
+		registry.addInterceptor(new GroupInterceptor())
+		.addPathPatterns("/board/**");
+		registry.addInterceptor(new GroupInterceptor())
+		.addPathPatterns("/board/**/manage/**");
+		
 	}
 
 }

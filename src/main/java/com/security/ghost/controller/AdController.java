@@ -35,6 +35,8 @@ public class AdController {
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST) 
 	public ModelAndView AdOk(HttpServletRequest request, HttpSession session) {
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		ModelAndView mav = new ModelAndView(); 
 		String title = request.getParameter("title"); 
 		String content = request.getParameter("content"); 
@@ -76,8 +78,10 @@ public class AdController {
 	}
 	
 	@RequestMapping(value="/homePage") 
-	public ModelAndView AdStudy(HttpServletRequest request, Model model) {
+	public ModelAndView AdStudy(HttpServletRequest request, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView(); 
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		
 		// session으로 사용자의 정보를 가지고 가지고 있지 않는 group 들을 뿌려준다.
 		List<BoardDTO> adList = adDAO.getAdList();
@@ -88,9 +92,10 @@ public class AdController {
 	}
 	
 	@RequestMapping(value="/ajaxGetGroup",method=RequestMethod.POST) 
-	public GroupDTO ajaxGetGroup(HttpServletRequest request, Model model) {
+	public GroupDTO ajaxGetGroup(HttpServletRequest request, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView(); 
-	
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		String group_id = request.getParameter("group_id");
 		int g_id = Integer.parseInt(group_id);
 		System.out.println("g_id : "+ g_id);

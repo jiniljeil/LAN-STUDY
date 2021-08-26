@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.security.ghost.SecurityUtil;
 import com.security.ghost.dao.BoardDAO;
 import com.security.ghost.dao.GroupDAO;
+import com.security.ghost.dao.UserDAO;
 import com.security.ghost.dto.BoardDTO;
 import com.security.ghost.dto.CommentDTO;
+import com.security.ghost.dto.GroupUserDTO;
 
 @RestController 
 public class BoardController {
@@ -29,6 +31,9 @@ public class BoardController {
 	
 	@Autowired
 	GroupDAO groupDAO;
+	
+	@Autowired
+	UserDAO userDAO;
 	
 	@RequestMapping(value="/board/{link}") 
 	public ModelAndView getGroup(@PathVariable("link") String link, Model model, HttpSession session) {
@@ -142,6 +147,20 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping(value="/board/{link}/manage/user", method=RequestMethod.GET)
+	public ModelAndView manageUser(@PathVariable("link") String link, Model model) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		int group_id = groupDAO.getGroupId(link);
+		List<GroupUserDTO> user_list = userDAO.groupUserList(group_id);
+		
+		model.addAttribute("userList", user_list);
+		model.addAttribute("userCnt", user_list.size());
+		mav.setViewName("userManage");
+		
+		return mav;
+	}
 	
 //	@RequestMapping(value="/boardList", method=RequestMethod.POST)
 //	public ViewAndModel boardList(HttpServletRequest request, Model model) {

@@ -32,7 +32,8 @@ public class LoginController {
 	public ModelAndView loginOk(HttpServletRequest request, Model model, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
-		System.out.println("[sesseion]로그인 전 "+session.getAttribute("id"));
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
 		if (userid != null && userpw != null) {
