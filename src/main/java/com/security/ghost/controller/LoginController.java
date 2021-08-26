@@ -35,7 +35,7 @@ public class LoginController {
 		session.removeAttribute("user");
 		session.removeAttribute("manager");
 		String userid = request.getParameter("userID"); 
-		String userpw = request.getParameter("userPW"); 
+		String userpw = request.getParameter("userPW");
 		if (userid != null && userpw != null) {
 			if(userDAO.idDupCheck(userid)==0) {
 				mav.setViewName("redirect:/error/loginError");

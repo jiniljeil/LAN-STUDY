@@ -57,3 +57,14 @@
         	background: #a1c48f;
         	color: white;
         }
+        #adContainer:hover {
+        	width:30%;
+        	margin: 20px 30px;
+        	transition-duration: 0.5s;
+        }
+        #adContainer:hover > .img {
+        	display:none;
+        }
+        #adContainer:hover > .content {
+        	height:170px;
+        }

@@ -39,15 +39,16 @@
     <jsp:include page="/WEB-INF/views/header.jsp" />
     <div style="height:100px"><br></div>
     <div class="row my-5 ">
+	    <form action="homePage" method="GET">
 	    <div class="input-group justify-content-md-center" style="padding: 0px 100px;">
 			<div class="form-outline">
-		  		<input style="background: white;" type="search" id="form1" class=" auto form-control" />
-			    <label class="form-label" for="form1" style="color: #a1c48f;"> 검색</label>
+		  		<input style="background: white;" name="keyword" type="search" id="form1" class=" auto form-control" value="${keyword}"/>
 			</div>
-		  	<button style="background: #a1c48f;" type="button" class="btn btn-primary">
+		  	<button style="background: #a1c48f;" type="submit" class="btn btn-primary">
 		    	<i class="fas fa-search"></i>
 			</button>
 		</div>
+		</form>
 		<button type="button" class="btn btn-primary btn1" data-toggle="modal" data-target="#makeAddModal" style="background: #a1c48f; width: 50px; margin-top: 30px; position: absolute; top: 100; right: 50; font-size: 20px;" data-whatever="@mdo">+</button>
 	</div>
 	
@@ -112,7 +113,7 @@
 
     
     <c:forEach items="${AdList}" var="u">
-    <div id="adContainer" >
+    <div id="adContainer"  onmouseover="this.style.fontWeight:'bold'" >
     	<div class="img">
     	
     	</div>
@@ -151,6 +152,12 @@
 </html>
 
 <script>
+
+function bigImg(x) {
+	  x.style.height = "64px";
+	  x.style.width = "64px";
+	}
+	
 $('#myModal').on('shown.bs.modal', function () {
 	  $('#myInput').trigger('focus')
 	});

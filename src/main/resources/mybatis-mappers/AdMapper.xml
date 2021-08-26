@@ -8,4 +8,13 @@
 	<insert id="uploadAd" parameterType="AdDTO"> 
 		insert into ad(user_id, group_id, title, content) values (#{user_id}, #{group_id}, #{title}, #{content})
 	</insert>
+	
+	<select id="searchAd" resultType="AdDTO" parameterType="String" >
+		SELECT A.* FROM ad AS A
+	    	INNER JOIN `group` AS G ON A.group_id=G.id
+	        WHERE A.title LIKE #{keyword} OR
+	              A.content LIKE #{keyword} OR
+	              G.name LIKE #{keyword} OR
+	              G.detail LIKE #{keyword};
+   	</select>
 </mapper>
