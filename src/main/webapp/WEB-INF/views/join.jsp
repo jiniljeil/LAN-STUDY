@@ -82,10 +82,6 @@
 	<script> 
 		var dup_check = false;
 		$( document ).ready(function() {
-			$("#b2").click(function(){
-				alert("hello");
-			});
-			
 		    $("#b1").click(function(){
 		    	var whole_addr = $(location).attr('href');
 		        var addr_slice = whole_addr.split('/');

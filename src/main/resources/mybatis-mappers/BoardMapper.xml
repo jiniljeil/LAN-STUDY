@@ -4,7 +4,7 @@
 	
 	
 	<insert id="createPost" parameterType="BoardDTO">
-		INSERT INTO board(type, title, content) VALUES(#{type}, #{title}, #{content})
+		INSERT INTO board(user_id, group_id, type, title, content) VALUES(#{user_id}, #{group_id}, #{type}, #{title}, #{content})
 	</insert>
 	
 	<select id="getGroupId" resultType="int" parameterType="String">
