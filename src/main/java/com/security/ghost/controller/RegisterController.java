@@ -111,7 +111,7 @@ public class RegisterController {
 		}
 		
 		// 회원 가입 완료
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:/join/confirm");
 		return mav ;
 	}
 		

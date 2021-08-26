@@ -68,5 +68,11 @@ public class UserDAO {
 		if(auth==0 || auth==1) return "true";
 		return "false";
 	}
+	public void deleteUser(int user_id) {
+		sqlSession.delete("UserMapper.deleteUser", user_id);
+	}
+	public String getUserName(int user_id) {
+		return sqlSession.selectOne("UserMapper.getUserName", user_id);
+	}
 
 }

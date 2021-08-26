@@ -48,4 +48,12 @@
 	<select id="chkManager" resultType="int">
 		select auth from `join` where user_id=#{user_id} AND group_id=#{group_id};
 	</select>
+	
+	<delete id="deleteUser">
+		delete from `user` where id = #{user_id};
+	</delete>
+	
+	<select id="getUserName" resultType="String">
+		select name from `user` where id = #{user_id};
+	</select>
 </mapper>

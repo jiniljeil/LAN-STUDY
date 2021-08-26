@@ -43,8 +43,8 @@
 	<div id="makeGroupBox">
 	<h2><span class="point">스터디</span>를 만들어보세요 :)</h2>
 	<form action="makeGroupOk" method="post">
-		<input type="text" name="name" placeholder="스터디의 이름을 적어주세요"><br>
-		<textarea name="detail" placeholder ="스터디 설명을 적어주세요"></textarea><br>
+		<input type="text" name="name" placeholder="스터디의 이름을 적어주세요" required><br>
+		<textarea name="detail" placeholder ="스터디 설명을 적어주세요" required></textarea><br>
 		<button> 작성완료</button>
 		
 	</form>

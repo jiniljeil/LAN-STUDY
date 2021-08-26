@@ -108,7 +108,7 @@
 	     		</div>
 	     	</div>
 	     </c:forEach>
-	     <c:set var="cnt" value="${groupCnt }" />
+	     <c:set var="cnt" value="${groupCnt}" />
 			  <c:if test="${groupCnt == 0}">
               <h4 style="color: #444;">현재 가입된 스터디 그룹이 없어요ㅠㅠ<br><br>그룹에 가입하거나 그룹을 만들어보세요:)</h4>
               <button id="i2" onclick="window.location.href='/homePage'">그룹 찾기</button>

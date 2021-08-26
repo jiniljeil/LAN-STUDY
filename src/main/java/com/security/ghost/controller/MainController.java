@@ -52,6 +52,23 @@ public class MainController {
 		return "menu";
 	}
 	
+	@RequestMapping(value="/deleteUser")
+	public ModelAndView deleteUser(HttpSession session, Model model) {
+		ModelAndView mav = new ModelAndView();
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		String name = userDAO.getUserName(user_id);
+		model.addAttribute("name", name);
+		mav.setViewName("deleteUser");
+		return mav;
+	}
+	
+	@RequestMapping(value="/join/confirm")
+	public ModelAndView accessError(HttpSession session, Model model) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("joinConfirm");
+		return mav;
+	}
+	
 	
 	@RequestMapping(value="/myPage")
 	public  ModelAndView myPage(Model model, HttpSession session) {
