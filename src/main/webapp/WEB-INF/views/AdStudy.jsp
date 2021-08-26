@@ -57,27 +57,33 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">스터디 모집</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="./upload" method="POST">
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <label for="recipient-name" class="col-form-label" >제목</label>
+            <input type="text" class="form-control" id="recipient-name" name="title" >
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <label for="message-text" class="col-form-label">홍보글</label>
+            <textarea class="form-control" id="message-text" name="content" placeholder="우리 같이 공부해요~"></textarea>
           </div>
+          <select name="group">
+          	<!-- 서버에서 데이터 받아오고 사용자의 authority 체크하고 admin 인 게시물만 보이게-->
+          	<option value="firstGroup">1번 그룹 </option>
+          	<option value="firstGroup">2번 그룹 </option>
+          </select>
+          <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="submit" class="btn btn-primary"> 만들기</button>
+	      </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -85,7 +91,7 @@
 
     
     <c:forEach items="${AdList}" var="u"  >
-    <div id="adContainer">
+    <div id="adContainer" >
     	<div class="img">
     	
     	</div>

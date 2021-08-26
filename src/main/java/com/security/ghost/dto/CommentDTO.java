@@ -1,12 +1,12 @@
 package com.security.ghost.dto;
 
 public class CommentDTO {
-	int id ; 
+	private int id ; 
 	
-	int user_id ;
-	int board_id ; 
-	int type ; 
-	String content ;
+	private int user_id ;
+	private int board_id ; 
+	private int type ; 
+	private String content ;
 	
 	public int getId() {
 		return id;

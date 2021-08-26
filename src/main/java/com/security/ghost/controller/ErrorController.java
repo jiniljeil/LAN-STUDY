@@ -32,4 +32,18 @@ public class ErrorController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/error/sqlError")
+	public ModelAndView sqlError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/sqlError");
+		return mav;
+	}
+	
+	@RequestMapping(value="/error/uploadError")
+	public ModelAndView uploadError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/uploadError");
+		return mav;
+	}
+	
 }
