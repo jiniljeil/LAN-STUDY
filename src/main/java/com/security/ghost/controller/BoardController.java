@@ -141,7 +141,32 @@ public class BoardController {
 		return mav; 
 	}
 	
-	
+	@RequestMapping(value="/board/{link}/commentWrite", method=RequestMethod.POST) 
+	public CommentDTO uploadComment(@PathVariable("link") String link, @RequestParam("comment") String comment, @RequestParam("id") String board_id, HttpSession session) {
+		CommentDTO commentDTO = null; 
+		if (comment != null) {
+			comment = SecurityUtil.HTML_Filter(comment); 
+			commentDTO = new CommentDTO(); 
+			String s = session.getAttribute("id").toString() ;
+			if ( s != null ) {
+				commentDTO.setUser_id(Integer.parseInt(s)); 
+			}else {
+				// TODO 에러 페이지 
+			}
+			
+			if (board_id != null) {
+				commentDTO.setBoard_id(Integer.parseInt(board_id));
+			}else {
+				// TODO 에러 페이지 
+			}
+			commentDTO.setContent(comment);
+			
+			boardDAO.createComment(commentDTO);
+			
+//			commentDTO.setUserName(boardDAO.getUserName(Integer.parseInt(s)));
+		}
+		return commentDTO; 
+	}
 	
 //	@RequestMapping(value="/boardList", method=RequestMethod.POST)
 //	public ViewAndModel boardList(HttpServletRequest request, Model model) {
