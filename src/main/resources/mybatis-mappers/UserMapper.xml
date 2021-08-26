@@ -36,4 +36,8 @@
 	<select id="groupUserList" parameterType="int" resultType="GroupUserDTO">
 		select `name`, `email`, join_time as date, auth from `user` inner join `join` on `user`.id = `join`.user_id where group_id = #{group_id};
 	</select>
+	
+	<select id="getUserInfo" resultType="UserDTO">
+		select id, name, user_id, email,phone  from `user` where id = #{user_id};
+	</select>
 </mapper>
