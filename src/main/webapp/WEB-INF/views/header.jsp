@@ -3,6 +3,7 @@
 <html>
 	<head>
 		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
 		<style>
 		</style>
@@ -19,6 +20,11 @@
 			<a href="./mypage">
 			<div class="header_nav">
 				<span class="header_innav">마이페이지</span>
+			</div>
+			</a>
+			<a href="./menu">
+			<div class="header_nav">
+				<span class="header_innav">메인 메뉴</span>
 			</div>
 			</a>
 		</header>

@@ -58,7 +58,7 @@
      		나의 <span class="point">스터디 그룹 </span><i class="far fa-smile-wink"></i>
      	</h1>
      	
-	     	<div class="group" onclick="location.href='<%=request.getContextPath()%>/;">
+	     	<div class="group" onclick="location.href='<%=request.getContextPath()%>./board/1234';">
 	     		<div class="header">
 	     			<div class="row title">
 	     				스터디 그룹 이름
