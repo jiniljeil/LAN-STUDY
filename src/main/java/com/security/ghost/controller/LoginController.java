@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView loginOk(HttpServletRequest request, Model model, HttpSession session) {
+		
 		ModelAndView mav = new ModelAndView();
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
@@ -45,13 +48,6 @@ public class LoginController {
 				session.setAttribute("LOGIN_USER", userDTO); 
 				model.addAttribute("u", userDTO);
 				session.setAttribute("id", userDTO.getId());
-//				지금 이거 때문에 로그인안됨
-//				String pToken = request.getParameter("param_csrf_token"); 
-//				String sToken = (String)session.getAttribute("SESSION_CSRF_TOKEN"); 
-//				if (pToken != null && pToken.equals(sToken)) {
-//					mav.setViewName("redirect:/menu");
-//					return mav;
-//				} 
 				mav.setViewName("redirect:/menu");
 				return mav;
 			} 

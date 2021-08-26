@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.security.ghost.SecurityUtil;
 import com.security.ghost.dao.BoardDAO;
+import com.security.ghost.dao.GroupDAO;
 import com.security.ghost.dto.BoardDTO;
 import com.security.ghost.dto.CommentDTO;
 
@@ -26,15 +27,17 @@ public class BoardController {
 	@Autowired 
 	BoardDAO boardDAO ; 
 	
+	@Autowired
+	GroupDAO groupDAO;
+	
 	@RequestMapping(value="/board/{link}") 
 	public ModelAndView getGroup(@PathVariable("link") String link, Model model, HttpSession session) {
 		
 		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
 		// 		link가 실존 하는지 체크, link에 대한 권한 체크
 		ModelAndView mav = new ModelAndView(); 
-		System.out.println(link); 
 		// TODO Session 을 통한 접근 제한 (CSRF)
-		int group_id = -1; 
+		int group_id = groupDAO.getGroupId(link); 
 		
 		if (link != null) {
 			group_id = boardDAO.getGroupID(link);
@@ -43,7 +46,7 @@ public class BoardController {
 		}
 		
 		// TODO 사용자가 그룹 아아디에 속하는지 체크 
-		
+		model.addAttribute("link", link);
 		if (true) {
 			List<BoardDTO> boardList = boardDAO.getBoardList(group_id); 
 			if (boardList != null) {
@@ -61,20 +64,19 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/{link}/comment")
 	public List<CommentDTO> getComment(@PathVariable("link") String link, @RequestParam("id") String id, Model model, HttpSession session) {
-		int board_id = -1; 
+		int board_id = -1;
 		
 		if (id != null) {
-			board_id = Integer.parseInt(id);  
+			board_id = Integer.parseInt(id); 
 
 			List<CommentDTO> commentList = boardDAO.getCommentList(board_id);
 			if (commentList != null) {
-				model.addAttribute("commentList", commentList);
+				//model.addAttribute("commentList", commentList);
 				return commentList ;
 			}
 		}
 //		에러 페이지로 이동
 //		mav.setViewName("redirect:/error/");
-		
 		return null; 
 	}
 	
@@ -85,7 +87,7 @@ public class BoardController {
 	}
 
 
-	@RequestMapping(value="/board/{link}/uploadOk", method=RequestMethod.GET) 
+	@RequestMapping(value="/board/{link}/uploadOk", method=RequestMethod.POST) 
 	public ModelAndView makePostOk(@PathVariable("link") String link, HttpServletRequest request, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
@@ -112,7 +114,8 @@ public class BoardController {
 			// Error handling
 		}
 		
-		
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		int group_id = groupDAO.getGroupId(link);
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
@@ -121,8 +124,8 @@ public class BoardController {
 			content = SecurityUtil.HTML_Filter(content); 
 			
 			BoardDTO boardDTO = new BoardDTO();
-			boardDTO.setUser_id(4);
-			boardDTO.setGroup_id(1);
+			boardDTO.setUser_id(user_id);
+			boardDTO.setGroup_id(group_id);
 			boardDTO.setType(type);
 			boardDTO.setTitle(title);
 			boardDTO.setContent(content);
