@@ -120,13 +120,14 @@
 				        <h5 class="modal-title" id="exampleModalLongTitle">댓글 리스트</h5>
 				      </div>
 				      <div class="modal-body">
+				      <div id="commentList"></div>
 					    <div class="form-group">
 					      <h5 id="modal_title"></h5>
 					      <label id="modal_content"></label>
 					      <textarea class="form-control inputComment"></textarea>
 					    </div>
 				      
-				      	<div id="commentList"></div>
+				      	
 					    <input type="hidden" class="modal_id" value=""/>
 				      </div>
 				      <div class="modal-footer">
@@ -166,7 +167,7 @@
 				var textarea = $('.inputComment').val(); 
 				var comments =[]; 
 				var b_id = $('.modal_id').val(); 
-				alert("/board/"+addr_slice[addr_slice.length -1] + "/commentWrite") ; 
+				//alert("/board/"+addr_slice[addr_slice.length -1] + "/commentWrite") ; 
 				
 				$.ajax({
 					type: "post", 
@@ -178,15 +179,18 @@
 					dataType: "json", 
 					success: function(data) {
 						if ( data == null) { 
-							alert("댓글이 업로드 되지 않았습니다."); 
+							//alert("댓글이 업로드 되지 않았습니다."); 
 						}else{
-							alert("댓글이 업로드 되었습니다.");
+							//alert("댓글이 업로드 되었습니다.");
 							
 							comments.push({
 								content: data.content, 
 								userName: data.userName, 
 							});	
-							$("#commentList").append("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[0].content+"</div><div class='row2 c_writer'><i class=\"fas fa-use */ */r-edit\"></i>"+comments[0].userName+"</div></div>");
+							$(".inputComment").html("");
+							$(".inputComment").val("");
+							$("#commentList").prepend("<div class='comment new'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i>"+comments[0].content+"</div><div class='row2' style='color: red; margin-left: 15px; font-weight: bold;'> NEW 댓글!</div></div>");
+							
 							
 						}
 					}, error : function(request, status, error) {
@@ -223,7 +227,7 @@
 								time: data[i].time, 
 								userName: data[i].userName,
 							});
-							$("#commentList").append("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[i].content+"</div><div class='row2 c_writer'><i class=\"fas fa-user-edit\"></i>"+comments[i].userName+"</div><div class='row2 c_time'>"+comments[i].time+"</div></div>");
+							$("#commentList").prepend("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[i].content+"</div><div class='row2 c_writer'><i class=\"fas fa-user-edit\"></i>"+comments[i].userName+"</div><div class='row2 c_time'>"+comments[i].time+"</div></div>");
 							$("#modal_title").val(comments[i].title); 
 							$("#modal_content").val(comments[i].content); 
 							//alert("~~~"+comments[0].content);

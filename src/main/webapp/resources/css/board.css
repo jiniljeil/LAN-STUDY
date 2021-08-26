@@ -157,8 +157,22 @@
     	}
     	#commentList{
     		height: auto;
-    		max-height: 300px;
+    		max-height: 250px;
     		overflow: scroll;
+    		background: #aaa;
+    		border-radius: 15px;
+    	}
+    	#commentList .new{
+    		background: white;
+    		height: 60px;
+    	}
+    	.inputComment{
+    		border-radius: 15px;
+    		background: #eee;
+    		border: 3px #666 dashed;
+    	}
+    	.inputComment:focus{
+    		background: #eee;
     	}
     	.comment{
     		text-align: left;
