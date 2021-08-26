@@ -25,38 +25,38 @@ public class BoardController {
 	BoardDAO boardDAO ; 
 
 
-	@RequestMapping(value="/board/{link}", method=RequestMethod.GET) 
-	public String groupPage(@PathVariable("link") String link, Model model) {
-		
-		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
-		// 		link가 실존 하는지 체크, link에 대한 권한 체크
-		ModelAndView mav = new ModelAndView(); 
-		
-		// TODO Session 을 통한 접근 제한 (CSRF)
-		
-		int group_id = boardDAO.getGroupID(link);
-		
-		// TODO 사용자가 그룹 아아디에 속하는지 체크 
-		
-		if (true) {
-			List<BoardDTO> boardList = boardDAO.getBoardList(group_id); 
-//			List<CommentDTO> commentList = boardDAO.getCommentList(board_id);
-			if (boardList != null) {
-				model.addAttribute("boardList", boardList); 
-				mav.setViewName("board"); 
-			}
-			if (commentList != null) {
-				model.addAttribute("commentList", commentList);
-				mav.setViewName("board"); 
-			}else {
-				// TODO 에러 페이지로 
-			}
-		}else {
-			// 권한이 없으면 에러 페이지로 
-//			TODO mav.setViewName("redirect:error"); 
-		}
-		return mav; 
-	}
+//	@RequestMapping(value="/board/{link}", method=RequestMethod.GET) 
+//	public String groupPage(@PathVariable("link") String link, Model model) {
+//		
+//		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
+//		// 		link가 실존 하는지 체크, link에 대한 권한 체크
+//		ModelAndView mav = new ModelAndView(); 
+//		
+//		// TODO Session 을 통한 접근 제한 (CSRF)
+//		
+//		int group_id = boardDAO.getGroupID(link);
+//		
+//		// TODO 사용자가 그룹 아아디에 속하는지 체크 
+//		
+//		if (true) {
+//			List<BoardDTO> boardList = boardDAO.getBoardList(group_id); 
+////			List<CommentDTO> commentList = boardDAO.getCommentList(board_id);
+//			if (boardList != null) {
+//				model.addAttribute("boardList", boardList); 
+//				mav.setViewName("board"); 
+//			}
+//			if (commentList != null) {
+//				model.addAttribute("commentList", commentList);
+//				mav.setViewName("board"); 
+//			}else {
+//				// TODO 에러 페이지로 
+//			}
+//		}else {
+//			// 권한이 없으면 에러 페이지로 
+////			TODO mav.setViewName("redirect:error"); 
+//		}
+//		return mav; 
+//	}
 	
 	
 	// Test를 위해 임시로 controller 만듬. makePost 를 위한 controller 필요

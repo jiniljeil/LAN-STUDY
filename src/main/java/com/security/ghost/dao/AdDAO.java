@@ -18,8 +18,8 @@ public class AdDAO {
 		return sqlSession.selectList("AdMapper.getAdList"); 
 	}
 	
-	public void uploadAd(AdDTO AdDTO) {
-		sqlSession.insert("AdMapper.uploadAd", AdDTO); 
+	public int uploadAd(AdDTO AdDTO) {
+		return sqlSession.insert("AdMapper.uploadAd", AdDTO); 
 	} 
 	
 }

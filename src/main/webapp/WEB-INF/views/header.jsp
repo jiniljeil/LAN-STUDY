@@ -17,7 +17,7 @@
 				<span class="header_innav">로그아웃</span>
 			</div>
 			</a>
-			<a href="./mypage">
+			<a href="./myPage">
 			<div class="header_nav">
 				<span class="header_innav">마이페이지</span>
 			</div>

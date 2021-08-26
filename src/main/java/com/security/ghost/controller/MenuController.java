@@ -44,7 +44,7 @@ public class MenuController {
 	@RequestMapping(value="/groupList")
 	public ModelAndView groupList(Model model) {
 		ModelAndView mav = new ModelAndView();
-		int user_id = 6; //나중에 세션에서 받아오기 session
+		int user_id = 1; //나중에 세션에서 받아오기 session
 		List<GroupDTO> group_list = groupDAO.groupList(user_id);
 		model.addAttribute("groupList", group_list);
 		model.addAttribute("groupCnt", group_list.size());
@@ -71,7 +71,7 @@ public class MenuController {
 		ModelAndView mav = new ModelAndView();
 		String name = request.getParameter("name");
 		String detail = request.getParameter("detail");
-		int user_id = 6; //나중에 세션에서 받아오기 session
+		int user_id = 1; //나중에 세션에서 받아오기 session
 		
 		// (26+26+10)^10
 		String link = StringUtil.randomAlphanumericStringGenerator(10);

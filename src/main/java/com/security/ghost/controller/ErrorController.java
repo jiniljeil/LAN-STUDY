@@ -39,4 +39,11 @@ public class ErrorController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/error/uploadError")
+	public ModelAndView uploadError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/uploadError");
+		return mav;
+	}
+	
 }
