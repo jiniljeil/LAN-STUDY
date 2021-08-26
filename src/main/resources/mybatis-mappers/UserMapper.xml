@@ -32,4 +32,8 @@
 	<select id="idDupCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) from user WHERE user_id=#{user_id};
 	</select>
+	
+	<select id="groupUserList" parameterType="int" resultType="GroupUserDTO">
+		select `name`, `email`, join_time as date, auth from `user` inner join `join` on `user`.id = `join`.user_id where group_id = #{group_id};
+	</select>
 </mapper>
