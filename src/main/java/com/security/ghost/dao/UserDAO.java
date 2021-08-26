@@ -31,16 +31,16 @@ public class UserDAO {
 		return sqlSession.selectOne("UserMapper.getSalt", userid); 
 	}
 	
-	public void joinUser(UserDTO userDTO) {
-		sqlSession.insert("UserMapper.joinUser", userDTO); 
+	public int joinUser(UserDTO userDTO) {
+		return sqlSession.insert("UserMapper.joinUser", userDTO); 
 	}
 	
 	public int getID(String userid) {
 		return sqlSession.selectOne("UserMapper.getID", userid); 
 	}
 	
-	public void storeSalt(SaltDTO saltDTO) {
-		sqlSession.insert("UserMapper.storeSalt",saltDTO); 
+	public int storeSalt(SaltDTO saltDTO) {
+		return sqlSession.insert("UserMapper.storeSalt",saltDTO); 
 	}
 	public int idDupCheck(String id) {
 		return sqlSession.selectOne("UserMapper.idDupCheck", id);

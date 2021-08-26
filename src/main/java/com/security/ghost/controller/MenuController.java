@@ -52,6 +52,18 @@ public class MenuController {
 		return mav; 
 	}
 	
+	@RequestMapping(value="/AdStudy")
+	public String adStudy() {
+		return "AdStudy";
+	}
+	
+	@RequestMapping(value="/join_study")
+	public ModelAndView join_study() {
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("redirect:/AdStudy");
+		return mav;
+	}
+	
 	
 	// study site 를 만드는 일을 함. 
 	@RequestMapping(value="/makeGroupOk", method=RequestMethod.POST)
@@ -60,9 +72,8 @@ public class MenuController {
 		String detail = request.getParameter("detail");
 		int user_id = 6; //나중에 세션에서 받아오기 session
 		
-		StringUtil rsg = new StringUtil();
 		// (26+26+10)^10
-		String link = rsg.randomAlphanumericStringGenerator(10);
+		String link = StringUtil.randomAlphanumericStringGenerator(10);
 		
 		GroupDTO groupDTO = new GroupDTO();
 		groupDTO.setName(name);

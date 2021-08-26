@@ -67,6 +67,7 @@
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/views/header.jsp" />
+		
 		<div class="menu_container">
 			<div class="menu_row">
 				<a href="./groupList">

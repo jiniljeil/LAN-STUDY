@@ -63,7 +63,6 @@ public class AdController {
 	     
 		// session으로 사용자의 정보를 가지고 가지고 있지 않는 group 들을 뿌려준다.
 		List<BoardDTO> adList = adDAO.getAdList();
-		
 		model.addAttribute("AdList", adList);
 	      
 		return "AdStudy";
