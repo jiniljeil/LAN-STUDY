@@ -49,8 +49,9 @@
 			<h4>이름</h4>
 			<input type="text" name="nickname" placeholder="이름을 입력해주세요." required/><br>
 			
-			<h4>비밀번호</h4>
+			<h4>비밀번호 </h4> 
 			<input type="password" onchange="checker()" id="password" name="userPW" placeholder="비밀번호를 입력해주세요." required/><br> 
+			(최소 11자리 이상, 문자, 숫자, 특수문자 모두 포함되어야 합니다)
 			<h4>비밀번호 확인 </h4>
 			<input type="password" onchange="checker()" id="cpassword" placeholder="비밀번호를 다시 입력해주세요." required/>
 			
@@ -87,7 +88,6 @@
 	<script> 
 		var dup_check = false;
 		$( document ).ready(function() {
-			
 		    $("#b1").click(function(){
 		    	var whole_addr = $(location).attr('href');
 		        var addr_slice = whole_addr.split('/');
