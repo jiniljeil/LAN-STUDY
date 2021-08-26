@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.security.ghost.dto.BoardDTO;
 import com.security.ghost.dto.GroupDTO;
 
 @Repository
@@ -22,6 +23,10 @@ public class GroupDAO {
 		return sqlSession.insert("GroupMapper.createJoin", joinInfo);
 	}
 	
+	public int checkJoinExist(HashMap<String, Integer> joinInfo) {
+		return sqlSession.selectOne("GroupMapper.checkJoinExist", joinInfo);
+	}
+	
 	public List<GroupDTO> groupList(int user_id){
 		return sqlSession.selectList("GroupMapper.groupListbyUserId", user_id);
 	}
@@ -31,5 +36,8 @@ public class GroupDAO {
 	}
 	public GroupDTO getGroupById (int id) {
 		return sqlSession.selectOne("GroupMapper.getGroupById", id);
+	}
+	public List<GroupDTO> getMyGroup(int id) {
+		return sqlSession.selectList("GroupMapper.getMyGroup", id); 
 	}
 }

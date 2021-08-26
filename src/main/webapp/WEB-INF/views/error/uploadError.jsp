@@ -4,6 +4,6 @@
 <script language = "javascript">
 
 	alert("업로드 실패");
-	document.location.href = "<%=request.getRequestURI()%>/";
+	document.location.href = "<%=request.getHeader("referer")%>/";
 
 </script>

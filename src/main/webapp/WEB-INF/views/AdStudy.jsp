@@ -47,10 +47,8 @@
 		  	<button style="background: #a1c48f;" type="button" class="btn btn-primary">
 		    	<i class="fas fa-search"></i>
 			</button>
-			
 		</div>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makeAddModal" style="background: #a1c48f; width: 50px; margin-top: 30px; position: absolute; top: 100; right: 50; font-size: 20px;" data-whatever="@mdo">+ </button>
-        </button>
+		<button type="button" class="btn btn-primary btn1" data-toggle="modal" data-target="#makeAddModal" style="background: #a1c48f; width: 50px; margin-top: 30px; position: absolute; top: 100; right: 50; font-size: 20px;" data-whatever="@mdo">+</button>
 	</div>
 	
 <div class="modal fade" id="makeAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -72,18 +70,15 @@
             <label for="message-text" class="col-form-label">홍보글</label>
             <textarea class="form-control" id="message-text" name="content" placeholder="우리 같이 공부해요~"></textarea>
           </div>
-          <select name="group">
-          	<!-- 서버에서 데이터 받아오고 사용자의 authority 체크하고 admin 인 게시물만 보이게-->
-          	<option value="firstGroup">1번 그룹 </option>
-          	<option value="firstGroup">2번 그룹 </option>
-          </select>
+          	<label for="groupSelection" class="col-form-label">그룹</label>
+	        <select name="g_id" id="groupSelection">
+	        </select>
           <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 	        <button type="submit" class="btn btn-primary"> 만들기</button>
 	      </div>
         </form>
       </div>
-      
     </div>
   </div>
 </div>
@@ -97,25 +92,26 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <h4>그룹명 : <span id="modal_title"></span></h4> 
-        <h5>설명 : <span id="modal_detail"></span></h5>
-        <div class="modal-footer">
-          <form action="#" method="POST">
-		    <div class="form-group">
-		      <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-		      <button type="submit" class="btn btn-primary"> 가입하기</button>
-		    </div>
-      	  </form>
+      <form action="joinGroup" method="POST" id="modal2">
+	    <input type="hidden" id="modal_hidden" name="group_id" value="6">
+	    <div class="modal-body">
+          <h4>그룹명 : <span id="modal_title"></span></h4> 
+          <h5>설명 : <span id="modal_detail"></span></h5>
+          <div class="modal-footer">
+	        <div class="form-group">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="submit" class="btn btn-primary"> 가입하기</button>
+	      	</div>
+	      </div>
 	    </div>
-      </div>
+	  </form>
     </div>
   </div>
 </div>
 
 
     
-    <c:forEach items="${AdList}" var="u"  >
+    <c:forEach items="${AdList}" var="u">
     <div id="adContainer" >
     	<div class="img">
     	
@@ -123,7 +119,7 @@
     	<div class="title">${u.title}</div>
     	<div class="content">${u.content}</div>
     	<input type="hidden" class="group_id" value="${u.group_id}"/>
-    	<button class="btn"  data-toggle="modal" data-target="#joinGroupModal">
+    	<button class="btn btn2" data-toggle="modal" data-target="#joinGroupModal">
     		자세히 보기
     	</button>
     </div>
@@ -159,8 +155,37 @@ $('#myModal').on('shown.bs.modal', function () {
 	  $('#myInput').trigger('focus')
 	});
 	
-$(".btn").click(function(){
+$(".btn1").click(function(){
+	
+	var $target = $("select[name='g_id']");
+	$target.empty();
+	
+	$.ajax({
+		type :"post",
+		url : "/ajaxGetMyGroups",
+		dataType: 'json',
+		success : function(data){
+			if(data == null){
+				$target.append("<option value=\"\">선택</option>")
+				alert("You have no group");
+			}
+			for(var i = 0; i < data.length; i++){
+				$target.append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+			} 
+			
+		}, error:function(request, status, error){
+			alert("Failed to load groups");
+		}
+	});
+});	
+	
+$(".btn2").click(function(){
 	var group_id = $(this).siblings(".group_id").val();
+	
+	$("#modal_hidden").val(group_id);
+	
+	$("#modal_title").html("");
+	$("#modal_detail").html("");
 	$.ajax({
 		type :"post",
 		url : "/ajaxGetGroup",
@@ -179,4 +204,10 @@ $(".btn").click(function(){
 		}
 	});
 });
+
+
+
+
+
+
 </script>

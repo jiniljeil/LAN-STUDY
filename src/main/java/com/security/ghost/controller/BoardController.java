@@ -34,7 +34,7 @@ public class BoardController {
 	public ModelAndView getGroup(@PathVariable("link") String link, Model model, HttpSession session) {
 		
 		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
-		// 		link가 실존 하는지 체크, link에 대한 권한 체크
+		// 		link가 실존 하는지 체크, lin/에 대한 권한 체크
 		ModelAndView mav = new ModelAndView(); 
 		// TODO Session 을 통한 접근 제한 (CSRF)
 		int group_id = groupDAO.getGroupId(link); 

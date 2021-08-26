@@ -4,6 +4,6 @@
 <script language = "javascript">
 
 	alert("SQL 쿼리문 에러");
-	document.location.href = "<%=request.getContextPath()%>/";
+	document.location.href = "<%=request.getHeader("referer")%>";
 
 </script>

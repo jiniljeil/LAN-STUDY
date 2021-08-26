@@ -14,7 +14,7 @@ public class AdDAO {
 	@Autowired
 	SqlSession sqlSession; 
 	
-	public List<BoardDTO> getAdList() {
+	public List<AdDTO> getAdList() {
 		return sqlSession.selectList("AdMapper.getAdList"); 
 	}
 	

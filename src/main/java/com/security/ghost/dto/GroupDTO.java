@@ -1,11 +1,20 @@
 package com.security.ghost.dto;
 
 public class GroupDTO {
+	private int id;
+	
 	private String name;
 	private String link;
 	private String detail;
 	private int managerId;
 	private String managerName;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public String getName() {
 		return name;

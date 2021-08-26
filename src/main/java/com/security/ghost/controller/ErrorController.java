@@ -46,4 +46,10 @@ public class ErrorController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/error/joinError")
+	public ModelAndView joinError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/joinError");
+		return mav;
+	}
 }
