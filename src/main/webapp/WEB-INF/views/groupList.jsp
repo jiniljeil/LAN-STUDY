@@ -93,8 +93,8 @@
      		나의 <span class="point">스터디 그룹 </span><i class="far fa-smile-wink"></i>
      	</h1>
      	
-     	<c:forEach items="${group_list}" var="u"  >
-	     	<div class="group" onclick="location.href='<%=request.getContextPath()%>./board/1234';">
+     	<c:forEach items="${groupList}" var="u"  >
+	     	<div class="group" onclick="location.href='<%=request.getContextPath()%>./board/${u.link}';">
 	     		<div class="header">
 	     			<div class="row title">
 	     				${u.name}

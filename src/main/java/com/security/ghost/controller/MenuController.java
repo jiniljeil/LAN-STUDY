@@ -72,10 +72,11 @@ public class MenuController {
 		
 		// TODO : link, name 중복체크
 		
-		int group_id = groupDAO.createGroup(groupDTO);
+		groupDAO.createGroup(groupDTO);
+		
 		
 		HashMap<String ,Integer > joinInfo = new HashMap<String, Integer>();
-		
+		int group_id = groupDAO.getGroupId(link);
 		joinInfo.put("user_id", user_id);
 		joinInfo.put("group_id", group_id);
 		joinInfo.put("auth", 0);

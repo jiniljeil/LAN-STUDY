@@ -3,11 +3,12 @@
 <mapper namespace="GroupMapper"> 
 	
 	<insert id="createGroup" parameterType="GroupDTO">
-		INSERT INTO `group`(name, link, detail, manager_id) VALUES(#{name}, #{link}, #{detail}, #{managerId}; 
-		<selectKey keyProperty="id" resultType="Integer">
-        	SELECT LAST_INSERT_ID()
-   		</selectKey> 
+		INSERT INTO `group`(name, link, detail, manager_id) VALUES(#{name}, #{link}, #{detail}, #{managerId}); 
 	</insert>
+	
+	<select id="getGroupId" resultType="int">
+		select id from `group` where link = #{link};
+	</select>
 	
 	<insert id="createJoin" parameterType="GroupDTO">
 		INSERT INTO `join`(user_id, group_id, auth) VALUES(#{user_id}, #{group_id}, #{auth});
@@ -15,7 +16,7 @@
 	</insert>
 	
 	<select id="groupListbyUserId" parameterType="int" resultType="GroupDTO">
-		select GM.id, GM.manager_id as managerId, GM.managerName, GM.`name`, GM.detail from  (select G.id, G.manager_id, U.`name` as managerName, G.name, G.link, G.detail from `group` AS G inner join `user` as U on G.manager_id = U.id) AS GM inner join `join` on GM.id = `join`.group_id where user_id=#{user_id};
+		select GM.id, GM.manager_id as managerId, GM.managerName, GM.`name`, GM.detail,GM.link from  (select G.id, G.manager_id, U.`name` as managerName, G.name, G.link, G.detail from `group` AS G inner join `user` as U on G.manager_id = U.id) AS GM inner join `join` on GM.id = `join`.group_id where user_id=#{user_id};
 	</select> 
 	
 
