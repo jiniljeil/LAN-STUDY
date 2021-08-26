@@ -4,7 +4,7 @@ public class GroupDTO {
 	private String name;
 	private String link;
 	private String detail;
-	
+	private int managerId;
 	
 	public String getName() {
 		return name;
@@ -23,5 +23,11 @@ public class GroupDTO {
 	}
 	public void setDetail(String detail) {
 		this.detail = new String(detail);
+	}
+	public int getManager() {
+		return managerId;
+	}
+	public void setManagerId(int managerId) {
+		this.managerId = managerId;
 	}
 }

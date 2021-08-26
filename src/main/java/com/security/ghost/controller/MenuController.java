@@ -1,5 +1,7 @@
 package com.security.ghost.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +41,14 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/groupList")
-	public String groupList() {
-		return "groupList"; 
+	public ModelAndView groupList() {
+		ModelAndView mav = new ModelAndView();
+		int user_id = 6; //나중에 세션에서 받아오기 session
+		//List<GroupDTO> category_list = groupDAO.groupList(user_id);
+		
+		
+		mav.setViewName("groupList");
+		return mav; 
 	}
 	
 	
@@ -49,6 +57,7 @@ public class MenuController {
 	public ModelAndView makeGroupOk(HttpServletRequest request, Model model) {
 		String name = request.getParameter("name");
 		String detail = request.getParameter("detail");
+		int user_id = 6; //나중에 세션에서 받아오기 session
 		
 		StringUtil rsg = new StringUtil();
 		// (26+26+10)^10
@@ -58,6 +67,7 @@ public class MenuController {
 		groupDTO.setName(name);
 		groupDTO.setLink(link);
 		groupDTO.setDetail(detail);
+		groupDTO.setManagerId(user_id);
 		
 		// TODO : link, name 중복체크
 		
