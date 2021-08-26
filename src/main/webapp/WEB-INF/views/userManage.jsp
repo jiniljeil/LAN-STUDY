@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <style>
 	    #groupUserList{
-	    		width: 70vw;
+	    		width: 80vw;
 	    		margin: auto;
 	    	}
     	#groupUserList h1{
@@ -38,22 +38,22 @@
 		 	padding: 10px 1px 10px 1px;
 		 }
 		 .no{
-		 	width: 6vw;
+		 	width: 7vw;
 		 }
 		 .name{
-		 	width: 10vw;
-		 }
-		 .email{
-		 	width: 15vw;
-		 }
-		 .date{
-		 	width: 15vw;
-		 }
-		 .auth{
 		 	width: 8vw;
 		 }
+		 .email{
+		 	width: 16vw;
+		 }
+		 .date{
+		 	width: 16vw;
+		 }
+		 .auth{
+		 	width: 9vw;
+		 }
 		 .manage{
-		 	width: 12vw;
+		 	width: 20vw;
 		 }
 		 .manage button{
 		 	border: none;
@@ -73,6 +73,16 @@
 		 }
 		 .manage .change:hover{
 		 	background: #a6bf9b;
+		 }
+		 select{
+		 	width: 100px;
+		 	border: none;
+		 	height: 30px;
+		 	background: #eee;
+		 	border-radius: 10px;
+		 }
+		 button:hover{
+		 	background: #ddd;
 		 }
     </style>
   </head>
@@ -104,8 +114,53 @@
 	     		<div class="row name">${u.name}</div>
 	     		<div class="row email">${u.email}</div>
 	     		<div class="row date">${u.date}</div>
-	     		<div class="row auth">관리자${u.auth}</div>
-	     		<div class="row manage"><button class="out">추방</button><button class="change">변경</button></div>
+	     		<div class="row auth">
+	     		<c:if test="${u.auth == 0}">
+			            스터디장
+			 	</c:if>
+			 	<c:if test="${u.auth == 1}">
+			           	매니저
+			 	</c:if>
+			 	<c:if test="${u.auth == 2}">
+			            스터디원
+			 	</c:if>
+			 	<c:if test="${u.auth == -1}">
+			            허락 대기중
+			 	</c:if>
+			 	<c:if test="${u.auth == -2}">
+			            <span style="color:red;">거절</span>
+			 	</c:if>
+	     		
+	     		</div>
+	     		<div class="row manage">
+	     		<c:if test="${u.auth == 0}">
+	     		<i class="fas fa-crown" style="color:#e8e11e;"></i>
+	     		</c:if>
+	     		<c:if test="${u.auth == 1}">
+	     			<select>
+	     				<option value="0">스터디장</option>
+	     				<option value="1" selected>스터디매니저</option>
+	     				<option value="2">스터디원</option>
+	     				<option value="-3">퇴출</option>
+	     			</select>
+	     			<button class="changeU">변경</button>
+	     		</c:if>
+	     		<c:if test="${u.auth == 2}">
+	     			<select>
+	     				<option value="0">스터디장</option>
+	     				<option value="1">스터디매니저</option>
+	     				<option value="2" selected>스터디원</option>
+	     				<option value="-3">퇴출</option>
+	     			</select>
+	     			<button class="changeU">변경</button>
+	     		</c:if>
+	     		<c:if test="${u.auth == -1}">
+			    	<button class="reject">거절</button><button class="ok">수락</button>
+			 	</c:if>
+			 	<c:if test="${u.auth == -2}">
+			    	<button class="cancle">취소</button>
+			 	</c:if>
+	     		</div>
 	     	</div>
 	     	<c:set var="name" value="철수" />
      	</c:forEach>
@@ -137,5 +192,7 @@
 </html>
 
 <script>
-
+	$("button").click(function(){
+		alert("아직 지원되지 않는 기능입니다 :( 조금만 기다려주세요");	
+	});
 </script>
