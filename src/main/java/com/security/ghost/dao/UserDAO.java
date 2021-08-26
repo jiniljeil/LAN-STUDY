@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.security.ghost.dto.GroupUserDTO;
 import com.security.ghost.dto.SaltDTO;
 import com.security.ghost.dto.UserDTO;
 
@@ -44,6 +45,10 @@ public class UserDAO {
 	}
 	public int idDupCheck(String id) {
 		return sqlSession.selectOne("UserMapper.idDupCheck", id);
+	}
+	
+	public List<GroupUserDTO> groupUserList(int group_id){
+		return sqlSession.selectList("UserMapper.groupUserList", group_id);
 	}
 
 }
