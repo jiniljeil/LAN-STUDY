@@ -8,12 +8,12 @@
 	</insert>
 	
 	<!-- 아래는 아직 안쓰임... 체크필요 -->
-	<select id="getBoard" resultType="BoardDTO" parameterType="String">
-		SELECT * FROM board AS B 
-			INNER JOIN `group` AS G ON B.group_id=G.id
-			WHERE G.link=#{link} 	
+	<select id="getGroupId" resultType="int" parameterType="String">
+		SELECT id FROM `group` WHERE link=#{link} 
 	</select>
 	
-
+	<select id="getBoardList" resultType="BoardDTO" parameterType="int"> 
+		SELECT * FROM board WHERE group_id=#{group_id}
+	</select>
 
 </mapper>

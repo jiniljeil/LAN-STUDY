@@ -17,10 +17,13 @@ public class BoardDAO {
 		return sqlSession.insert("BoardMapper.createPost", boardDTO);
 	}
 	
-	public BoardDTO getBoard(String link) {
-		return sqlSession.selectOne("BoardMapper.getBoard", link);
+	public int getGroupID(String link) {
+		return sqlSession.selectOne("BoardMapper.getGroupId", link);
 	}
 	
+	public List<BoardDTO> getBoardList(int group_id) {
+		return sqlSession.selectList("BoardMapper.getBoardList", group_id);
+	}
 
 
 }
