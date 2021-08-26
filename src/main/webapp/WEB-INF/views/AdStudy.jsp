@@ -98,8 +98,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <h4>그룹명 :<span id="modal_title"></span></h4> 
-        <h5>설명 : <span id="modal_detail"></span><!-- ${group.detail} --></h5>
+        <h4>그룹명 : <span id="modal_title"></span></h4> 
+        <h5>설명 : <span id="modal_detail"></span></h5>
         <div class="modal-footer">
           <form action="#" method="POST">
 		    <div class="form-group">
@@ -122,8 +122,8 @@
     	</div>
     	<div class="title">${u.title}</div>
     	<div class="content">${u.content}</div>
-    	<input type="hidden" value="${u.group_id}"/>
-    	<button class="btn" data-toggle="modal" data-target="#joinGroupModal">
+    	<input type="hidden" class="group_id" value="${u.group_id}"/>
+    	<button class="btn"  data-toggle="modal" data-target="#joinGroupModal">
     		자세히 보기
     	</button>
     </div>
@@ -157,11 +157,26 @@
 <script>
 $('#myModal').on('shown.bs.modal', function () {
 	  $('#myInput').trigger('focus')
-	})
+	});
 	
 $(".btn").click(function(){
-$("#modal_title").html($(this).siblings(".title").html());
-$("#modal_detail").html($(this).siblings(".detail").html());
-	
+	var group_id = $(this).siblings(".group_id").val();
+	$.ajax({
+		type :"post",
+		url : "/ajaxGetGroup",
+		data : {
+			"group_id" : group_id,
+		},
+		dataType: 'json',
+		success : function(data){
+			if(data == null){
+				alert("그룹을 로드하지 못하였습니다!!");
+			}
+			$("#modal_title").append(data.name);
+			$("#modal_detail").append(data.detail);
+		}, error:function(request, status, error){
+			alert("그룹을 로드하지 못하였습니다.");
+		}
+	});
 });
 </script>
