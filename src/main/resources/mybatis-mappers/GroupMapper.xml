@@ -7,7 +7,7 @@
 	</insert>
 	
 	<select id="groupListbyUserId" parameterType="int" resultType="GroupDTO">
-		select GM.id, GM.manager_id as managerId, GM.managerName, GM.`name`, GM.detail from  (select G.id, G.manager_id, U.`name` as managerName, G.name, G.link, G.detail from `group` AS G inner join `user` as U on G.manager_id = U.id) AS GM inner join `join` on GM.id = `join`.group_id where user_id={user_id};
+		select GM.id, GM.manager_id as managerId, GM.managerName, GM.`name`, GM.detail from  (select G.id, G.manager_id, U.`name` as managerName, G.name, G.link, G.detail from `group` AS G inner join `user` as U on G.manager_id = U.id) AS GM inner join `join` on GM.id = `join`.group_id where user_id=#{user_id};
 	</select> 
 	
 

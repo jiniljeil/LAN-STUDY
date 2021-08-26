@@ -46,6 +46,7 @@ public class MenuController {
 		int user_id = 6; //나중에 세션에서 받아오기 session
 		List<GroupDTO> group_list = groupDAO.groupList(user_id);
 		model.addAttribute("groupList", group_list);
+		model.addAttribute("groupCnt", group_list.size());
 		mav.setViewName("groupList");
 		return mav; 
 	}
