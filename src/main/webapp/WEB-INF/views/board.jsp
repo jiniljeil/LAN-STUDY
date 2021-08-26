@@ -95,7 +95,7 @@
               	</div>
               </c:if>
 	 	<c:forEach items="${boardList}" var="u">
-	 		<div class="card c${u.type}" >
+	 		<div class="card cardType${u.type}" >
 			  <h5 class="card-header">${u.title} <i class="fas fa-circle type${u.type}"></i></h5>
 			  <div class="card-body">
 			    <p class="card-text">${u.content}</p>
@@ -252,38 +252,38 @@
         	});
         	
         	$("#option1").click(function() {
-        		$(".c1").show();
-        		$(".c2").hide();
-        		$(".c3").hide();
-        		$(".c4").hide();
+        		$(".cardType1").show();
+        		$(".cardType2").hide();
+        		$(".cardType3").hide();
+        		$(".cardType4").hide();
         	});
         	
         	$("#option2").click(function() {
-        		$(".c2").show();
-        		$(".c1").hide();
-        		$(".c3").hide();
-        		$(".c4").hide();
+        		$(".cardType2").show();
+        		$(".cardType1").hide();
+        		$(".cardType3").hide();
+        		$(".cardType4").hide();
         	});
         	
         	$("#option3").click(function() {
-        		$(".c3").show();
-        		$(".c2").hide();
-        		$(".c1").hide();
-        		$(".c4").hide();
+        		$(".cardType3").show();
+        		$(".cardType2").hide();
+        		$(".cardType1").hide();
+        		$(".cardType4").hide();
         	});
         	
         	$("#option4").click(function() {
-        		$(".c4").show();
-        		$(".c2").hide();
-        		$(".c3").hide();
-        		$(".c1").hide();
+        		$(".cardType4").show();
+        		$(".cardType2").hide();
+        		$(".cardType3").hide();
+        		$(".cardType1").hide();
         	});
         	
         	$("#option0").click(function() {
-        		$(".c4").show();
-        		$(".c2").show()
-        		$(".c3").show()
-        		$(".c1").show()
+        		$(".cardType4").show();
+        		$(".cardType2").show()
+        		$(".cardType3").show()
+        		$(".cardType1").show()
         	});
         	
         	
