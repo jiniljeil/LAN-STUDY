@@ -17,12 +17,12 @@
 				<span class="header_innav">로그아웃</span>
 			</div>
 			</a>
-			<a href="./myPage">
+			<a href="<%=request.getContextPath()%>/myPage">
 			<div class="header_nav">
 				<span class="header_innav">마이페이지</span>
 			</div>
 			</a>
-			<a href="./menu">
+			<a href="<%=request.getContextPath()%>/menu">
 			<div class="header_nav">
 				<span class="header_innav">메인 메뉴</span>
 			</div>

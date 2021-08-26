@@ -34,7 +34,7 @@ public class GroupDTO {
 	public void setDetail(String detail) {
 		this.detail = new String(detail);
 	}
-	public int getManager() {
+	public int getManagerId() {
 		return managerId;
 	}
 	public void setManagerId(int managerId) {
