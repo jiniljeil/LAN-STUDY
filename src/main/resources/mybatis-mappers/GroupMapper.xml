@@ -3,7 +3,7 @@
 <mapper namespace="GroupMapper"> 
 	
 	<insert id="createGroup" parameterType="GroupDTO">
-		INSERT INTO `group`(name, link) VALUES(#{name}, #{link}); 
+		INSERT INTO `group`(name, link, detail) VALUES(#{name}, #{link}, #{detail}); 
 	</insert>
 	
 
