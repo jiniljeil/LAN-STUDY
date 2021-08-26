@@ -14,9 +14,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
     */
    @Override
    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-      throws Exception {
+		   throws Exception {
       HttpSession session = request.getSession();
-      //System.out.println("Session start? "+session);
       
       try {
           if (session != null && session.getAttribute("id") != null) {
@@ -41,7 +40,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
          HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mav)
          throws Exception {
       HttpSession session = request.getSession();
-      //System.out.println("error admin int "+ session.getAttribute("admin"));
+      
       if(session.getAttribute("id") == null) {
     	  mav.setViewName("error/accessError");
       }

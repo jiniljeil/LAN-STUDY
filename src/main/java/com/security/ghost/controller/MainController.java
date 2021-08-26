@@ -33,11 +33,9 @@ public class MainController {
 	public String main(HttpSession session) {
 		if(session!=null)
 			session.invalidate();
-		//session.setAttribute("id", null);
 		return "index";
 	}
 
-	
 	@RequestMapping(value="/logout")
 	public String logOut(HttpSession session) {
 		if(session!=null)
@@ -55,7 +53,13 @@ public class MainController {
 	@RequestMapping(value="/deleteUser")
 	public ModelAndView deleteUser(HttpSession session, Model model) {
 		ModelAndView mav = new ModelAndView();
-		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		String id = session.getAttribute("id").toString() ;
+		int user_id = -1 ; 
+		
+		if (id != null) {
+			user_id = Integer.parseInt(id);
+		}
+		
 		String name = userDAO.getUserName(user_id);
 		model.addAttribute("name", name);
 		mav.setViewName("deleteUser");
@@ -75,7 +79,13 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		session.removeAttribute("user");
 		session.removeAttribute("manager");
-		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
+		String id = session.getAttribute("id").toString() ;
+		int user_id = -1; 
+		if(id != null) {
+			user_id = Integer.parseInt(id);
+		}
+
 		UserDTO user = userDAO.getUserInfo(user_id);
 		
 		model.addAttribute("user", user);

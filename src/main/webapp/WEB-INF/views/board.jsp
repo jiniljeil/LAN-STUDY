@@ -107,39 +107,40 @@
 			    <!--  <a href="#" class="btn btn-primary">좋아요</a>-->
 			    <!-- 댓글 -->
 			    <!-- Button trigger modal -->
-				<button type="button" id="commentID" class="commentClass btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+				<button type="button" class="commentClass btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
 				  댓글
 				</button>
 
 				<input type="hidden" class="id" value="${u.id}"/>
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				  <div class="modal-dialog modal-dialog-centered" role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLongTitle">댓글 리스트</h5>
-				      </div>
-				      <div class="modal-body">
-				      <div id="commentList"></div>
-					    <div class="form-group">
-					      <h5 id="modal_title"></h5>
-					      <label id="modal_content"></label>
-					      <textarea class="form-control inputComment"></textarea>
-					    </div>
-				      
-				      	
-					    <input type="hidden" class="modal_id" value=""/>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				        <input type="button" class="inputCommentButton btn btn-primary" value="댓글 작성 완성"/>
-				      </div>
-				    </div>
-				  </div>
-				</div>
 			  </div>
 			</div>
 	 	</c:forEach>
+	 	
+	 					<!-- Modal -->
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">댓글 리스트</h5>
+		      </div>
+		      <div class="modal-body">
+		      <div id="commentList"></div>
+			    <div class="form-group">
+			      <h5 id="modal_title"></h5>
+			      <label id="modal_content"></label>
+			      <textarea class="form-control inputComment"></textarea>
+			    </div>
+		      
+		      	
+			    <input type="hidden" class="modal_id" value=""/>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		        <input type="button" class="inputCommentButton btn btn-primary" value="댓글 작성 완성"/>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	 	</div>
     </div>
     <script>
@@ -205,9 +206,11 @@
         		var board_id = $(this).siblings(".id").val();
         		var whole_addr = $(location).attr('href');
 		        var addr_slice = whole_addr.split('/');
+		        
 		        var comments = [];
 		        $("#commentList").html("");
 		        $(".modal_id").val(board_id); 
+		        $(".modal-dialog").show();
 				$.ajax({
 					type: "post", 
 					url: addr_slice[addr_slice.length -1] + "/comment", 

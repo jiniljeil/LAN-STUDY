@@ -70,16 +70,11 @@ public class RegisterController {
 		}
 		String phoneNumber = firstPhoneNumber + mediumPhoneNumber + lastPhoneNumber ; 
 		
-		// email 검증 필요??
 		String email = request.getParameter("email");
-//		if(!email.contains("@")) {
-//			mav.setViewName("redirect:/error/registerPhoneEmailError");
-//			return mav;
-//		}
 		
 		// 패스워드 설정 체크 (특수문자 포함 및 자리 수 확인) 
 		if( userid.equals(userpw) || SecurityUtil.isValidPassword(userpw) == false) {
-			mav.setViewName("redirect:/error/registerIDPassNickError");
+			mav.setViewName("redirect:/error/registerFormError");
 			return mav;
 		}
 		

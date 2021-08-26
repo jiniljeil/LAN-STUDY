@@ -65,10 +65,10 @@
         <form action="./upload" method="POST">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label" >제목</label>
-            <input type="text" class="form-control" id="recipient-name" name="title" >
+            <input type="text" class="form-control" id="recipient-name" name="title" required>
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">홍보글</label>
+            <label for="message-text" class="col-form-label" required>홍보글</label>
             <textarea class="form-control" id="message-text" name="content" placeholder="우리 같이 공부해요~"></textarea>
           </div>
           	<label for="groupSelection" class="col-form-label">그룹</label>

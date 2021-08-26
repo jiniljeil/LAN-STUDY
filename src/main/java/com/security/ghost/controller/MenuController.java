@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.security.ghost.SecurityUtil;
 import com.security.ghost.StringUtil;
 import com.security.ghost.dao.GroupDAO;
 import com.security.ghost.dto.GroupDTO;
@@ -26,13 +27,6 @@ public class MenuController {
 	@RequestMapping(value="/make_study") 
 	public ModelAndView makeStudy() {
 		ModelAndView mav = new ModelAndView(); 
-		
-		// session 값으로 접근 권한 확인 후 접속 가능하게
-		
-		// 아닌 경우 
-		// mav.setViewName("redirect:index"); 
-		
-		// 가능한 경우 
 		mav.setViewName("redirect:/makeStudy");
 		return mav; 
 	}
@@ -45,14 +39,18 @@ public class MenuController {
 	@RequestMapping(value="/groupList")
 	public ModelAndView groupList(Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		// group_id 가지고 join 테이블 userid 싹다 받아오고
-		// 권한 체크
-		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		String id = session.getAttribute("id").toString(); 
+		int user_id = -1; 
+		if (id != null) {
+			user_id = Integer.parseInt(id);
+		}
 
 		List<GroupDTO> group_list = groupDAO.groupList(user_id);
+		
 		model.addAttribute("user_id", user_id);
 		model.addAttribute("groupList", group_list);
 		model.addAttribute("groupCnt", group_list.size());
+		
 		mav.setViewName("groupList");
 		return mav; 
 	}
@@ -76,17 +74,25 @@ public class MenuController {
 		ModelAndView mav = new ModelAndView();
 		String name = request.getParameter("name");
 		String detail = request.getParameter("detail");
-		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		int user_id = -1; 
+		if( name != null && detail != null) {
+			name = SecurityUtil.HTML_Filter(name); 
+			detail = SecurityUtil.HTML_Filter(detail); 
+			
+			String id = session.getAttribute("id").toString(); 
+			user_id = Integer.parseInt(id);
+		}else {
+			mav.setViewName("redirect:/error/uploadError");
+			return mav; 
+		}
 		
-		// (26+26+10)^10
 		String link = StringUtil.randomAlphanumericStringGenerator(10);
 		GroupDTO groupDTO = new GroupDTO();
+		
 		groupDTO.setName(name);
 		groupDTO.setLink(link);
 		groupDTO.setDetail(detail);
 		groupDTO.setManagerId(user_id);
-		
-		// TODO : link, name 중복체크
 		
 		if(groupDAO.createGroup(groupDTO) != 1) {
 			mav.setViewName("redirect:/error/sqlError");

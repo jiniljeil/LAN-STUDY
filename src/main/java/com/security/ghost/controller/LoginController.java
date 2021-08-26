@@ -84,11 +84,4 @@ public class LoginController {
 		else mav.setViewName("redirect:/error/loginError");;
 		return mav;
 	}
-	
-//	@RequestMapping(value="/board")
-//    public String getBoard(Model mdel) throws ServletException, IOException {		
-//		List<UserDTO> userList = userDAO.getUserList();
-//		model.addAttribute("list", userList );
-//		return "homePage";
-//    }
 }

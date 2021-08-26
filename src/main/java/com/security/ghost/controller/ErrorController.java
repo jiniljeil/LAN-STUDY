@@ -39,6 +39,13 @@ public class ErrorController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/error/registerFormError")
+	public ModelAndView registerFormError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/registerFormError");
+		return mav;
+	}
+	
 	@RequestMapping(value="/error/sqlError")
 	public ModelAndView sqlError(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -63,5 +70,12 @@ public class ErrorController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("error/accessError");
 		return mav;
+	}
+	
+	@RequestMapping(value="/error/linkError") 
+	public ModelAndView linkError(HttpSession session) {
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("error/linkError");
+		return mav; 
 	}
 }

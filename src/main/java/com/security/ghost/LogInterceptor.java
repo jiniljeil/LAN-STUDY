@@ -13,11 +13,7 @@ public class LogInterceptor implements HandlerInterceptor {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response,Object handler, Exception ex) 
-	  throws Exception {
-	    if (ex != null){
-	        ex.printStackTrace();
-	    }
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response,Object handler, Exception ex)  {
 	    logger.info("[afterCompletion][" + request + "][exception: " + ex + "]");
 	}
 	

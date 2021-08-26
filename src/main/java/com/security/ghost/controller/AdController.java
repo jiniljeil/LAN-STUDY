@@ -43,41 +43,36 @@ public class AdController {
 		String title = request.getParameter("title"); 
 		String content = request.getParameter("content"); 
 		
-		int group_id = Integer.parseInt(g_id);
-		
-		System.out.println(group_id);
-		
-		if (title != null && content != null) {
-			// TODO Session 유저 권한 체크 및 유저 ID 포함하여 디비에 저장 
+		int group_id = -1;
+		if (g_id != null) {
+			group_id = Integer.parseInt(g_id);
 			
-			// UserDTO userDTO = (UserDTO)session.getAttribute("LOGIN_USER"); 
-			UserDTO userDTO = userDAO.getUserById("qpalzmm22");
-			
-			if (userDTO != null) {
+			if (title != null && content != null) {
 				// XSS BLOCK 
-				// encodeforhtml 
 				title = SecurityUtil.HTML_Filter(title); 
 				content = SecurityUtil.HTML_Filter(content); 
 
 				AdDTO adDTO = new AdDTO(); 
-				// TODO group_id setting 
-				int user_id = Integer.parseInt(session.getAttribute("id").toString());
-				adDTO.setUser_id(user_id);
-				adDTO.setGroup_id(group_id);
-				adDTO.setTitle(title); 
-				adDTO.setContent(content);
+				
+				String id = session.getAttribute("id").toString(); 
+				int user_id = -1 ; 
+				if (id != null) {
+					user_id = Integer.parseInt(id);
+					adDTO.setUser_id(user_id);
+					adDTO.setGroup_id(group_id);
+					adDTO.setTitle(title); 
+					adDTO.setContent(content);
+				}
 				
 				if(adDAO.uploadAd(adDTO) != 1) {
 					mav.setViewName("redirect:/error/sqlError");
 				} else{
 					mav.setViewName("redirect:/homePage");
-				}
-			} else { // userDTO == null
-				// 에러처리
+				}	
+			}else {
+				mav.setViewName("redirect:/error/uploadError");
 			}
 		}else {
-			// Q. 업로드 실패 혹은 제목 및 내용 입력 요구 
-			// 어디로 보낼 것 인가? 
 			mav.setViewName("redirect:/error/uploadError");
 		}
 		return mav;
@@ -110,15 +105,24 @@ public class AdController {
 	@RequestMapping(value="/joinGroup") 
 	public ModelAndView joinGroup(HttpServletRequest request, HttpSession session, Model model) {
 		ModelAndView mav = new ModelAndView(); 
-		int user_id = Integer.parseInt(session.getAttribute("id").toString());
-		int group_id = Integer.parseInt(request.getParameter("group_id"));
+		String id = session.getAttribute("id").toString(); 
+		
+		int user_id = -1; 
+		if (id != null) {
+			user_id = Integer.parseInt(id);
+		}
+		
+		String gid = request.getParameter("group_id"); 
+		int group_id = -1; 
+		if (gid != null) {
+			group_id = Integer.parseInt(gid);
+		}
 		
 		HashMap<String ,Integer > joinInfo = new HashMap<String, Integer>();
 		joinInfo.put("user_id", user_id);
 		joinInfo.put("group_id", group_id);
 		joinInfo.put("auth", 2);
 		
-		// Already Joined!
 		if(groupDAO.checkJoinExist(joinInfo) != 0) {
 			mav.setViewName("redirect:/error/joinError");
 		} else {
@@ -133,12 +137,20 @@ public class AdController {
 	
 	@RequestMapping(value="/ajaxGetMyGroups", method=RequestMethod.POST) 
 	public List<GroupDTO> ajaxGetMyGroups(HttpSession session, Model model) {
-		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		String id = session.getAttribute("id").toString(); 
 		
-		// ok to be null
-		List<GroupDTO> groupList = groupDAO.getMyGroup(user_id);
-		model.addAttribute("groupList", groupList);
-	    
+		int user_id = -1;
+		if ( id != null) {
+			user_id = Integer.parseInt(id);
+		}
+		
+		List<GroupDTO> groupList = null ; 
+		
+		if ( user_id != -1) { 
+			groupList = groupDAO.getMyGroup(user_id);
+			model.addAttribute("groupList", groupList);
+		}
+		
 		return groupList;
 	}
 	
@@ -148,11 +160,17 @@ public class AdController {
 		session.removeAttribute("user");
 		session.removeAttribute("manager");
 		String group_id = request.getParameter("group_id");
-		int g_id = Integer.parseInt(group_id);
-		GroupDTO groupDTO = new GroupDTO();
-		groupDTO = groupDAO.getGroupById(g_id);
 		
-		model.addAttribute("group", groupDTO);
+		int g_id = -1; 
+		if ( group_id != null) {
+			g_id = Integer.parseInt(group_id);
+		}
+		
+		GroupDTO groupDTO = new GroupDTO();
+		if (g_id != -1) {
+			groupDTO = groupDAO.getGroupById(g_id);
+			model.addAttribute("group", groupDTO);
+		}
 		
 		return groupDTO;
 	}
