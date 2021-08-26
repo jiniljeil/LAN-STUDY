@@ -31,7 +31,6 @@ public class LoginController {
 		ModelAndView mav = new ModelAndView();
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
-		 
 		if (userid != null && userpw != null) {
 			if(userDAO.idDupCheck(userid)==0) {
 				mav.setViewName("redirect:/error/loginError");
@@ -46,7 +45,6 @@ public class LoginController {
 				session.setAttribute("LOGIN_USER", userDTO); 
 				model.addAttribute("u", userDTO);
 				session.setAttribute("id", userDTO.getId());
-				System.out.println("---->"+session.getAttribute("id"));
 //				지금 이거 때문에 로그인안됨
 //				String pToken = request.getParameter("param_csrf_token"); 
 //				String sToken = (String)session.getAttribute("SESSION_CSRF_TOKEN"); 

@@ -61,9 +61,9 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/myPage")
-	public  ModelAndView myPage(Model model) {
+	public  ModelAndView myPage(Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int user_id = 1;
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		UserDTO user = userDAO.getUserInfo(user_id);
 		
 		model.addAttribute("user", user);
