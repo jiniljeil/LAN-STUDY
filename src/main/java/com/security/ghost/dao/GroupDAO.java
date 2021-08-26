@@ -29,4 +29,7 @@ public class GroupDAO {
 	public int getGroupId (String link) {
 		return sqlSession.selectOne("GroupMapper.getGroupId", link);
 	}
+	public GroupDTO getGroupById (int id) {
+		return sqlSession.selectOne("GroupMapper.getGroupById", id);
+	}
 }
