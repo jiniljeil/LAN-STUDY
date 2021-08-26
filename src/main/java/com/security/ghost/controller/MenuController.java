@@ -50,6 +50,7 @@ public class MenuController {
 		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 
 		List<GroupDTO> group_list = groupDAO.groupList(user_id);
+		model.addAttribute("user_id", user_id);
 		model.addAttribute("groupList", group_list);
 		model.addAttribute("groupCnt", group_list.size());
 		mav.setViewName("groupList");
