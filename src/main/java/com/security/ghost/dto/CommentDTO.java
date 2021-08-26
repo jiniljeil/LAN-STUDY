@@ -7,6 +7,8 @@ public class CommentDTO {
 	private int board_id ; 
 	private int type ; 
 	private String content ;
+	private String userName;
+	private String time;
 	
 	public int getId() {
 		return id;
@@ -37,6 +39,18 @@ public class CommentDTO {
 	}
 	public void setContent(String content) {
 		this.content = new String(content);
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = new String(userName);
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = new String(time);
 	} 
 	
 }

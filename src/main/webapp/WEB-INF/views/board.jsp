@@ -26,6 +26,71 @@
     	.select-category {
     		text-align: left; 
     	}
+    	#commentList{
+    		height: auto;
+    		max-height: 300px;
+    		overflow: scroll;
+    	}
+    	.comment{
+    		text-align: left;
+    		width: calc (100% - 80px);
+    		margin: 25px 30px 10px 30px;
+    		padding: 5px 10px 5px 10px;
+    		border: none;
+    		border-radius: 10px;
+    		background: #eee;
+    	}
+    	#commentList i{
+    		margin-left: 10px;
+    		margin-right: 5px;
+    	}
+    	.c_content{
+    		font-weight: bold;
+    		font-size: 18px;
+    	}
+    	.c_writer{
+    		margin-left: 40px;
+    		float: left;
+    		font-size: 15px;
+    	}
+    	.c_time{
+    		font-size: 12px;
+    		color: #444;
+    		margin-left: 20px;
+    		position: static;
+    		right: 20px;
+    		font-style: italic;
+    		//float: right;
+    	}
+    	.row2{
+    		display: inline-block;
+    	}
+    	#boardList{
+    		padding-top: 30px;
+    		width: 85vw;
+    		margin: auto;
+    		text-align: left;
+    	}
+    	.card{
+    		width: 300px !important;
+    		display: inline-block !important;
+    		margin-right: 50px !important;
+    		//text-align: center;
+    	}
+    	.card button{
+    		background: #a1c48f;
+    		border: none;
+    	}
+    	.card button:hover{
+    		background: #90b37e;
+    	}
+    	 .card button:active{
+    		background: #90b37e !important;
+    	}
+    	
+    	 .card button:focus{
+    		background: #90b37e !important;
+    	}
     </style>
 </head>
 <body>
@@ -59,7 +124,7 @@
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
-		      <form action="/uploadOk", method="POST">
+		      <form action="./${link}/uploadOk", method="POST">
 			      <div class="modal-body">
 			          <div class="select-category">
 			          	<select name="Category"> 
@@ -88,24 +153,28 @@
 		  </div>
 		</div>
 	 	<br>
+	 	<div id="boardList">
 	 	<c:forEach items="${boardList}" var="u">
 	 		<div class="card" style="width: 50%; margin: 15px 0 0 0 ;">
 			  <h5 class="card-header">${u.title}</h5>
 			  <div class="card-body">
 			    <p class="card-text">${u.content}</p>
-			    <a href="#" class="btn btn-primary">좋아요</a>
+			    <!--  <a href="#" class="btn btn-primary">좋아요</a>-->
 			    <!-- 댓글 -->
 			    <!-- Button trigger modal -->
 				<button type="button" id="commentID" class="commentClass btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
 				  댓글
 				</button>
-				<input type="hidden" id="id" value="1"/>
+				<input type="hidden" id="id" value="${u.id}"/>
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered" role="document">
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <h5 class="modal-title" id="exampleModalLongTitle">댓글 리스트</h5>
+				        
+				        </div>
+				         <div id="commentList">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
@@ -133,6 +202,7 @@
 			  </div>
 			</div>
 	 	</c:forEach>
+	 	</div>
     </div>
     
     <script>
@@ -157,23 +227,35 @@
         		var board_id = $(this).siblings("#id").val();
         		var whole_addr = $(location).attr('href');
 		        var addr_slice = whole_addr.split('/');
-		        
+		        var comments = [];
+		        $("#commentList").html("");
 				$.ajax({
 					type: "post", 
 					url: addr_slice[addr_slice.length -1] + "/comment", 
 					data: {
 						"id" : board_id,
 					}, 
-					dataType: 'text', 
+					dataType: "json", 
 					success : function(data) {
 						if (data == null) {
 							alert("댓글을 로드하지 못하였습니다.");
 						}
-						alert(${data.content});
+						//for(d in data){
+							
+						for (var i = 0; i <data.length; i++) {
+							comments.push({
+								content: data[i].content,
+								time: data[i].time,
+								userName: data[i].userName,
+							});
+							$("#commentList").append("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[i].content+"</div><div class='row2 c_writer'><i class=\"fas fa-user-edit\"></i>"+comments[i].userName+"</div><dib class='row2 c_time'>"+comments[i].time+"</div></div>");
+							//alert("~~~"+comments[0].content);
+						}
 					}, error:function(request, status, error){
 		    		    alert("댓글을 로드하지 못하였습니다");
 			        }
 				});
+				//alert(comment[0].comment);
 			/* 	 $().each(function(index, item) {
 					for(prop in item)  {
 						  var hey = item[prop];
