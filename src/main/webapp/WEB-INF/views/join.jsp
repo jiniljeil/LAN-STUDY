@@ -87,10 +87,7 @@
 	<script> 
 		var dup_check = false;
 		$( document ).ready(function() {
-<<<<<<< HEAD
-=======
 			
->>>>>>> c444012c2b24e2ef374ca27382007cdf5e67223d
 		    $("#b1").click(function(){
 		    	var whole_addr = $(location).attr('href');
 		        var addr_slice = whole_addr.split('/');
