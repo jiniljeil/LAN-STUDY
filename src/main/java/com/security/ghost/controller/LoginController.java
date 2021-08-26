@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView loginOk(HttpServletRequest request, Model model, HttpSession session) {
+		
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[sesseion]로그인 전 "+session.getAttribute("id"));
 		String userid = request.getParameter("userID"); 
