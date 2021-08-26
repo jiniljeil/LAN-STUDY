@@ -18,6 +18,13 @@ public class ErrorController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/error/loginTrialError")
+	public ModelAndView loginTrialError(HttpSession session) {
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("error/loginTrialError"); 
+		return mav; 
+	}
+	
 	@RequestMapping(value="/error/registerIDPassNickError")
 	public ModelAndView registerIDPassNickError(HttpSession session) {
 		ModelAndView mav = new ModelAndView();

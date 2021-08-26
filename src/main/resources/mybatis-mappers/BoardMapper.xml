@@ -22,7 +22,7 @@
 		INSERT INTO comment (user_id, board_id, type, content) VALUES (#{user_id}, #{board_id}, #{type}, #{content} ) ;
 	</insert>
 	
-	<select id="getUserName" parameterType="int">
+	<select id="getUserName" parameterType="String">
 		SELECT name FROM `user` WHERE user_id=#{user_id} 
 	</select>
 	
