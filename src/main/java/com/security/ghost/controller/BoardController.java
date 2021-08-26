@@ -36,7 +36,7 @@ public class BoardController {
 	@Autowired
 	UserDAO userDAO;
 	
-	@RequestMapping(value="/board/{link}") 
+	@RequestMapping(value="/board/{link}/**") 
 	public ModelAndView getGroup(@PathVariable("link") String link, Model model, HttpSession session) {
 		
 		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
@@ -49,10 +49,11 @@ public class BoardController {
 		HashMap<String, Integer> info = new HashMap();
 		info.put("group_id" , group_id);
 		info.put("user_id", user_id);
-		session.setAttribute("user",  userDAO.chkUser(info));
-		session.setAttribute("manager", userDAO.chkManager(info));
-		
-		System.out.println("---------------------");
+		if(userDAO.chkUser(info)=="false") {
+			mav.setViewName("redirect:/error/accessError");
+			return mav;
+		}
+
 		
 		if (link != null) {
 			group_id = boardDAO.getGroupID(link);
@@ -80,7 +81,15 @@ public class BoardController {
 	@RequestMapping(value="/board/{link}/comment")
 	public List<CommentDTO> getComment(@PathVariable("link") String link, @RequestParam("id") String id, Model model, HttpSession session) {
 		int board_id = -1;
+		int group_id = groupDAO.getGroupId(link); 
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		
+		HashMap<String, Integer> info = new HashMap();
+		info.put("group_id" , group_id);
+		info.put("user_id", user_id);
+		if(userDAO.chkUser(info)=="false") {
+			return null;
+		}
 		if (id != null) {
 			board_id = Integer.parseInt(id); 
 
@@ -94,6 +103,22 @@ public class BoardController {
 //		mav.setViewName("redirect:/error/");
 		return null; 
 	}
+	
+//	@RequestMapping(value="/chk/{link}")
+//	public ModelAndView setSession(@PathVariable("link") String link, Model model, HttpSession session) {
+//		ModelAndView mav = new ModelAndView(); 
+//		int group_id = groupDAO.getGroupId(link); 
+//		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+//		
+//		HashMap<String, Integer> info = new HashMap();
+//		info.put("group_id" , group_id);
+//		info.put("user_id", user_id);
+//		session.setAttribute("user",  userDAO.chkUser(info));
+//		session.setAttribute("manager", userDAO.chkManager(info));
+//		
+//		mav.setViewName("redirect:/board/"+link);
+//		return mav;
+//	}
 	
 	// Test를 위해 임시로 controller 만듬. makePost 를 위한 controller 필요
 	@RequestMapping(value="/testurl") 
@@ -109,6 +134,17 @@ public class BoardController {
 		// 		link가 실존 하는지 체크, link에 대한 권한 체크
 		//      Group은 어떻게 체크?
 		// 해당 유저가 실제로 Group 에 속해있는지 확인 
+		
+		int group_id = groupDAO.getGroupId(link); 
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
+		HashMap<String, Integer> info = new HashMap();
+		info.put("group_id" , group_id);
+		info.put("user_id", user_id);
+		if(userDAO.chkUser(info)=="false") {
+			mav.setViewName("redirect:/error/accessError");
+			return mav;
+		}
 		
 		int type = 0;
 		String s_type = request.getParameter("Category");
@@ -129,8 +165,6 @@ public class BoardController {
 			// Error handling
 		}
 		
-		int user_id = Integer.parseInt(session.getAttribute("id").toString());
-		int group_id = groupDAO.getGroupId(link);
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
@@ -158,11 +192,26 @@ public class BoardController {
 	
 	
 	@RequestMapping(value="/board/{link}/manage/user", method=RequestMethod.GET)
-	public ModelAndView manageUser(@PathVariable("link") String link, Model model) {
+	public ModelAndView manageUser(@PathVariable("link") String link, Model model, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		int group_id = groupDAO.getGroupId(link);
+		int group_id = groupDAO.getGroupId(link); 
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
+		HashMap<String, Integer> info = new HashMap();
+		info.put("group_id" , group_id);
+		info.put("user_id", user_id);
+		if(userDAO.chkUser(info)=="false") {
+			mav.setViewName("redirect:/error/accessError");
+			return mav;
+		}
+		else if(userDAO.chkManager(info)=="false") {
+			mav.setViewName("redirect:/error/accessError");
+			return mav;
+		}
+		
+		
 		List<GroupUserDTO> user_list = userDAO.groupUserList(group_id);
 		
 		model.addAttribute("userList", user_list);
