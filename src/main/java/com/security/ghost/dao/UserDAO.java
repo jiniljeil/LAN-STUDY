@@ -1,5 +1,6 @@
 package com.security.ghost.dao;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -74,5 +75,20 @@ public class UserDAO {
 	public String getUserName(int user_id) {
 		return sqlSession.selectOne("UserMapper.getUserName", user_id);
 	}
+	
+	public int getUserTrial(String user_id) {
+		return sqlSession.selectOne("UserMapper.getUserTrial", user_id);
+	}
+	
+	public int incTrial(UserDTO userDTO) {
+		return sqlSession.update("UserMapper.incTrial", userDTO) ;
+	}
 
+	public Timestamp getTimeStamp(String user_id) {
+		return sqlSession.selectOne("UserMapper.getTimeStamp", user_id);
+	}
+	
+	public int setTimeStamp(UserDTO userDTO) {
+		return sqlSession.update("UserMapper.setTimeStamp", userDTO); 
+	}
 }

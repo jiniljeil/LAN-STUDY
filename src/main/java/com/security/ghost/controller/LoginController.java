@@ -2,6 +2,7 @@ package com.security.ghost.controller;
 
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,24 +45,39 @@ public class LoginController {
 			
 			byte[] salt = userDAO.getSalt(userDAO.getID(userid)); 
 			userpw = Crypto.encryptSHA256(userpw, salt);
-
+			
+			int trial = userDAO.getUserTrial(userid); 
+			long failTime = userDAO.getTimeStamp(userid).getTime(); 
+			long currTime = new Timestamp(System.currentTimeMillis()).getTime(); 
+			
+			// 로그인 시도 
+			if (trial >= 5) {
+				// 30초간 로그인 시도 불가능 
+				if (currTime - failTime < 30000) {
+					mav.setViewName("redirect:/error/loginTrialError");
+					return mav; 
+				}else {
+					userDAO.incTrial(new UserDTO(0, userid)) ;
+				}
+			}
+			
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
 			if(userDTO != null) {
-				//session.setAttribute("LOGIN_USER", userDTO); 
-				//session.setAttribute("SESSION_CSRF_TOKEN", UUID.randomUUID().toString());
+				userDAO.incTrial(new UserDTO(0, userid)); 
+				userDAO.setTimeStamp(new UserDTO(new Timestamp(System.currentTimeMillis()), userid, 1));
+				userDAO.setTimeStamp(new UserDTO(new Timestamp(System.currentTimeMillis()), userid, 0));
+				
 				model.addAttribute("u", userDTO);
 				session.setAttribute("id", userDTO.getId());
-				System.out.println("[sesseion]로그인 후"+session.getAttribute("id"));
-//				지금 이거 때문에 로그인안됨
-//				String pToken = request.getParameter("param_csrf_token"); 
-//				String sToken = (String)session.getAttribute("SESSION_CSRF_TOKEN"); 
-//				if (pToken != null && pToken.equals(sToken)) {
-//					mav.setViewName("redirect:/menu");
-//					return mav;
-//				} 
+					
 				mav.setViewName("redirect:/menu");
 				return mav;
-			} 
+			// 로그인 실패 
+			} else {
+				userDAO.incTrial(new UserDTO(trial + 1, userid));
+				// 틀린 경우 실패 시간 업데이트 
+				userDAO.setTimeStamp(new UserDTO(new Timestamp(System.currentTimeMillis()), userid, 0));
+			}
 			// 로그인 실패 alert 띄우기 
 			mav.setViewName("redirect:/error/loginError");
 		}
