@@ -12,6 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <title>LanStudy</title>
     <style>
     	.bottom {
@@ -157,40 +158,37 @@
 			  <h5 class="card-header">${u.title}</h5>
 			  <div class="card-body">
 			    <p class="card-text">${u.content}</p>
+			    ${u.userName}
+			    ${u.time}
+			    
 			    <!--  <a href="#" class="btn btn-primary">좋아요</a>-->
 			    <!-- 댓글 -->
 			    <!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+				<button type="button" id="commentID" class="commentClass btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
 				  댓글
 				</button>
-				<input type="hidden" id="id" value="${u.id}"/>
+
+				<input type="hidden" class="id" value="${u.id}"/>
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered" role="document">
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <h5 class="modal-title" id="exampleModalLongTitle">댓글 리스트</h5>
-				        
-				        </div>
-				         <div id="commentList">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
 				      </div>
 				      <div class="modal-body">
-				      	
-				        <c:forEach items="${anwserList}" var="u">
-				        	
-				        	
-				        	
-				        	
-				        	
-				        	
-				        </c:forEach> 
+					    <div class="form-group">
+					      <h5 id="modal_title"></h5>
+					      <label id="modal_content"></label>
+					      <textarea class="form-control inputComment"></textarea>
+					    </div>
+				      
+				      	<div id="commentList"></div>
+					    <input type="hidden" class="modal_id" value=""/>
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				        <button type="button" class="btn btn-primary">댓글 작성 완료</button>
+				        <input type="button" class="inputCommentButton btn btn-primary" value="댓글 작성 완성"/>
 				      </div>
 				    </div>
 				  </div>
@@ -217,18 +215,56 @@
 		        $("#url").attr("value",addr_slice[addr_slice.length -1]);
 			});
         });
+
+		$(document).ready(function() {
+			$('.inputCommentButton').click(function(){ 
+				var whole_addr = $(location).attr('href');
+		        var addr_slice = whole_addr.split('/');
+				var textarea = $('.inputComment').val(); 
+				var comments =[]; 
+				var b_id = $('.modal_id').val(); 
+				alert("/board/"+addr_slice[addr_slice.length -1] + "/commentWrite") ; 
+				
+				$.ajax({
+					type: "post", 
+					url: addr_slice[addr_slice.length -1] + "/commentWrite", 
+					data: { 
+						"comment": textarea,
+						"id" : b_id,  
+					},
+					dataType: "json", 
+					success: function(data) {
+						if ( data == null) { 
+							alert("댓글이 업로드 되지 않았습니다."); 
+						}else{
+							alert("댓글이 업로드 되었습니다.");
+							
+							comments.push({
+								content: data.content, 
+								userName: data.userName, 
+							});	
+							$("#commentList").append("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[0].content+"</div><div class='row2 c_writer'><i class=\"fas fa-use */ */r-edit\"></i>"+comments[0].userName+"</div></div>");
+							
+						}
+					}, error : function(request, status, error) {
+						alert("댓글 업로드에 실패하였습니다."); 
+					}
+				});
+			});
+		});
     	
     	$(document).ready(function() {
         	$(".commentClass").click(function() {
-        		var board_id = $(this).siblings("#id").val();
+        		var board_id = $(this).siblings(".id").val();
         		var whole_addr = $(location).attr('href');
 		        var addr_slice = whole_addr.split('/');
 		        var comments = [];
 		        $("#commentList").html("");
+		        $(".modal_id").val(board_id); 
 				$.ajax({
 					type: "post", 
 					url: addr_slice[addr_slice.length -1] + "/comment", 
-					data: {
+					data: { 
 						"id" : board_id,
 					}, 
 					dataType: "json", 
@@ -236,15 +272,17 @@
 						if (data == null) {
 							alert("댓글을 로드하지 못하였습니다.");
 						}
-						//for(d in data){
 							
 						for (var i = 0; i <data.length; i++) {
 							comments.push({
+								title: data[i].title, 
 								content: data[i].content,
-								time: data[i].time,
+								time: data[i].time, 
 								userName: data[i].userName,
 							});
-							$("#commentList").append("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[i].content+"</div><div class='row2 c_writer'><i class=\"fas fa-user-edit\"></i>"+comments[i].userName+"</div><dib class='row2 c_time'>"+comments[i].time+"</div></div>");
+							$("#commentList").append("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[i].content+"</div><div class='row2 c_writer'><i class=\"fas fa-user-edit\"></i>"+comments[i].userName+"</div><div class='row2 c_time'>"+comments[i].time+"</div></div>");
+							$("#modal_title").val(comments[i].title); 
+							$("#modal_content").val(comments[i].content); 
 							//alert("~~~"+comments[0].content);
 						}
 					}, error:function(request, status, error){

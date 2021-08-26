@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,10 @@ public class LoginController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView loginOk(HttpServletRequest request, Model model, HttpSession session) {
+		
 		ModelAndView mav = new ModelAndView();
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
 		if (userid != null && userpw != null) {
@@ -42,9 +47,11 @@ public class LoginController {
 
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
 			if(userDTO != null) {
-				session.setAttribute("LOGIN_USER", userDTO); 
+				//session.setAttribute("LOGIN_USER", userDTO); 
+				//session.setAttribute("SESSION_CSRF_TOKEN", UUID.randomUUID().toString());
 				model.addAttribute("u", userDTO);
 				session.setAttribute("id", userDTO.getId());
+				System.out.println("[sesseion]로그인 후"+session.getAttribute("id"));
 //				지금 이거 때문에 로그인안됨
 //				String pToken = request.getParameter("param_csrf_token"); 
 //				String sToken = (String)session.getAttribute("SESSION_CSRF_TOKEN"); 

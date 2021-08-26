@@ -45,11 +45,16 @@ public class ErrorController {
 		mav.setViewName("error/uploadError");
 		return mav;
 	}
-	
 	@RequestMapping(value="/error/joinError")
 	public ModelAndView joinError(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("error/joinError");
+		return mav;
+	}
+	@RequestMapping(value="/error/accessError")
+	public ModelAndView accessError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/accessError");
 		return mav;
 	}
 }

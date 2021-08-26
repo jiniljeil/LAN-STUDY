@@ -31,38 +31,33 @@ public class MainController {
 	
 	@RequestMapping(value="/")
 	public String main(HttpSession session) {
-		session.setAttribute("SESSION_CSRF_TOKEN", UUID.randomUUID().toString());
+		if(session!=null)
+			session.invalidate();
+		//session.setAttribute("id", null);
 		return "index";
 	}
+
 	
-	@RequestMapping(value="/header")
-	public String headercheck() {
-		return "header";
+	@RequestMapping(value="/logout")
+	public String logOut(HttpSession session) {
+		if(session!=null)
+			session.invalidate();
+		return "logout";
 	}
 	
 	@RequestMapping(value="/menu")
-	public String menu() {
+	public String menu(HttpSession session) {
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		return "menu";
 	}
 	
-	@RequestMapping(value="/board/{link}/userManage", method=RequestMethod.GET)
-	public ModelAndView manageUser(@PathVariable("link") String link, Model model) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		int group_id = groupDAO.getGroupId(link);
-		List<GroupUserDTO> user_list = userDAO.groupUserList(group_id);
-		
-		model.addAttribute("userList", user_list);
-		model.addAttribute("userCnt", user_list.size());
-		mav.setViewName("userManage");
-		
-		return mav;
-	}
 	
 	@RequestMapping(value="/myPage")
 	public  ModelAndView myPage(Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		UserDTO user = userDAO.getUserInfo(user_id);
 		

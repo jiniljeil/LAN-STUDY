@@ -29,5 +29,12 @@ public class BoardDAO {
 	public List<CommentDTO> getCommentList(int board_id) {
 		return sqlSession.selectList("BoardMapper.getCommentList", board_id); 
 	}
-
+	
+	public int createComment(CommentDTO commentDTO) {
+		return sqlSession.insert("BoardMapper.createComment", commentDTO);
+	}
+	
+	public String getUserName(int user_id) {
+		return sqlSession.selectOne("BoardMapper.getUserName", user_id); 
+	}
 }

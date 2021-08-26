@@ -1,5 +1,6 @@
 package com.security.ghost.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -53,6 +54,19 @@ public class UserDAO {
 	
 	public UserDTO getUserInfo(int user_id) {
 		return sqlSession.selectOne("UserMapper.getUserInfo", user_id);
+	}
+	public String chkUser(HashMap<String ,Integer > info) {
+		int cnt = sqlSession.selectOne("UserMapper.chkUser", info);
+		if(cnt==0) return "false";
+		return "true";
+	}
+	public String chkManager(HashMap<String ,Integer > info) {
+		int cnt = sqlSession.selectOne("UserMapper.chkUser", info);
+		if(cnt==0) return "false";
+		
+		int auth = sqlSession.selectOne("UserMapper.chkManager", info);
+		if(auth==0 || auth==1) return "true";
+		return "false";
 	}
 
 }

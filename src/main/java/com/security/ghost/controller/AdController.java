@@ -38,6 +38,8 @@ public class AdController {
 	public ModelAndView AdOk(HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String g_id = request.getParameter("g_id"); 
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		String title = request.getParameter("title"); 
 		String content = request.getParameter("content"); 
 		
@@ -82,8 +84,10 @@ public class AdController {
 	}
 	
 	@RequestMapping(value="/homePage") 
-	public ModelAndView AdStudy(HttpServletRequest request, Model model) {
+	public ModelAndView AdStudy(HttpServletRequest request, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView(); 
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		
 		List<AdDTO> adList = adDAO.getAdList();
 
@@ -135,8 +139,10 @@ public class AdController {
 	}
 	
 	@RequestMapping(value="/ajaxGetGroup",method=RequestMethod.POST) 
-	public GroupDTO ajaxGetGroup(HttpServletRequest request, Model model) {
-	
+	public GroupDTO ajaxGetGroup(HttpServletRequest request, Model model, HttpSession session) {
+		ModelAndView mav = new ModelAndView(); 
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		String group_id = request.getParameter("group_id");
 		int g_id = Integer.parseInt(group_id);
 		GroupDTO groupDTO = new GroupDTO();
