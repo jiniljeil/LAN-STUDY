@@ -29,6 +29,7 @@ public class LoginController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView loginOk(HttpServletRequest request, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		System.out.println("[sesseion]로그인 전 "+session.getAttribute("id"));
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
 		if (userid != null && userpw != null) {
@@ -45,6 +46,7 @@ public class LoginController {
 				session.setAttribute("LOGIN_USER", userDTO); 
 				model.addAttribute("u", userDTO);
 				session.setAttribute("id", userDTO.getId());
+				System.out.println("[sesseion]로그인 후"+session.getAttribute("id"));
 //				지금 이거 때문에 로그인안됨
 //				String pToken = request.getParameter("param_csrf_token"); 
 //				String sToken = (String)session.getAttribute("SESSION_CSRF_TOKEN"); 

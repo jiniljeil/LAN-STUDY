@@ -31,13 +31,17 @@ public class MainController {
 	
 	@RequestMapping(value="/")
 	public String main(HttpSession session) {
+		System.out.println("[sesseion]시작 세션"+session.getAttribute("id"));
 		session.setAttribute("SESSION_CSRF_TOKEN", UUID.randomUUID().toString());
 		return "index";
 	}
+
 	
-	@RequestMapping(value="/header")
-	public String headercheck() {
-		return "header";
+	@RequestMapping(value="/logout")
+	public String logOut(HttpSession session) {
+		if(session!=null)
+			session.invalidate();
+		return "logout";
 	}
 	
 	@RequestMapping(value="/menu")
