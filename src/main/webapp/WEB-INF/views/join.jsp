@@ -16,8 +16,7 @@
 			width: 200px;
 			height: 40px;
 			font-size: 15px;
-			margin-left: 10px;
-			margin-bottom: 10px;
+			margin: 0 10 10 10;
 		}
 		#b1{
 			background: #ddd;
@@ -35,7 +34,7 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="/WEB-INF/views/header2.jsp" />
 	<div style="height: 80px"><br></div>
 	<div id="join_container">
 		<form action="joinOK" method="POST" onSubmit="return checkForm()">
@@ -59,8 +58,7 @@
 				<option value="016">016</option>
 				<option value="017">017</option>
 				<option value="019">019</option>
-			</select>
-			 - 
+			</select> - 
 			<input type="text" name="MediumPhoneNumber"/> - <input type="text" name="LastPhoneNumber"/>
 			
 			<h4>이메일</h4>
