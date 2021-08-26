@@ -25,4 +25,8 @@ public class GroupDAO {
 	public List<GroupDTO> groupList(int user_id){
 		return sqlSession.selectList("GroupMapper.groupListbyUserId", user_id);
 	}
+	
+	public int getGroupId (String link) {
+		return sqlSession.selectOne("GroupMapper.getGroupId", link);
+	}
 }
