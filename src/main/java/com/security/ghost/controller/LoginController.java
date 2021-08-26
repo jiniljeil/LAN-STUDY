@@ -33,6 +33,11 @@ public class LoginController {
 		String userpw = request.getParameter("userPW"); 
 		 
 		if (userid != null && userpw != null) {
+			if(userDAO.idDupCheck(userid)==0) {
+				mav.setViewName("redirect:/error/loginError");
+				return mav;
+			}
+			
 			byte[] salt = userDAO.getSalt(userDAO.getID(userid)); 
 			userpw = Crypto.encryptSHA256(userpw, salt);
 

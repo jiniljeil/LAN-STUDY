@@ -1,11 +1,15 @@
 package com.security.ghost.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.security.ghost.StringUtil;
@@ -37,11 +41,24 @@ public class MenuController {
 		return "makeStudy"; 
 	}
 	
+	@RequestMapping(value="/groupList")
+	public ModelAndView groupList(Model model) {
+		ModelAndView mav = new ModelAndView();
+		int user_id = 6; //나중에 세션에서 받아오기 session
+		List<GroupDTO> group_list = groupDAO.groupList(user_id);
+		model.addAttribute("groupList", group_list);
+		model.addAttribute("groupCnt", group_list.size());
+		mav.setViewName("groupList");
+		return mav; 
+	}
+	
 	
 	// study site 를 만드는 일을 함. 
-	@RequestMapping(value="/makeGroupOk")
+	@RequestMapping(value="/makeGroupOk", method=RequestMethod.POST)
 	public ModelAndView makeGroupOk(HttpServletRequest request, Model model) {
 		String name = request.getParameter("name");
+		String detail = request.getParameter("detail");
+		int user_id = 6; //나중에 세션에서 받아오기 session
 		
 		StringUtil rsg = new StringUtil();
 		// (26+26+10)^10
@@ -50,13 +67,22 @@ public class MenuController {
 		GroupDTO groupDTO = new GroupDTO();
 		groupDTO.setName(name);
 		groupDTO.setLink(link);
+		groupDTO.setDetail(detail);
+		groupDTO.setManagerId(user_id);
 		
 		// TODO : link, name 중복체크
 		
-		groupDAO.createGroup(groupDTO);
+		int group_id = groupDAO.createGroup(groupDTO);
+		
+		HashMap<String ,Integer > joinInfo = new HashMap<String, Integer>();
+		
+		joinInfo.put("user_id", user_id);
+		joinInfo.put("group_id", group_id);
+		joinInfo.put("auth", 0);
+		groupDAO.createJoin(joinInfo);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/make_study");
+		mav.setViewName("redirect:/groupList");
 		return mav; 
 	}
 }
