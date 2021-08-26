@@ -1,5 +1,6 @@
 package com.security.ghost.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +44,15 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView(); 
 		// TODO Session 을 통한 접근 제한 (CSRF)
 		int group_id = groupDAO.getGroupId(link); 
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
+		HashMap<String, Integer> info = new HashMap();
+		info.put("group_id" , group_id);
+		info.put("user_id", user_id);
+		session.setAttribute("user",  userDAO.chkUser(info));
+		session.setAttribute("manager", userDAO.chkManager(info));
+		
+		System.out.println("---------------------");
 		
 		if (link != null) {
 			group_id = boardDAO.getGroupID(link);

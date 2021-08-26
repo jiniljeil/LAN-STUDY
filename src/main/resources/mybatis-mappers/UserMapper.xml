@@ -40,4 +40,12 @@
 	<select id="getUserInfo" resultType="UserDTO">
 		select id, name, user_id, email,phone  from `user` where id = #{user_id};
 	</select>
+	
+	<select id="chkUser" resultType="int">
+		select COUNT(*) from `join` where user_id=#{user_id} AND group_id=#{group_id};
+	</select>
+	
+	<select id="chkManager" resultType="int">
+		select auth from `join` where user_id=#{user_id} AND group_id=#{group_id};
+	</select>
 </mapper>
