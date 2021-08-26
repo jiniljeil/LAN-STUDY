@@ -50,5 +50,9 @@ public class UserDAO {
 	public List<GroupUserDTO> groupUserList(int group_id){
 		return sqlSession.selectList("UserMapper.groupUserList", group_id);
 	}
+	
+	public UserDTO getUserInfo(int user_id) {
+		return sqlSession.selectOne("UserMapper.getUserInfo", user_id);
+	}
 
 }

@@ -78,7 +78,7 @@ public class MenuController {
 		
 		// (26+26+10)^10
 		String link = StringUtil.randomAlphanumericStringGenerator(10);
-		
+		System.out.println("---->"+link);
 		GroupDTO groupDTO = new GroupDTO();
 		groupDTO.setName(name);
 		groupDTO.setLink(link);
