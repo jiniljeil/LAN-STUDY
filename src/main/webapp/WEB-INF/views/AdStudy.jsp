@@ -25,42 +25,23 @@
 		/>
 		
 		
-        <style>
-        #intro {
-              /* Margin to fix overlapping fixed navbar */
-              margin-top: 58px;
-        }
-        @media (max-width: 991px) {
-            #intro {
-            /* Margin to fix overlapping fixed navbar */
-            margin-top: 45px;
-            }
-        }
-        .recommend_area{
-            height:30%;
-        }
-
-        .content_box{
-            height:300px;
-        }
-
-        .img-max {
-            max-width:20rem;
-        }
-        </style>
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/adstudy.css">
     </head>
+    <jsp:include page="/WEB-INF/views/header.jsp" />
+    <div style="height:100px"><br></div>
     <div class="row my-5 ">
-	    <div class="input-group justify-content-md-center">
+	    <div class="input-group justify-content-md-center" style="padding: 0px 100px;">
 			<div class="form-outline">
-		  		<input type="search" id="form1" class=" auto form-control" />
-			    <label class="form-label" for="form1">Search</label>
+		  		<input style="background: white;" type="search" id="form1" class=" auto form-control" />
+			    <label class="form-label" for="form1" style="color: #a1c48f;"> 검색</label>
 			</div>
-		  	<button type="button" class="btn btn-primary">
+		  	<button style="background: #a1c48f;" type="button" class="btn btn-primary">
 		    	<i class="fas fa-search"></i>
 			</button>
 		</div>
 	</div>
     
+    <!-- 
     <div class="container recommend_area">
         <div class="row mt-5">
             <div class="col text-center">
@@ -84,6 +65,7 @@
                 </button>
             </div>
         </div>
+       
         <div class="row m-5">
             <div class="col text-center"">
                 <button onclick="location.href ='#'" type="button" class="btn rounded-pill btn-lg btn-outline-danger">
@@ -101,11 +83,29 @@
                 </button>
             </div>
         </div>
-       
-    </div class ="border border-danger">
+    </div class ="border border-danger">-->
+    
+    <c:forEach items="${AdList}" var="u"  >
+    <div id="adContainer">
+    	<div class="img">
+    	
+    	</div>
+    	<div class="title">
+    		${u.title}
+    	</div>
+    	<div class="content">
+    		${u.content}
+    	</div>
+    	<button class="btn">
+    		자세히 보기
+    	</button>
+    </div>
+    </c:forEach>
+    
+    <!--
     <div class="container-fluid vh-100">
         <div class="row">
-        	<c:forEach items="${boardList}" var="u"  >
+        	<c:forEach items="${AdList}" var="u"  >
 	        <div class="col-md-6 col-lg-3 border border-danger content_box">
 	            <div class="bg-primary mt-4">
 	                <div class="card text-center" >
@@ -121,6 +121,7 @@
 	        </c:forEach>
         </div>
     </div>
+    -->
     
     </body>
 
