@@ -17,7 +17,10 @@
 	<!-- for each -->	
 		<h4>Group Name : </h4>
 		<h4>Group Link : </h4>
-	<h4></h4>	
+		<button> Details </button>
+		
+	<button> 수정 </button>
+	<button> 회원탈퇴 </button>
 	
 	
 </body>

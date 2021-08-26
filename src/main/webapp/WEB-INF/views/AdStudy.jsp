@@ -49,11 +49,11 @@
 			</button>
 			
 		</div>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background: #a1c48f; width: 50px; margin-top: 30px; position: absolute; top: 100; right: 50; font-size: 20px;" data-whatever="@mdo">+ </button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makeAddModal" style="background: #a1c48f; width: 50px; margin-top: 30px; position: absolute; top: 100; right: 50; font-size: 20px;" data-whatever="@mdo">+ </button>
         </button>
 	</div>
 	
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="makeAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -88,6 +88,31 @@
   </div>
 </div>
 
+<div class="modal fade" id="joinGroupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">스터디 가입</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>그룹명 :<span id="modal_title"></span></h4> 
+        <h5>설명 : <span id="modal_detail"></span><!-- ${group.detail} --></h5>
+        <div class="modal-footer">
+          <form action="#" method="POST">
+		    <div class="form-group">
+		      <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		      <button type="submit" class="btn btn-primary"> 가입하기</button>
+		    </div>
+      	  </form>
+	    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     
     <c:forEach items="${AdList}" var="u"  >
@@ -95,13 +120,10 @@
     	<div class="img">
     	
     	</div>
-    	<div class="title">
-    		${u.title}
-    	</div>
-    	<div class="content">
-    		${u.content}
-    	</div>
-    	<button class="btn">
+    	<div class="title">${u.title}</div>
+    	<div class="content">${u.content}</div>
+    	<input type="hidden" value="${u.group_id}"/>
+    	<button class="btn" data-toggle="modal" data-target="#joinGroupModal">
     		자세히 보기
     	</button>
     </div>
@@ -136,4 +158,10 @@
 $('#myModal').on('shown.bs.modal', function () {
 	  $('#myInput').trigger('focus')
 	})
+	
+$(".btn").click(function(){
+$("#modal_title").html($(this).siblings(".title").html());
+$("#modal_detail").html($(this).siblings(".detail").html());
+	
+});
 </script>

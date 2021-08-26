@@ -32,4 +32,8 @@ public class MainController {
 		return "userManage";
 	}
 	
+	@RequestMapping(value="/myPage")
+	public String myPage() {
+		return "myPage";
+	}
 }
