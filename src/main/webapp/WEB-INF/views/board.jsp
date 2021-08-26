@@ -157,7 +157,7 @@
         		var board_id = $(this).siblings("#id").val();
         		var whole_addr = $(location).attr('href');
 		        var addr_slice = whole_addr.split('/');
-		        var dataset ; 
+		        
 				$.ajax({
 					type: "post", 
 					url: addr_slice[addr_slice.length -1] + "/comment", 
@@ -169,19 +169,18 @@
 						if (data == null) {
 							alert("댓글을 로드하지 못하였습니다.");
 						}
-						dataset = data; 
+						alert(${data.content});
 					}, error:function(request, status, error){
 		    		    alert("댓글을 로드하지 못하였습니다");
 			        }
-					alert(dataset);
 				});
 			/* 	 $().each(function(index, item) {
 					for(prop in item)  {
 						  var hey = item[prop];
 						  alert(prop + " -> " +hey);
 						}
-				}); 
- */            });
+				}); */
+             });
         });
     </script>
 </body>
