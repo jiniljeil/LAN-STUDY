@@ -43,6 +43,18 @@ public class MenuController {
 		return "groupList"; 
 	}
 	
+	@RequestMapping(value="/AdStudy")
+	public String adStudy() {
+		return "AdStudy";
+	}
+	
+	@RequestMapping(value="/join_study")
+	public ModelAndView join_study() {
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("redirect:/AdStudy");
+		return mav;
+	}
+	
 	
 	// study site 를 만드는 일을 함. 
 	@RequestMapping(value="/makeGroupOk", method=RequestMethod.POST)
@@ -50,9 +62,8 @@ public class MenuController {
 		String name = request.getParameter("name");
 		String detail = request.getParameter("detail");
 		
-		StringUtil rsg = new StringUtil();
 		// (26+26+10)^10
-		String link = rsg.randomAlphanumericStringGenerator(10);
+		String link = StringUtil.randomAlphanumericStringGenerator(10);
 		
 		GroupDTO groupDTO = new GroupDTO();
 		groupDTO.setName(name);

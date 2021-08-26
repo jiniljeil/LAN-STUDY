@@ -11,7 +11,7 @@
 	<select id="getBoard" resultType="BoardDTO" parameterType="String">
 		SELECT * FROM board AS B 
 			INNER JOIN `group` AS G ON B.group_id=G.id
-			WHERE G.link=#{link} 	
+			WHERE G.link=#{link} 		
 	</select>
 	
 

@@ -3,7 +3,7 @@ package com.security.ghost;
 import java.security.SecureRandom;
 
 public class StringUtil {
-	public String randomAlphanumericStringGenerator(int len) {
+	public static String randomAlphanumericStringGenerator(int len) {
         String AlphaNumericString = "0123456789abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         
         StringBuilder sb = new StringBuilder(len);
@@ -18,4 +18,14 @@ public class StringUtil {
 
         return sb.toString();
 		}
+	
+	public static boolean isDigits(String str) {
+		for(int i = 0 ;i < str.length(); i++) {
+			if(!Character.isDigit(str.charAt(i))){
+				System.out.println(str.charAt(i)+" here " + i);
+				return false;
+			}
+		}
+		return true;
+	}
 }

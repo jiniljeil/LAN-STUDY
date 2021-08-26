@@ -37,18 +37,23 @@
 	<jsp:include page="/WEB-INF/views/header2.jsp" />
 	<div style="height: 80px"><br></div>
 	<div id="join_container">
-		<form action="joinOK" method="POST" onSubmit="return checkForm()">
+		<form action="joinOK" method="POST" onSubmit="checkForm()">
 			<div style="height: 30px"></div>
 			<h4>아이디</h4>
 			<input type="text" id="userid" name="userID" placeholder="아이디를 입력해주세요." autofocus required/>
 			<button type="button" id="b1">중복확인</button>
 			<span id="id_result" style="margin-left: 10px;"></span>
 			<br> 
+						
+			<h4>이름</h4>
+			<input type="text" name="nickname" placeholder="이름을 입력해주세요." required/><br>
 			
 			<h4>비밀번호</h4>
 			<input type="password" onchange="checker()" id="password" name="userPW" placeholder="비밀번호를 입력해주세요." required/><br> 
 			<h4>비밀번호 확인 </h4>
 			<input type="password" onchange="checker()" id="cpassword" placeholder="비밀번호를 다시 입력해주세요." required/><br> 
+			
+			<h4 id="same"></h4>
 			
 			<!--  010-XXXX-XXXX 수정 의논 -->
 			<h4>전화번호</h4>
@@ -59,13 +64,11 @@
 				<option value="017">017</option>
 				<option value="019">019</option>
 			</select> - 
-			<input type="text" name="MediumPhoneNumber"/> - <input type="text" name="LastPhoneNumber"/>
+			<input type="text" name="MediumPhoneNumber" maxlength="4"/> - <input type="text" name="LastPhoneNumber" maxlength="4"/>
 			
 			<h4>이메일</h4>
 			<input type="email" name="email"/><br> 
-			
-			<h4>이름</h4>
-			<input type="text" name="nickname" placeholder="이름을 입력해주세요." required/><br>
+
 			
 			<!-- <h4>직업:</h4>
 			<select name="job">
@@ -82,9 +85,6 @@
 	<script> 
 		var dup_check = false;
 		$( document ).ready(function() {
-			$("#b2").click(function(){
-				alert("hello");
-			});
 			
 		    $("#b1").click(function(){
 		    	var whole_addr = $(location).attr('href');

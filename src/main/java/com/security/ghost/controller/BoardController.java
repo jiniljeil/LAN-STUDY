@@ -22,7 +22,7 @@ public class BoardController {
 	@Autowired 
 	BoardDAO boardDAO ; 
 	
-	@RequestMapping(value="/board/{link}") 
+	@RequestMapping(value="/board/{link}", method=RequestMethod.GET) 
 	public String groupPage(@PathVariable("link") String link, Model model) {
 		
 		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
@@ -41,7 +41,7 @@ public class BoardController {
 		return "makePost"; 
 	}
 	
-	@RequestMapping(value="/uploadOk") 
+	@RequestMapping(value="/uploadOk", method=RequestMethod.POST) 
 	public ModelAndView makePostOk(HttpServletRequest request, Model model) {
 		ModelAndView mav = new ModelAndView();
 		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
@@ -87,7 +87,7 @@ public class BoardController {
 	
 
 //	@RequestMapping(value="/boardList", method=RequestMethod.POST)
-//	public ViewAndModel boardList(HttpServletRequest request, Model moel) {
+//	public ViewAndModel boardList(HttpServletRequest request, Model model) {
 //		ModelAndView mav = new ModelAndView(); 
 //		
 //		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
