@@ -1,5 +1,6 @@
 package com.security.ghost.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,14 +19,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.security.ghost.SecurityUtil;
 import com.security.ghost.dao.BoardDAO;
 import com.security.ghost.dao.GroupDAO;
+import com.security.ghost.dao.UserDAO;
 import com.security.ghost.dto.BoardDTO;
 import com.security.ghost.dto.CommentDTO;
+import com.security.ghost.dto.GroupUserDTO;
 
 @RestController 
 public class BoardController {
 
 	@Autowired 
 	BoardDAO boardDAO ; 
+	
+	@Autowired
+	UserDAO userDAO; 
 	
 	@Autowired
 	GroupDAO groupDAO;
@@ -38,6 +44,16 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView(); 
 		// TODO Session 을 통한 접근 제한 (CSRF)
 		int group_id = groupDAO.getGroupId(link); 
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
+		HashMap<String, Integer> info = new HashMap();
+		info.put("group_id" , group_id);
+		info.put("user_id", user_id);
+		if(userDAO.chkUser(info)=="false") {
+			mav.setViewName("redirect:/error/accessError");
+			return mav;
+		}
+
 		
 		if (link != null) {
 			group_id = boardDAO.getGroupID(link);
@@ -65,7 +81,15 @@ public class BoardController {
 	@RequestMapping(value="/board/{link}/comment")
 	public List<CommentDTO> getComment(@PathVariable("link") String link, @RequestParam("id") String id, Model model, HttpSession session) {
 		int board_id = -1;
+		int group_id = groupDAO.getGroupId(link); 
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
 		
+		HashMap<String, Integer> info = new HashMap();
+		info.put("group_id" , group_id);
+		info.put("user_id", user_id);
+		if(userDAO.chkUser(info)=="false") {
+			return null;
+		}
 		if (id != null) {
 			board_id = Integer.parseInt(id); 
 
@@ -95,6 +119,17 @@ public class BoardController {
 		//      Group은 어떻게 체크?
 		// 해당 유저가 실제로 Group 에 속해있는지 확인 
 		
+		int group_id = groupDAO.getGroupId(link); 
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
+		HashMap<String, Integer> info = new HashMap();
+		info.put("group_id" , group_id);
+		info.put("user_id", user_id);
+		if(userDAO.chkUser(info)=="false") {
+			mav.setViewName("redirect:/error/accessError");
+			return mav;
+		}
+		
 		int type = 0;
 		String s_type = request.getParameter("Category");
 		
@@ -114,8 +149,8 @@ public class BoardController {
 			// Error handling
 		}
 		
-		int user_id = Integer.parseInt(session.getAttribute("id").toString());
-		int group_id = groupDAO.getGroupId(link);
+		user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
@@ -168,20 +203,32 @@ public class BoardController {
 		return commentDTO; 
 	}
 	
-//	@RequestMapping(value="/boardList", method=RequestMethod.POST)
-//	public ViewAndModel boardList(HttpServletRequest request, Model model) {
-//		ModelAndView mav = new ModelAndView(); 
-//		
-//		// TODO: 세션 값으로 id 확인 및 접근 권한 체크 우선
-//		
-//		String content = request.getParameter("content");
-//		if (content != null) {
-//			content = SecurityUtil.HTML_Filter(content); 
-//			
-//			BoardDTO boardDTO = new BoardDTO(); 
-//			
-//		}else {
-//			
-//		}
-//	}
+	@RequestMapping(value="/board/{link}/manage/user", method=RequestMethod.GET)
+	public ModelAndView manageUser(@PathVariable("link") String link, Model model, HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		int group_id = groupDAO.getGroupId(link); 
+		int user_id = Integer.parseInt(session.getAttribute("id").toString());
+		
+		HashMap<String, Integer> info = new HashMap();
+		info.put("group_id" , group_id);
+		info.put("user_id", user_id);
+		if(userDAO.chkUser(info)=="false") {
+			mav.setViewName("redirect:/error/accessError");
+			return mav;
+		}
+		else if(userDAO.chkManager(info)=="false") {
+			mav.setViewName("redirect:/error/accessError");
+			return mav;
+		}
+		
+		List<GroupUserDTO> user_list = userDAO.groupUserList(group_id);
+		
+		model.addAttribute("userList", user_list);
+		model.addAttribute("userCnt", user_list.size());
+		mav.setViewName("userManage");
+		
+		return mav;
+	}
 }

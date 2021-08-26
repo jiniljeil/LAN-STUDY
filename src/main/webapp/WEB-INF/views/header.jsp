@@ -12,7 +12,7 @@
 			<div class="header_logo">
 			<br>
 			</div>
-			<a href="./">
+			<a href="<%=request.getContextPath()%>/logout">
 			<div class="header_nav">
 				<span class="header_innav">로그아웃</span>
 			</div>

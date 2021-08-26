@@ -32,6 +32,8 @@ public class LoginController {
 	public ModelAndView loginOk(HttpServletRequest request, Model model, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
+		session.removeAttribute("user");
+		session.removeAttribute("manager");
 		String userid = request.getParameter("userID"); 
 		String userpw = request.getParameter("userPW"); 
 		if (userid != null && userpw != null) {
@@ -45,9 +47,18 @@ public class LoginController {
 
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
 			if(userDTO != null) {
-				session.setAttribute("LOGIN_USER", userDTO); 
+				//session.setAttribute("LOGIN_USER", userDTO); 
+				//session.setAttribute("SESSION_CSRF_TOKEN", UUID.randomUUID().toString());
 				model.addAttribute("u", userDTO);
 				session.setAttribute("id", userDTO.getId());
+				System.out.println("[sesseion]로그인 후"+session.getAttribute("id"));
+//				지금 이거 때문에 로그인안됨
+//				String pToken = request.getParameter("param_csrf_token"); 
+//				String sToken = (String)session.getAttribute("SESSION_CSRF_TOKEN"); 
+//				if (pToken != null && pToken.equals(sToken)) {
+//					mav.setViewName("redirect:/menu");
+//					return mav;
+//				} 
 				mav.setViewName("redirect:/menu");
 				return mav;
 			} 
