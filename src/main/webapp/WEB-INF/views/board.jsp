@@ -159,6 +159,8 @@
 			  <h5 class="card-header">${u.title}</h5>
 			  <div class="card-body">
 			    <p class="card-text">${u.content}</p>
+			    ${u.userName}
+			    ${u.time}
 			    <!--  <a href="#" class="btn btn-primary">좋아요</a>-->
 			    <!-- 댓글 -->
 			    <!-- Button trigger modal -->

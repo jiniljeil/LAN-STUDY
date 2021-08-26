@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="getBoardList" resultType="BoardDTO" parameterType="int"> 
-		SELECT * FROM board WHERE group_id=#{group_id}
+		SELECT board.id, board.user_id, `user`.name as userName, group_id, type, title, time, content FROM board inner join `user` on `user`.id = board.user_id WHERE group_id= #{group_id};
 	</select>
 
 	<select id="getCommentList" resultType="CommentDTO">
