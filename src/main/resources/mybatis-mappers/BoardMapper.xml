@@ -7,7 +7,6 @@
 		INSERT INTO board(type, title, content) VALUES(#{type}, #{title}, #{content})
 	</insert>
 	
-	<!-- 아래는 아직 안쓰임... 체크필요 -->
 	<select id="getGroupId" resultType="int" parameterType="String">
 		SELECT id FROM `group` WHERE link=#{link} 
 	</select>
@@ -16,4 +15,7 @@
 		SELECT * FROM board WHERE group_id=#{group_id}
 	</select>
 
+	<select id="getCommentList" resultType="CommentDTO">
+		SELECT * FROM comment WHERE board_id=#{board_id}
+	</select>
 </mapper>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,7 +87,47 @@
 		</div>
 	 	<br>
 	 	<c:forEach items="${boardList}" var="u">
-	 		${u.title}
+	 		<div class="card" style="width: 50%; margin: 15px 0 0 0 ;">
+			  <h5 class="card-header">${u.title}</h5>
+			  <div class="card-body">
+			    <p class="card-text">${u.content}</p>
+			    <a href="#" class="btn btn-primary">좋아요</a>
+			    <!-- 댓글 -->
+			    <!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+				  댓글
+				</button>
+				
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle">댓글 리스트</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				      	
+				        <c:forEach items="${anwserList}" var="u">
+				        	
+				        	
+				        	
+				        	
+				        	
+				        	
+				        </c:forEach> 
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+				        <button type="button" class="btn btn-primary">댓글 작성 완료</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			  </div>
+			</div>
 	 	</c:forEach>
     </div>
     <script>

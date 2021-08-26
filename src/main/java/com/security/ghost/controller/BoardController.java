@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.security.ghost.SecurityUtil;
 import com.security.ghost.dao.BoardDAO;
 import com.security.ghost.dto.BoardDTO;
+import com.security.ghost.dto.CommentDTO;
 
 @Controller 
 public class BoardController {
@@ -34,17 +35,24 @@ public class BoardController {
 		
 		int group_id = boardDAO.getGroupID(link);
 		
+		// TODO 사용자가 그룹 아아디에 속하는지 체크 
+		
 		if (true) {
 			List<BoardDTO> boardList = boardDAO.getBoardList(group_id); 
+//			List<CommentDTO> commentList = boardDAO.getCommentList(board_id);
 			if (boardList != null) {
 				model.addAttribute("boardList", boardList); 
 				mav.setViewName("board"); 
+			}
+			if (commentList != null) {
+				model.addAttribute("commentList", commentList);
+				mav.setViewName("board"); 
 			}else {
-				// 로드 중 오류 발생 
+				// TODO 에러 페이지로 
 			}
 		}else {
 			// 권한이 없으면 에러 페이지로 
-//			 mav.setViewName("redirect:error"); 
+//			TODO mav.setViewName("redirect:error"); 
 		}
 		return mav; 
 	}

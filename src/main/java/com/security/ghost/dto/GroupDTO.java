@@ -1,3 +1,5 @@
+package com.security.ghost.dto;
+
 public class GroupDTO {
 	private String name;
 	private String link;

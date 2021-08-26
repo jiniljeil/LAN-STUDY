@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.security.ghost.dto.BoardDTO;
+import com.security.ghost.dto.CommentDTO;
 
 @Repository
 public class BoardDAO {
@@ -25,5 +26,8 @@ public class BoardDAO {
 		return sqlSession.selectList("BoardMapper.getBoardList", group_id);
 	}
 
+	public List<CommentDTO> getCommentList(int board_id) {
+		return sqlSession.selectList("BoardMapper.getCommentList", board_id); 
+	}
 
 }
