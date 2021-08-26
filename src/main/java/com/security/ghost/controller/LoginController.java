@@ -46,7 +46,8 @@ public class LoginController {
 
 			UserDTO userDTO = userDAO.getUser(new UserDTO(userid, userpw));
 			if(userDTO != null) {
-				session.setAttribute("LOGIN_USER", userDTO); 
+				//session.setAttribute("LOGIN_USER", userDTO); 
+				//session.setAttribute("SESSION_CSRF_TOKEN", UUID.randomUUID().toString());
 				model.addAttribute("u", userDTO);
 				session.setAttribute("id", userDTO.getId());
 				System.out.println("[sesseion]로그인 후"+session.getAttribute("id"));

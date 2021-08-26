@@ -1,4 +1,4 @@
-package com.security.ghost.intercepter;
+package com.security.ghost;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class LoginIntercepter extends HandlerInterceptorAdapter{
+public class LoginInterceptor extends HandlerInterceptorAdapter{
    /**
     * This implementation always returns {@code true}.
     */
@@ -23,12 +23,12 @@ public class LoginIntercepter extends HandlerInterceptorAdapter{
               return true;
           } else {
               ModelAndView modelAndView = new ModelAndView("redirect:/");
-              modelAndView.setViewName("error/loginError");
+              modelAndView.setViewName("error/accessError");
               throw new ModelAndViewDefiningException(modelAndView);
           }
       } catch (Exception e) {
           ModelAndView modelAndView = new ModelAndView("redirect:/");
-          modelAndView.setViewName("error/loginError");
+          modelAndView.setViewName("error/accessError");
           throw new ModelAndViewDefiningException(modelAndView);
       }
    }
@@ -43,7 +43,7 @@ public class LoginIntercepter extends HandlerInterceptorAdapter{
       HttpSession session = request.getSession();
       //System.out.println("error admin int "+ session.getAttribute("admin"));
       if(session.getAttribute("id") == null) {
-    	  mav.setViewName("error/loginError");
+    	  mav.setViewName("error/accessError");
       }
    }
 

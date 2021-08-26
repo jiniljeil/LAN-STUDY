@@ -46,4 +46,11 @@ public class ErrorController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/error/accessError")
+	public ModelAndView accessError(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/accessError");
+		return mav;
+	}
+	
 }

@@ -31,8 +31,9 @@ public class MainController {
 	
 	@RequestMapping(value="/")
 	public String main(HttpSession session) {
-		System.out.println("[sesseion]시작 세션"+session.getAttribute("id"));
-		session.setAttribute("SESSION_CSRF_TOKEN", UUID.randomUUID().toString());
+		if(session!=null)
+			session.invalidate();
+		//session.setAttribute("id", null);
 		return "index";
 	}
 
