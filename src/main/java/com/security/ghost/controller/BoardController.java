@@ -66,6 +66,7 @@ public class BoardController {
 		if (true) {
 			List<BoardDTO> boardList = boardDAO.getBoardList(group_id); 
 			if (boardList != null) {
+				model.addAttribute("boardCnt", boardList.size());
 				model.addAttribute("boardList", boardList); 
 				mav.setViewName("board"); 
 			}else {

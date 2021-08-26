@@ -22,6 +22,18 @@
 	   margin-top: 20px;
 	   margin-right: 20px;
 	 }
+	 .btn_manage{
+	 	float: right;
+	 	margin-right: 15px;
+	 	border:none;
+	 	margin-top: 20px;
+	 	height: 30px;
+	 	border-radius: 10px;
+	 	background: #ddd;
+	 }
+	 .btn_manage:hover{
+	 	background: #ccc;
+	 }
 	 #i2 {
 	   animation: pulse 1s infinite;
 	   transition: .3s;
@@ -82,6 +94,12 @@
     		margin-bottom: 15px;
     		overflow: hidden;
     		height: 40px;
+    		width: 70%;
+    		
+    		display: inline-block;
+    	}
+    	.fa-door-open:hover{
+    		color: #a1c48f;
     	}
     </style>
   </head>
@@ -94,19 +112,27 @@
      	</h1>
      	
      	<c:forEach items="${groupList}" var="u"  >
-	     	<div class="group" onclick="location.href='<%=request.getContextPath()%>./board/${u.link}';">
+	     	<div class="group">
 	     		<div class="header">
+	     			<c:set var="user_id" value="${user_id}" />
+	     			<c:set var="manager_id" value="${u.managerId}" />
+	     			
 	     			<div class="row title">
-	     				${u.name}
+	     				${u.name} <i class="fas fa-door-open" onclick="location.href='<%=request.getContextPath()%>./board/${u.link}'";></i>
 	     			</div>
 	     			<div class="row manager">
-	     				<i class="fas fa-crown"></i>${u.managerName}
+	     				<i class="fas fa-crown"></i>${u.managerName}<br>
+	     				<c:if test="${user_id == manager_id}">
+			              <button class="btn_manage" onclick="location.href='<%=request.getContextPath()%>./board/${u.link}/manage/user'">스터디원 관리</button>
+			 			</c:if>
+	     				
 	     			</div>
 	     		</div>
 	     		<div class="detail">
 	     			${u.detail}
 	     		</div>
 	     	</div>
+
 	     </c:forEach>
 	     <c:set var="cnt" value="${groupCnt}" />
 			  <c:if test="${groupCnt == 0}">

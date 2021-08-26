@@ -94,7 +94,7 @@
         </button>
       </div>
       <form action="joinGroup" method="POST" id="modal2">
-	    <input type="hidden" id="modal_hidden" name="group_id" value="6">
+	    <input type="hidden" id="modal_hidden" name="group_id" value="">
 	    <div class="modal-body">
           <h4>그룹명 : <span id="modal_title"></span></h4> 
           <h5>설명 : <span id="modal_detail"></span></h5>

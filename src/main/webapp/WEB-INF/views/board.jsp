@@ -13,102 +13,27 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <title>LanStudy</title>
-    <style>
-    	.bottom {
-    		position: absolute;
-    		text-align: center; 
-    		padding-top: 10%;
-    		left: 0; 
-    		right: 0; 
-    		margin: 0 auto; 
-    	}
-    	.select-category {
-    		text-align: left; 
-    	}
-    	#commentList{
-    		height: auto;
-    		max-height: 300px;
-    		overflow: scroll;
-    	}
-    	.comment{
-    		text-align: left;
-    		width: calc (100% - 80px);
-    		margin: 25px 30px 10px 30px;
-    		padding: 5px 10px 5px 10px;
-    		border: none;
-    		border-radius: 10px;
-    		background: #eee;
-    	}
-    	#commentList i{
-    		margin-left: 10px;
-    		margin-right: 5px;
-    	}
-    	.c_content{
-    		font-weight: bold;
-    		font-size: 18px;
-    	}
-    	.c_writer{
-    		margin-left: 40px;
-    		float: left;
-    		font-size: 15px;
-    	}
-    	.c_time{
-    		font-size: 12px;
-    		color: #444;
-    		margin-left: 20px;
-    		position: static;
-    		right: 20px;
-    		font-style: italic;
-    		//float: right;
-    	}
-    	.row2{
-    		display: inline-block;
-    	}
-    	#boardList{
-    		padding-top: 30px;
-    		width: 85vw;
-    		margin: auto;
-    		text-align: left;
-    	}
-    	.card{
-    		width: 300px !important;
-    		display: inline-block !important;
-    		margin-right: 50px !important;
-    		//text-align: center;
-    	}
-    	.card button{
-    		background: #a1c48f;
-    		border: none;
-    	}
-    	.card button:hover{
-    		background: #90b37e;
-    	}
-    	 .card button:active{
-    		background: #90b37e !important;
-    	}
-    	
-    	 .card button:focus{
-    		background: #90b37e !important;
-    	}
-    </style>
+    <title>LAN Study</title>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/board.css">
 </head>
-<body>
+<body style="background: #f6f6f6;">
+	<div style="height: 120px"></div>
+	
     <div class="bottom">
 	    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    		<label class="btn btn-success active">
-		    	<input type="radio" name="options0" id="option0" autocomplete="off"> 공지
+    		<label class="btn btn-success active" id="option0">
+		    	<input type="radio" name="options0" id="option0" autocomplete="off"> 전체
 			</label>
-			<label class="btn btn-success">
+			<label class="btn btn-success" id="option1">
 		    	<input type="radio" name="options1" id="option1" autocomplete="off"> 공지
 			</label>
-			<label class="btn btn-success">
+			<label class="btn btn-success" id="option2">
 		    	<input type="radio" name="options2" id="option2" autocomplete="off"> 정리
 			</label>
-			<label class="btn btn-success">
+			<label class="btn btn-success" id="option3">
 		    	<input type="radio" name="options3" id="option3" autocomplete="off"> 질문
 			</label>
-			<label class="btn btn-success">
+			<label class="btn btn-success" id="option4">
 		    	<input type="radio" name="options4" id="option4" autocomplete="off"> 과제
 			</label>
 		</div>
@@ -119,21 +44,23 @@
 		  <div class="modal-dialog modal-lg">
 		    <div class="modal-content" style="margin-top: 15%;">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">새 글 작성</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <form action="./${link}/uploadOk", method="POST">
-			      <div class="modal-body">
-			          <div class="select-category">
+		        <h5 class="modal-title" id="exampleModalLabel"> 
+		        <form action="./${link}/uploadOk", method="POST">
+		        <div class="select-category" style="display: inline-block;">
 			          	<select name="Category"> 
 					      <option selected value="notice">공지</option> 
 					      <option value="notes">정리</option>
 						  <option value="question">질문</option>
 						  <option value="assignment">과제</option>
 						</select>
-			          </div>
+			          </div> 작성</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      
+			      <div class="modal-body">
+			         
 			          <div class="form-group">
 			            <label for="recipient-name" class="col-form-label">제목</label>
 			            <input type="text" class="form-control" id="recipient-name" name="title">
@@ -145,7 +72,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-			        <input type="submit" class="btn btn-primary" value="작성 완료"/>
+			        <input type="submit" class="btn btn-primary" id="board_submit" value="작성 완료"/>
 			      </div>
 			   </form>
 		    </div>
@@ -153,13 +80,29 @@
 		</div>
 	 	<br>
 	 	<div id="boardList">
+	 	<c:set var="cnt" value="${boardCnt}" />
+			  <c:if test="${boardCnt == 0}">
+              	<div id="noBoard">
+              	<h1 style="margin-bottom: 0px;">
+				  <span>현재 </span>
+				  <span>작성된 </span>
+				  <span>질문이 </span>
+				  <span>없어요</span>
+				  <span>:(</span>
+				</h1>
+				
+              	<!--  어서 첫 글의 작성자가 되어봅시다!-->
+              	</div>
+              </c:if>
 	 	<c:forEach items="${boardList}" var="u">
-	 		<div class="card" style="width: 50%; margin: 15px 0 0 0 ;">
-			  <h5 class="card-header">${u.title}</h5>
+	 		<div class="card c${u.type}" >
+			  <h5 class="card-header">${u.title} <i class="fas fa-circle type${u.type}"></i></h5>
 			  <div class="card-body">
 			    <p class="card-text">${u.content}</p>
-			    ${u.userName}
-			    ${u.time}
+			    <div class="card-info">
+			    작성자 : ${u.userName}<br>
+			    작성시간 : ${u.time}
+			    </div>
 			    
 			    <!--  <a href="#" class="btn btn-primary">좋아요</a>-->
 			    <!-- 댓글 -->
@@ -177,13 +120,14 @@
 				        <h5 class="modal-title" id="exampleModalLongTitle">댓글 리스트</h5>
 				      </div>
 				      <div class="modal-body">
+				      <div id="commentList"></div>
 					    <div class="form-group">
 					      <h5 id="modal_title"></h5>
 					      <label id="modal_content"></label>
 					      <textarea class="form-control inputComment"></textarea>
 					    </div>
 				      
-				      	<div id="commentList"></div>
+				      	
 					    <input type="hidden" class="modal_id" value=""/>
 				      </div>
 				      <div class="modal-footer">
@@ -223,7 +167,7 @@
 				var textarea = $('.inputComment').val(); 
 				var comments =[]; 
 				var b_id = $('.modal_id').val(); 
-				alert("/board/"+addr_slice[addr_slice.length -1] + "/commentWrite") ; 
+				//alert("/board/"+addr_slice[addr_slice.length -1] + "/commentWrite") ; 
 				
 				$.ajax({
 					type: "post", 
@@ -235,15 +179,18 @@
 					dataType: "json", 
 					success: function(data) {
 						if ( data == null) { 
-							alert("댓글이 업로드 되지 않았습니다."); 
+							//alert("댓글이 업로드 되지 않았습니다."); 
 						}else{
-							alert("댓글이 업로드 되었습니다.");
+							//alert("댓글이 업로드 되었습니다.");
 							
 							comments.push({
 								content: data.content, 
 								userName: data.userName, 
 							});	
-							$("#commentList").append("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[0].content+"</div><div class='row2 c_writer'><i class=\"fas fa-use */ */r-edit\"></i>"+comments[0].userName+"</div></div>");
+							$(".inputComment").html("");
+							$(".inputComment").val("");
+							$("#commentList").prepend("<div class='comment new'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i>"+comments[0].content+"</div><div class='row2' style='color: red; margin-left: 15px; font-weight: bold;'> NEW 댓글!</div></div>");
+							
 							
 						}
 					}, error : function(request, status, error) {
@@ -280,7 +227,7 @@
 								time: data[i].time, 
 								userName: data[i].userName,
 							});
-							$("#commentList").append("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[i].content+"</div><div class='row2 c_writer'><i class=\"fas fa-user-edit\"></i>"+comments[i].userName+"</div><div class='row2 c_time'>"+comments[i].time+"</div></div>");
+							$("#commentList").prepend("<div class='comment'><div class='c_content'><i style=\"font-size: 25px;\"class=\"far fa-comment\"></i> "+comments[i].content+"</div><div class='row2 c_writer'><i class=\"fas fa-user-edit\"></i>"+comments[i].userName+"</div><div class='row2 c_time'>"+comments[i].time+"</div></div>");
 							$("#modal_title").val(comments[i].title); 
 							$("#modal_content").val(comments[i].content); 
 							//alert("~~~"+comments[0].content);
@@ -297,6 +244,49 @@
 						}
 				}); */
              });
+        	$("#board_submit").click(function() {
+        		$(this).parents(".modal-body").finds(input).html("");
+        		$(this).parents(".modal-body").finds(input).val("");
+        		$(this).parents(".modal-body").finds(textarea).html("");
+        		$(this).parents(".modal-body").finds(textarea).val("");
+        	});
+        	
+        	$("#option1").click(function() {
+        		$(".c1").show();
+        		$(".c2").hide();
+        		$(".c3").hide();
+        		$(".c4").hide();
+        	});
+        	
+        	$("#option2").click(function() {
+        		$(".c2").show();
+        		$(".c1").hide();
+        		$(".c3").hide();
+        		$(".c4").hide();
+        	});
+        	
+        	$("#option3").click(function() {
+        		$(".c3").show();
+        		$(".c2").hide();
+        		$(".c1").hide();
+        		$(".c4").hide();
+        	});
+        	
+        	$("#option4").click(function() {
+        		$(".c4").show();
+        		$(".c2").hide();
+        		$(".c3").hide();
+        		$(".c1").hide();
+        	});
+        	
+        	$("#option0").click(function() {
+        		$(".c4").show();
+        		$(".c2").show()
+        		$(".c3").show()
+        		$(".c1").show()
+        	});
+        	
+        	
         });
     </script>
 </body>

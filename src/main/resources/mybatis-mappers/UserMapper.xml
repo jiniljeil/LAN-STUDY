@@ -56,4 +56,20 @@
 	<select id="getUserName" resultType="String">
 		select name from `user` where id = #{user_id};
 	</select>
+	
+	<select id="getUserTrial" resultType="int"> 
+		select trial from `user` where user_id=#{user_id}; 
+	</select>
+	
+	<update id="incTrial" parameterType="UserDTO">
+		UPDATE `user` SET trial=#{trial} WHERE user_id=#{user_id}; 
+	</update>
+	
+	<select id="getTimeStamp" resultType="java.sql.Timestamp">  
+		SELECT login_fail FROM `user` WHERE user_id=#{user_id} ; 
+	</select>
+	
+	<update id="setTimeStamp" parameterType="UserDTO">
+		UPDATE `user` SET login_fail=#{login_fail} WHERE user_id=#{user_id}; 
+	</update>
 </mapper>
