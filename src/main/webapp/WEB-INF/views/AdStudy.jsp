@@ -34,6 +34,35 @@
     		.modal-dialog{
     			margin-top: 200px !important;
     		}
+    		.modal-dialog input{
+    			border-radius: 10px;
+    		}
+    		.modal-dialog textarea{
+    			border-radius: 10px;
+    		}
+    		.modal-dialog select{
+    			border-radius: 10px;
+    			width: 160px;
+    			height: 35px;
+    		}
+    		.btn-primary{
+    			background: #a1c48f;
+    		}
+    		.btn-primary:hover{
+    			background: #90b37e !important;
+    		}
+    		.btn-primary:active{
+    			background: #90b37e !important;
+    		}
+    		.btn-secondary{
+    			background: #ddd;
+    		}
+    		.btn-secondary:hover{
+    			background: #ccc;
+    		}
+    		.btn-secondary:active{
+    			background: #ccc;
+    		}
     	</style>
     </head>
     <jsp:include page="/WEB-INF/views/header.jsp" />
@@ -64,16 +93,17 @@
       <div class="modal-body">
         <form action="./upload" method="POST">
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label" >제목</label>
+          <label for="groupSelection" class="col-form-label">그룹</label><br>
+	        <select name="g_id" id="groupSelection">
+	        </select><br>
+            <label for="recipient-name" class="col-form-label" style="margin-top: 10px;">제목</label>
             <input type="text" class="form-control" id="recipient-name" name="title" required>
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label" required>홍보글</label>
             <textarea class="form-control" id="message-text" name="content" placeholder="우리 같이 공부해요~"></textarea>
           </div>
-          	<label for="groupSelection" class="col-form-label">그룹</label>
-	        <select name="g_id" id="groupSelection">
-	        </select>
+         <div style="height: 20px"></div>
           <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 	        <button type="submit" class="btn btn-primary"> 만들기</button>
@@ -113,7 +143,7 @@
 
     
     <c:forEach items="${AdList}" var="u">
-    <div id="adContainer"  onmouseover="this.style.fontWeight:'bold'" >
+    <div id="adContainer" >
     	<div class="img">
     	
     	</div>
