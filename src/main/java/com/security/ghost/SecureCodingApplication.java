@@ -8,9 +8,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class SecureCodingApplication {
 	
 	//@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(SecureCodingApplication.class);
-	}
+	//protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+	//	return builder.sources(SecureCodingApplication.class);
+	//}
 	
    public static void main(String[] args) {
       SpringApplication.run(SecureCodingApplication.class, args);
