@@ -3,7 +3,7 @@
 팀 이름: GHOST 👻   
 팀원: 김진일, 신희주, 채정영
 
-### LAN STUDY    
+### Lan Study Composition 
 FrameWork: Spring Boot (MyBatis)     
 Front-End: HTML, CSS, JQuery, AJAX    
 Back-End: JSP, Java, XML    
