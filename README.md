@@ -4,7 +4,7 @@
 팀원: 김진일, 신희주, 채정영
 
 ### Lan Study Composition 
-**Framework**: Spring Boot (MyBatis)     
+**Framework**: Spring MVC, MyBatis     
 **Front-End**: HTML, CSS, JQuery, AJAX    
 **Back-End**: JSP, Java, XML    
 **R-DBMS**: MySQL     
